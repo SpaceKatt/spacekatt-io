@@ -11,10 +11,12 @@ dependencies:
   '@types/node': 12.19.16
   '@types/react': 17.0.1
   '@types/react-dom': 17.0.0
+  '@types/uuid': 8.3.0
   react: 17.0.1
   react-dom: 17.0.1_react@17.0.1
   react-scripts: 4.0.2_react@17.0.1+typescript@4.1.3
   typescript: 4.1.3
+  uuid: 8.3.2
 lockfileVersion: 5.1
 packages:
   /@babel/code-frame/7.10.4:
@@ -2527,6 +2529,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-7npvPKV+jINLu1SpSYVWG8KvyJBhBa8tmzMMdDoVc2pWUYHN8KIXlPJhjJ4LT97c4dXJA2SHL/q6ADbDriZN+Q==
+  /@types/uuid/8.3.0:
+    dev: false
+    resolution:
+      integrity: sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==
   /@types/webpack-dev-server/3.11.0:
     dependencies:
       '@types/connect-history-api-fallback': 1.3.3
@@ -13704,7 +13710,6 @@ packages:
   /uuid/8.3.2:
     dev: false
     hasBin: true
-    optional: true
     resolution:
       integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
   /v8-compile-cache/2.2.0:
@@ -14393,15 +14398,17 @@ packages:
       '@types/node': 12.19.16
       '@types/react': 17.0.1
       '@types/react-dom': 17.0.0
+      '@types/uuid': 8.3.0
       react: 17.0.1
       react-dom: 17.0.1_react@17.0.1
       react-scripts: 4.0.2_react@17.0.1+typescript@4.1.3
       typescript: 4.1.3
+      uuid: 8.3.2
       web-vitals: 1.1.0
     dev: false
     name: '@rush-temp/spacekatt-minesweeper'
     resolution:
-      integrity: sha512-YKD9ZR/oT3OzEuPW57Hq6rhW7gvd/ndGvob84gsGHW+E273McVpaFaDsEtLTygayd5NHj+xQXCkC9nJWtI4p4Q==
+      integrity: sha512-clDVbBd75vIsezpqMxrhNKXJJf2aY/rzHAC/bVZaqKaPKb3+tEF3NEV3M3nC5/oKKL5n/6QjUni+NlP3KQGKbw==
       tarball: 'file:projects/spacekatt-minesweeper.tgz'
     version: 0.0.0
 registry: ''
@@ -14418,7 +14425,9 @@ specifiers:
   '@types/node': 12.19.16
   '@types/react': 17.0.1
   '@types/react-dom': 17.0.0
+  '@types/uuid': 8.3.0
   react: 17.0.1
   react-dom: 17.0.1
   react-scripts: 4.0.2
   typescript: 4.1.3
+  uuid: 8.3.2
