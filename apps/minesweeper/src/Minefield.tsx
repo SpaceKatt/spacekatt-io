@@ -76,10 +76,10 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
       if (nextNeighbor) {
         const [x, y] = nextNeighbor;
         visited[x][y] = true;
+        nMap[x][y] = false;
         if (mineCoords[x][y].neighbors !== 0) {
           continue;
         }
-        nMap[x][y] = false;
         for (const neighbor of NEIGHBORS_FILTER) {
           const [diff_x, diff_y] = neighbor;
           const i = x + diff_x;
@@ -88,9 +88,6 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
             continue;
           }
           if (visited[i][j]) {
-            continue;
-          }
-          if (mineCoords[i][j].neighbors !== 0) {
             continue;
           }
           queue.push([i, j]);
