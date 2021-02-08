@@ -9,6 +9,23 @@ export const NEIGHBORS_FILTER = [
   [1, 1],
 ];
 
+export const WIN_CONDITION = (
+  flagged: boolean[][],
+  hidden: boolean[][]
+): boolean => {
+  const target = flagged.length * flagged.length;
+  let flaggedCount = 0;
+  let hiddenCount = 0;
+  for (let i = 0; i < flagged.length; i++) {
+    for (let j = 0; j < flagged[i].length; j++) {
+      if (flagged[i][j]) flaggedCount++;
+      if (hidden[i][j]) hiddenCount++;
+    }
+  }
+
+  return hiddenCount + flaggedCount === target;
+};
+
 export const BOUNDS_GAURD = (x: number, y: number, len: number): boolean => {
   return !(x >= 0 && y >= 0 && x < len && y < len);
 };

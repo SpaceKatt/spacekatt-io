@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
 import { v4 } from "uuid";
+import { GameOver } from "./GameOver";
 import { Mine, MineCoordinates, MineProps } from "./Mine";
 import {
   initializeField,
@@ -38,6 +39,7 @@ export interface MinefieldProps {
   squaresInRow: number;
   numberOfMines: number;
   mineMap: boolean[][];
+  onClick: (event: any) => void;
 }
 export interface MinefieldState {
   gameOver: boolean;
@@ -102,12 +104,15 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
   );
   const initialFlaggedMap: boolean[][] = createBooleanMap(mineCoords.length);
   const [hiddenMap, setHiddenMap] = useState({ hidden: initialHiddenMap });
-  const [flaggedMap, setFlaggedMap] = useState(initialFlaggedMap);
+  const [flaggedMap, setFlaggedMap] = useState({ flagged: initialFlaggedMap });
   const [gameOver, setGaveOver] = useState(false);
 
   const mineHandler = (row: number, col: number) => {
     const newField = hiddenMap.hidden;
     console.log(`Logging: ${row} :: ${col}`);
+    if (flaggedMap.flagged[row][col]) {
+      return;
+    }
 
     if (mineCoords[row][col].isMine) {
       setHiddenMap({ hidden: newField });
@@ -122,14 +127,19 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     newField[row][col] = false;
     setHiddenMap({ hidden: newField });
   };
-  const flagHandler = (row: number, col: number) => {};
+  const flagHandler = (row: number, col: number) => {
+    const newField = flaggedMap.flagged;
+    console.log(`Flagging: ${row}:${col}`);
+    newField[row][col] = !newField[row][col];
+    setFlaggedMap({ flagged: newField });
+  };
 
   const mines = [];
   for (let i = 0; i < hiddenMap.hidden.length; i++) {
     for (let j = 0; j < hiddenMap.hidden.length; j++) {
       const mineOpts: MineProps = {
         coords: mineCoords[i][j],
-        flagged: flaggedMap[i][j],
+        flagged: flaggedMap.flagged[i][j],
         hidden: hiddenMap.hidden[i][j],
         mineHandler,
         flagHandler,
@@ -138,17 +148,19 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     }
   }
 
-  const onClick = (event: any) => {
-    setHiddenMap({ hidden: initialHiddenMap });
-    setGaveOver(false);
+  //   const onClick = (event: any) => {
+  //     setHiddenMap({ hidden: initialHiddenMap });
+  //     setFlaggedMap({ flagged: initialFlaggedMap });
+  //     setGaveOver(false);
+  //   };
+  const gameOverProps = {
+    hidden: hiddenMap.hidden,
+    flagged: flaggedMap.flagged,
+    onClick: props.onClick,
   };
 
   return gameOver ? (
-    <div className="GameOver">
-      <button className="GameOverButton" onClick={onClick}>
-        Retry?
-      </button>
-    </div>
+    <GameOver key={v4()} {...gameOverProps}></GameOver>
   ) : (
     <div className="Minefield">{mines}</div>
   );
