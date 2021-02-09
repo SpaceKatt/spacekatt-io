@@ -160,7 +160,10 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
   };
 
   return gameOver ? (
-    <GameOver key={v4()} {...gameOverProps}></GameOver>
+    <div>
+      <div className="Minefield">{mines}</div>
+      <GameOver key={v4()} {...gameOverProps}></GameOver>
+    </div>
   ) : (
     <div className="Minefield">{mines}</div>
   );

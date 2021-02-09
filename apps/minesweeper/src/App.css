@@ -11,6 +11,9 @@
 
   height: 100%;
   width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .Mine {
@@ -20,8 +23,14 @@
 }
 
 .HiddenIcon {
-  position: absolute;
-  margin-top: -3%;
+  height: 100%;
+  width: 100%;
+}
+
+.HiddenIcon {
+  height: 100%;
+  width: 100%;
+  background-color: orange;
 }
 
 .ExplodedMine {
@@ -29,10 +38,30 @@
   height: 95%;
   background-color: red;
 }
+.Counter {
+  width: 100%;
+  height: 100%;
+  background-color: aquamarine;
+  position: relative;
+}
 
 .NeighborCounter {
-  position: absolute;
+  height: 100%;
+  width: 100%;
+  /* display: flex; */
+
   background-color: aquamarine;
+  text-align: center;
+  overflow: hidden;
+
+  position: absolute;
+  top: 50%; /* 3 */
+  transform: translate(0, -50%);
+
+  margin-top: 0;
+  margin-bottom: 0;
+  vertical-align: middle;
+  display: inherit;
 }
 
 .AppContainer {
@@ -55,14 +84,20 @@
   width: 100%;
   height: 100%;
   background-color: orchid;
+  position: absolute;
+  border: orange 1px;
+  opacity: 0.6;
+  z-index: 10;
+  top: 0;
+  left: 0;
 }
 
 .GameOverButton {
-  width: 50%;
-  height: 50%;
+  width: 90%;
+  height: 90%;
   background-color: #f44336;
 
-  transform: translate(50%, 50%);
+  transform: translate(5.8%, 5.8%);
 }
 
 .MinefieldContainer {

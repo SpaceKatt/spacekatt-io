@@ -35,12 +35,17 @@ export const Mine: FunctionComponent<MineProps> = (props) => {
     }
   };
 
-  const icon = props.flagged ? <div>🚩</div> : <span></span>;
-  const hiddenSquare = <div className="HiddenIcon">{icon}</div>;
+  const hiddenSquare = props.flagged ? (
+    <div className="HiddenIcon"></div>
+  ) : (
+    <div className="Flag"></div>
+  );
   const exposed = props.coords.isMine ? (
     <div className="ExplodedMine"></div>
   ) : (
-    <div className="NeighborCounter">{props.coords.neighbors}</div>
+    <div className="Counter">
+      <p className="NeighborCounter">{props.coords.neighbors}</p>
+    </div>
   );
   const square = props.hidden ? hiddenSquare : exposed;
   return (
