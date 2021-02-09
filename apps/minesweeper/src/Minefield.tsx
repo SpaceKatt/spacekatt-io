@@ -109,10 +109,12 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
 
   const mineHandler = (row: number, col: number) => {
     const newField = hiddenMap.hidden;
-    console.log(`Logging: ${row} :: ${col}`);
     if (flaggedMap.flagged[row][col]) {
       return;
     }
+
+    newField[row][col] = false;
+    setHiddenMap({ hidden: newField });
 
     if (mineCoords[row][col].isMine) {
       setHiddenMap({ hidden: newField });
@@ -123,13 +125,9 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     if (mineCoords[row][col].neighbors === 0) {
       visitNeighbors(row, col, newField);
     }
-    console.log("setting new field");
-    newField[row][col] = false;
-    setHiddenMap({ hidden: newField });
   };
   const flagHandler = (row: number, col: number) => {
     const newField = flaggedMap.flagged;
-    console.log(`Flagging: ${row}:${col}`);
     newField[row][col] = !newField[row][col];
     setFlaggedMap({ flagged: newField });
   };
