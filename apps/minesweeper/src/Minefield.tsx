@@ -8,6 +8,7 @@ import {
   BOUNDS_GAURD,
   createMineMap,
   createBooleanMap,
+  WIN_CONDITION,
 } from "./utility";
 
 const createNeighborMap = (mineMap: boolean[][]): number[][] => {
@@ -146,6 +147,14 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     }
   }
 
+  const gameWon = WIN_CONDITION(
+    flaggedMap.flagged,
+    hiddenMap.hidden,
+    props.numberOfMines
+  );
+  if (gameWon) {
+    setGaveOver(true);
+  }
   //   const onClick = (event: any) => {
   //     setHiddenMap({ hidden: initialHiddenMap });
   //     setFlaggedMap({ flagged: initialFlaggedMap });
@@ -154,6 +163,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
   const gameOverProps = {
     hidden: hiddenMap.hidden,
     flagged: flaggedMap.flagged,
+    gameWon,
     onClick: props.onClick,
   };
 

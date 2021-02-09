@@ -11,19 +11,20 @@ export const NEIGHBORS_FILTER = [
 
 export const WIN_CONDITION = (
   flagged: boolean[][],
-  hidden: boolean[][]
+  hidden: boolean[][],
+  mineCount: number
 ): boolean => {
   const target = flagged.length * flagged.length;
   let flaggedCount = 0;
-  let hiddenCount = 0;
+  let visibleCount = 0;
   for (let i = 0; i < flagged.length; i++) {
     for (let j = 0; j < flagged[i].length; j++) {
       if (flagged[i][j]) flaggedCount++;
-      if (hidden[i][j]) hiddenCount++;
+      if (!hidden[i][j]) visibleCount++;
     }
   }
 
-  return hiddenCount + flaggedCount === target;
+  return visibleCount + (mineCount - flaggedCount) === target;
 };
 
 export const BOUNDS_GAURD = (x: number, y: number, len: number): boolean => {
