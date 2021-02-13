@@ -12,6 +12,7 @@ dependencies:
   '@types/react': 17.0.1
   '@types/react-dom': 17.0.0
   '@types/uuid': 8.3.0
+  csstype: 3.0.6
   react: 17.0.1
   react-dom: 17.0.1_react@17.0.1
   react-scripts: 4.0.2_react@17.0.1+typescript@4.1.3
@@ -14399,6 +14400,7 @@ packages:
       '@types/react': 17.0.1
       '@types/react-dom': 17.0.0
       '@types/uuid': 8.3.0
+      csstype: 3.0.6
       react: 17.0.1
       react-dom: 17.0.1_react@17.0.1
       react-scripts: 4.0.2_react@17.0.1+typescript@4.1.3
@@ -14408,7 +14410,7 @@ packages:
     dev: false
     name: '@rush-temp/spacekatt-minesweeper'
     resolution:
-      integrity: sha512-clDVbBd75vIsezpqMxrhNKXJJf2aY/rzHAC/bVZaqKaPKb3+tEF3NEV3M3nC5/oKKL5n/6QjUni+NlP3KQGKbw==
+      integrity: sha512-0cEXVL4lm66GZQdvG93aIKv7uT3in2QhUfuKR0uxNEutwDp5V1SELyAuhF5r1GF5UjOAdcJZhZWp6q2G8/Xexw==
       tarball: 'file:projects/spacekatt-minesweeper.tgz'
     version: 0.0.0
 registry: ''
@@ -14426,6 +14428,7 @@ specifiers:
   '@types/react': 17.0.1
   '@types/react-dom': 17.0.0
   '@types/uuid': 8.3.0
+  csstype: 3.0.6
   react: 17.0.1
   react-dom: 17.0.1
   react-scripts: 4.0.2

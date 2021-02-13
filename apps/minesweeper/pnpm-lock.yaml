@@ -1,4 +1,5 @@
 dependencies:
+  csstype: 3.0.6
   uuid: 8.3.2
 devDependencies:
   '@types/uuid': 8.3.0
@@ -8,6 +9,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==
+  /csstype/3.0.6:
+    dev: false
+    resolution:
+      integrity: sha512-+ZAmfyWMT7TiIlzdqJgjMb7S4f1beorDbWbsocyK4RaiqA5RTX3K14bnBWmmA9QEM0gRdsjyyrEmcyga8Zsxmw==
   /uuid/8.3.2:
     dev: false
     hasBin: true
@@ -15,4 +20,5 @@ packages:
       integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 specifiers:
   '@types/uuid': 8.3.0
+  csstype: 3.0.6
   uuid: 8.3.2
