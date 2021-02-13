@@ -1,3 +1,5 @@
+import { MineCoordinates } from "./Mine";
+
 export const NEIGHBORS_FILTER = [
   [-1, -1],
   [0, -1],
@@ -11,6 +13,7 @@ export const NEIGHBORS_FILTER = [
 
 export const WIN_CONDITION = (
   flagged: boolean[][],
+  mineMap: MineCoordinates[][],
   hidden: boolean[][],
   mineCount: number
 ): boolean => {
@@ -19,12 +22,14 @@ export const WIN_CONDITION = (
   let visibleCount = 0;
   for (let i = 0; i < flagged.length; i++) {
     for (let j = 0; j < flagged[i].length; j++) {
-      if (flagged[i][j]) flaggedCount++;
+      if (flagged[i][j] && mineMap[i][j].isMine) flaggedCount++;
       if (!hidden[i][j]) visibleCount++;
     }
   }
 
-  return visibleCount + (mineCount - flaggedCount) === target;
+  const mineCorrection = mineCount - flaggedCount;
+
+  return visibleCount + flaggedCount + mineCorrection === target;
 };
 
 export const BOUNDS_GAURD = (x: number, y: number, len: number): boolean => {

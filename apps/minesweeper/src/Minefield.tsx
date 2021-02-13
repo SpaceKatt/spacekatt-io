@@ -148,17 +148,18 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     }
   }
 
-  // const gameWon = true;
+  // const onClick = (event: any) => {
+  //   setHiddenMap({ hidden: initialHiddenMap });
+  //   setFlaggedMap({ flagged: initialFlaggedMap });
+  //   setGaveOver(false);
+  // };
   const gameWon = WIN_CONDITION(
     flaggedMap.flagged,
+    mineCoords,
     hiddenMap.hidden,
     props.numberOfMines
   );
-  const onClick = (event: any) => {
-    setHiddenMap({ hidden: initialHiddenMap });
-    setFlaggedMap({ flagged: initialFlaggedMap });
-    setGaveOver(false);
-  };
+  console.log(gameWon);
   const gameOverProps = {
     hidden: hiddenMap.hidden,
     flagged: flaggedMap.flagged,
@@ -194,16 +195,17 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
   };
 
   const minefield = <div style={style}>{mines}</div>;
-  const gameOverComp = gameOver ? (
-    <GameOver key={v4()} {...gameOverProps}></GameOver>
-  ) : (
-    <span />
-  );
+  const gameOverComp =
+    gameOver || gameWon ? (
+      <GameOver key={v4()} {...gameOverProps}></GameOver>
+    ) : (
+      <span />
+    );
 
   return (
     <div>
       {minefield}
-      {gameOver}
+      {gameOverComp}
     </div>
   );
 };
