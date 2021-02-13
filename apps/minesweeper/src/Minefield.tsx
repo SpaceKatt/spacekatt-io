@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
+import * as CSS from "csstype";
 import { v4 } from "uuid";
 import { GameOver } from "./GameOver";
 import { Mine, MineCoordinates, MineProps } from "./Mine";
@@ -147,19 +148,17 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     }
   }
 
+  // const gameWon = true;
   const gameWon = WIN_CONDITION(
     flaggedMap.flagged,
     hiddenMap.hidden,
     props.numberOfMines
   );
-  if (gameWon) {
-    setGaveOver(true);
-  }
-  //   const onClick = (event: any) => {
-  //     setHiddenMap({ hidden: initialHiddenMap });
-  //     setFlaggedMap({ flagged: initialFlaggedMap });
-  //     setGaveOver(false);
-  //   };
+  const onClick = (event: any) => {
+    setHiddenMap({ hidden: initialHiddenMap });
+    setFlaggedMap({ flagged: initialFlaggedMap });
+    setGaveOver(false);
+  };
   const gameOverProps = {
     hidden: hiddenMap.hidden,
     flagged: flaggedMap.flagged,
@@ -167,12 +166,44 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     onClick: props.onClick,
   };
 
-  return gameOver ? (
-    <div>
-      <div className="Minefield">{mines}</div>
-      <GameOver key={v4()} {...gameOverProps}></GameOver>
-    </div>
+  const gridTemplateColumns = ((numMinesInRow: number): string => {
+    let gridCols = "auto";
+    let colLen = 1;
+    while (colLen < numMinesInRow) {
+      gridCols = gridCols + " auto";
+      colLen++;
+    }
+    return gridCols;
+  })(mineCoords.length);
+
+  const style: CSS.Properties = {
+    gridTemplateColumns,
+    display: "grid",
+    border: "1px solid slateblue",
+    backgroundColor: "slateblue",
+    gap: "5px 5px",
+
+    alignItems: "center",
+    margin: "0 auto",
+
+    height: "100%",
+    width: "100%",
+    position: "absolute",
+    top: "0",
+    left: "0",
+  };
+
+  const minefield = <div style={style}>{mines}</div>;
+  const gameOverComp = gameOver ? (
+    <GameOver key={v4()} {...gameOverProps}></GameOver>
   ) : (
-    <div className="Minefield">{mines}</div>
+    <span />
+  );
+
+  return (
+    <div>
+      {minefield}
+      {gameOver}
+    </div>
   );
 };

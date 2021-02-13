@@ -8,7 +8,9 @@ export interface GameOverProps {
 }
 export const GameOver: FunctionComponent<GameOverProps> = (props) => {
   const retryButton = props.gameWon ? (
-    <div className="GameWon" onClick={props.onClick}></div>
+    <button className="GameWon" onClick={props.onClick}>
+      Retry?
+    </button>
   ) : (
     <button className="GameOverButton" onClick={props.onClick}>
       Retry?

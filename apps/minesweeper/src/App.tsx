@@ -5,9 +5,11 @@ import { Minefield } from "./Minefield";
 import { createMineMap } from "./utility";
 
 function App() {
-  const numberOfMines = 30;
-  const squaresInRow = 16;
+  const numberOfMines = 3;
+  const squaresInRow = 6;
+  console.log("generating map");
   const mineMap = createMineMap(squaresInRow, numberOfMines);
+  console.log("map generated");
   const [mines, setMines] = useState({ mines: mineMap });
 
   const onClick = (event: any) => {
