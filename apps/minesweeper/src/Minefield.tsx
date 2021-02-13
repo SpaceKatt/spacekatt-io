@@ -11,6 +11,7 @@ import {
   createBooleanMap,
   WIN_CONDITION,
 } from "./utility";
+import { TimerDisplay } from "./TimerDisplay";
 
 const createNeighborMap = (mineMap: boolean[][]): number[][] => {
   const neighborMap = initializeField(mineMap.length);
@@ -194,18 +195,29 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     left: "0",
   };
 
+  const isGameActive = !(gameOver || gameWon);
   const minefield = <div style={style}>{mines}</div>;
-  const gameOverComp =
-    gameOver || gameWon ? (
-      <GameOver key={v4()} {...gameOverProps}></GameOver>
-    ) : (
-      <span />
-    );
+  const gameOverComp = isGameActive ? (
+    <span />
+  ) : (
+    <GameOver key={v4()} {...gameOverProps}></GameOver>
+  );
+
+  const [time, setTime] = useState(0);
+  setTimeout(() => {
+    if (isGameActive) {
+      setTime(time + 1);
+    }
+  }, 1000);
+  const timerDisplayOpts = { time };
 
   return (
     <div>
-      {minefield}
-      {gameOverComp}
+      <TimerDisplay key={v4()} {...timerDisplayOpts}></TimerDisplay>
+      <div className="MinefieldContainer">
+        {minefield}
+        {gameOverComp}
+      </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { v4 } from "uuid";
 import "./App.css";
 import { Minefield } from "./Minefield";
+import { TimerDisplay } from "./TimerDisplay";
 import { createMineMap } from "./utility";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
   console.log("generating map");
   const mineMap = createMineMap(squaresInRow, numberOfMines);
   console.log("map generated");
+
   const [mines, setMines] = useState({ mines: mineMap });
 
   const onClick = (event: any) => {
@@ -26,10 +28,7 @@ function App() {
   return (
     <div className="AppContainer">
       <div className="App">
-        <div className="MinefieldContainer">
-          <header className="App-header"></header>
-          <Minefield key={v4()} {...minefieldOpts} />
-        </div>
+        <Minefield key={v4()} {...minefieldOpts} />
       </div>
     </div>
   );
