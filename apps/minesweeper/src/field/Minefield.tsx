@@ -108,10 +108,14 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
 
   const initialHiddenMap: boolean[][] = createBooleanMap(
     mineCoords.length,
+    mineCoords[0].length,
     true
   );
 
-  const initialFlaggedMap: boolean[][] = createBooleanMap(mineCoords.length);
+  const initialFlaggedMap: boolean[][] = createBooleanMap(
+    mineCoords.length,
+    mineCoords[0].length
+  );
   const [hiddenMap, setHiddenMap] = useState({ hidden: initialHiddenMap });
   const [flaggedMap, setFlaggedMap] = useState({ flagged: initialFlaggedMap });
   const [gameOver, setGaveOver] = useState(false);
@@ -160,7 +164,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
       colLen++;
     }
     return gridCols;
-  })(mineCoords.length);
+  })(mineCoords[0].length);
 
   // TODO: move to UTILS
   const style: CSS.Properties = {
@@ -191,7 +195,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
 
   const mines = [];
   for (let i = 0; i < hiddenMap.hidden.length; i++) {
-    for (let j = 0; j < hiddenMap.hidden.length; j++) {
+    for (let j = 0; j < hiddenMap.hidden[i].length; j++) {
       const mineOpts: MineProps = {
         key: String(i) + String(j),
         coords: mineCoords[i][j],

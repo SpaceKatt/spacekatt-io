@@ -17,7 +17,7 @@ export const WIN_CONDITION = (
   hidden: boolean[][],
   mineCount: number
 ): boolean => {
-  const target = flagged.length * flagged.length;
+  const target = flagged.length * flagged[0].length;
   let flaggedCount = 0;
   let visibleCount = 0;
   for (let i = 0; i < flagged.length; i++) {
@@ -42,12 +42,16 @@ export function getRandomInt(max: number) {
 
 export const createBooleanMap = (
   squaresInRow: number,
+  squaresInColumn?: number,
   state?: boolean
 ): boolean[][] => {
+  if (!squaresInColumn) {
+    squaresInColumn = squaresInRow;
+  }
   const boolMap: boolean[][] = [];
   for (let i = 0; i < squaresInRow; i++) {
     const boolRow: boolean[] = [];
-    for (let j = 0; j < squaresInRow; j++) {
+    for (let j = 0; j < squaresInColumn; j++) {
       const isMine = state ? true : false;
       boolRow.push(isMine);
     }
@@ -57,10 +61,14 @@ export const createBooleanMap = (
 };
 
 export const createMineMap = (
+  numMines: number,
   squaresInRow: number,
-  numMines: number
+  squaresInColumn?: number
 ): boolean[][] => {
   const mineMap: boolean[][] = createBooleanMap(squaresInRow);
+  if (!squaresInColumn) {
+    squaresInColumn = squaresInRow;
+  }
 
   let mineCount = 0;
   while (mineCount < numMines) {
@@ -69,7 +77,7 @@ export const createMineMap = (
 
     do {
       i = getRandomInt(squaresInRow);
-      j = getRandomInt(squaresInRow);
+      j = getRandomInt(squaresInColumn);
     } while (mineMap[i][j] === true);
 
     mineMap[i][j] = true;
@@ -79,12 +87,18 @@ export const createMineMap = (
   return mineMap;
 };
 
-export const initializeField = (squaresInRow: number): number[][] => {
+export const initializeField = (
+  squaresInRow: number,
+  colCount?: number
+): number[][] => {
+  if (!colCount) {
+    colCount = squaresInRow;
+  }
   const field: number[][] = [];
 
   for (let i = 0; i < squaresInRow; i++) {
     const row: number[] = [];
-    for (let j = 0; j < squaresInRow; j++) {
+    for (let j = 0; j < colCount; j++) {
       row.push(0);
     }
     field.push(row);
