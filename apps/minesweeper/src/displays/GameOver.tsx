@@ -3,6 +3,7 @@ import "./GameOver.css";
 
 export interface GameOverProps {
   gameWon: boolean;
+  isGameActive: boolean;
   gameOverHandler: (event: any) => void;
 }
 export const GameOver: FunctionComponent<GameOverProps> = (props) => {
@@ -15,5 +16,9 @@ export const GameOver: FunctionComponent<GameOverProps> = (props) => {
       Retry?
     </button>
   );
-  return <div className="GameOver">{retryButton}</div>;
+  return props.isGameActive ? (
+    <span />
+  ) : (
+    <div className="GameOver">{retryButton}</div>
+  );
 };

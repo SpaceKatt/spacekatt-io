@@ -52,12 +52,12 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
     },
   };
   const currentTime = new Date().getTime();
-  const playTime = currentTime - props.startTime;
+  const playTime = (currentTime - props.startTime) / 1000;
   const highScore = checkHighScore(
     props.numberOfMines,
     props.mineCoords.length,
     props.mineCoords[0].length,
-    currentTime - props.startTime,
+    playTime,
     isVictory
   );
 
@@ -66,26 +66,22 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
   ) : (
     <ScoreDisplay
       key={v4()}
-      time={currentTime - props.startTime}
+      time={playTime}
       gameWon={isVictory}
       highScore={highScore}
     ></ScoreDisplay>
   );
   const gameOverProps = {
     gameWon: isVictory,
+    isGameActive,
     gameOverHandler: props.gameOverHandler,
   };
-  const gameOverComp = isGameActive ? (
-    <span />
-  ) : (
-    <GameOver key={v4()} {...gameOverProps}></GameOver>
-  );
   return (
     <div className="ExperienceContainer">
       {display}
       <div className="MinefieldContainer">
         <Minefield {...minefieldOpts} />
-        {gameOverComp}
+        <GameOver key={v4()} {...gameOverProps}></GameOver>
       </div>
     </div>
   );
