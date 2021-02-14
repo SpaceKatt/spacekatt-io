@@ -40,7 +40,7 @@ export const Mine: FunctionComponent<MineProps> = (props) => {
   const hiddenSquare = props.flagged ? (
     <div className="HiddenIcon"></div>
   ) : (
-    <div className="Flag"></div>
+    <div></div>
   );
   const exposed = props.coords.isMine ? (
     <div className="ExplodedMine"></div>
