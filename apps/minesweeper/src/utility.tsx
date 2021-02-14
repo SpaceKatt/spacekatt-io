@@ -1,4 +1,5 @@
 import { MineCoordinates } from "./field/Mine";
+import * as CSS from "csstype";
 
 export const NEIGHBORS_FILTER = [
   [-1, -1],
@@ -179,4 +180,37 @@ export const initializeField = (
   }
 
   return field;
+};
+const gridTemplateColumnsTemplate = (numColumns: number): string => {
+  let gridCols = "auto";
+  let colLen = 1;
+  while (colLen < numColumns) {
+    gridCols = gridCols + " auto";
+    colLen++;
+  }
+  return gridCols;
+};
+
+export const generateMinefieldCSS = (numColumns: number): CSS.Properties => {
+  const gridTemplateColumns = gridTemplateColumnsTemplate(numColumns);
+
+  const style: CSS.Properties = {
+    gridTemplateColumns,
+    display: "grid",
+    border: "1px solid slateblue",
+    backgroundColor: "slateblue",
+    gap: "5px 5px",
+
+    alignItems: "center",
+    margin: "0 auto",
+
+    height: "100%",
+    width: "100%",
+    // paddingTop: "100%",
+    // position: "absolute",
+    top: "0",
+    left: "0",
+  };
+
+  return style;
 };

@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useState } from "react";
-import * as CSS from "csstype";
 import "./Minefield.css";
 import { Mine, MineCoordinates, MineProps } from "./Mine";
 import {
@@ -7,6 +6,7 @@ import {
   BOUNDS_GAURD,
   createBooleanMap,
   WIN_CONDITION,
+  generateMinefieldCSS,
 } from "../utility";
 import { GameConfig } from "./MinefieldController";
 
@@ -66,7 +66,6 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     props.mineCoords[0].length,
     true
   );
-
   const initialFlaggedMap: boolean[][] = createBooleanMap(
     props.mineCoords.length,
     props.mineCoords[0].length
@@ -110,36 +109,6 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     props.numberOfMines
   );
 
-  // TODO: move to UTILs
-  const gridTemplateColumns = ((numMinesInRow: number): string => {
-    let gridCols = "auto";
-    let colLen = 1;
-    while (colLen < numMinesInRow) {
-      gridCols = gridCols + " auto";
-      colLen++;
-    }
-    return gridCols;
-  })(props.mineCoords[0].length);
-
-  // TODO: move to UTILS
-  const style: CSS.Properties = {
-    gridTemplateColumns,
-    display: "grid",
-    border: "1px solid slateblue",
-    backgroundColor: "slateblue",
-    gap: "5px 5px",
-
-    alignItems: "center",
-    margin: "0 auto",
-
-    height: "100%",
-    width: "100%",
-    // paddingTop: "100%",
-    // position: "absolute",
-    top: "0",
-    left: "0",
-  };
-
   if (gameOver || gameWon) {
     props.setIsVictory(gameWon);
     props.setIsGameActive(false);
@@ -160,5 +129,6 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     }
   }
 
+  const style = generateMinefieldCSS(hiddenMap.hidden[0].length);
   return <div style={style}>{mines}</div>;
 };
