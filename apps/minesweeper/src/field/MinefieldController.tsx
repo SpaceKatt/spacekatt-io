@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useState } from "react";
 import { v4 } from "uuid";
-import { TimerDisplay, ScoreDisplay, GameOver } from "../displays";
+import { GameStateDisplay, GameOver } from "../displays";
+import { checkHighScore } from "../utility";
 import { MineCoordinates } from "./Mine";
 import { Minefield } from "./Minefield";
 
@@ -10,27 +11,6 @@ export interface GameConfig {
   mineMap: boolean[][];
   mineCoords: MineCoordinates[][];
 }
-
-export const checkHighScore = (
-  numMines: number,
-  numRow: number,
-  numColumn: number,
-  time: number,
-  gameWon: boolean
-): string => {
-  const highScoreKey = `HIGH_SCORE_${numRow}_${numColumn}_${numMines}`;
-
-  let highScore = localStorage.getItem(highScoreKey) || "";
-  if (gameWon) {
-    if (!highScore || time < Number(highScore)) {
-      localStorage.setItem(highScoreKey, String(time));
-      highScore = String(time);
-      console.log("New high score");
-    }
-  }
-
-  return highScore || "N/A";
-};
 
 export interface MinefieldControllerProps extends GameConfig {
   startTime: number;
@@ -61,16 +41,12 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
     isVictory
   );
 
-  const display = isGameActive ? (
-    <TimerDisplay key={props.sessionId}></TimerDisplay>
-  ) : (
-    <ScoreDisplay
-      key={v4()}
-      time={playTime}
-      gameWon={isVictory}
-      highScore={highScore}
-    ></ScoreDisplay>
-  );
+  const displayProps = {
+    playTime,
+    highScore,
+    isVictory,
+    isGameActive,
+  };
   const gameOverProps = {
     gameWon: isVictory,
     isGameActive,
@@ -78,7 +54,7 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
   };
   return (
     <div className="ExperienceContainer">
-      {display}
+      <GameStateDisplay {...displayProps}></GameStateDisplay>
       <div className="MinefieldContainer">
         <Minefield {...minefieldOpts} />
         <GameOver key={v4()} {...gameOverProps}></GameOver>

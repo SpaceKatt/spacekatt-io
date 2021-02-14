@@ -41,6 +41,27 @@ export const BOUNDS_GAURD = (
   return !(row >= 0 && col >= 0 && row < lenRow && col < lenCol);
 };
 
+export const checkHighScore = (
+  numMines: number,
+  numRow: number,
+  numColumn: number,
+  time: number,
+  gameWon: boolean
+): string => {
+  const highScoreKey = `HIGH_SCORE_${numRow}_${numColumn}_${numMines}`;
+
+  let highScore = localStorage.getItem(highScoreKey) || "";
+  if (gameWon) {
+    if (!highScore || time < Number(highScore)) {
+      localStorage.setItem(highScoreKey, String(time));
+      highScore = String(time);
+      console.log("New high score");
+    }
+  }
+
+  return highScore || "N/A";
+};
+
 export const createMineCoordinates = (
   mineMap: boolean[][],
   neighborMap: number[][]
