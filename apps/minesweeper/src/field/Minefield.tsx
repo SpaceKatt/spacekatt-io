@@ -1,8 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
 import * as CSS from "csstype";
-import { v4 } from "uuid";
 import "./Minefield.css";
-import { GameOver } from "../displays";
 import { Mine, MineCoordinates, MineProps } from "./Mine";
 import {
   NEIGHBORS_FILTER,
@@ -10,27 +8,23 @@ import {
   createBooleanMap,
   WIN_CONDITION,
 } from "../utility";
-import { TimerDisplay, ScoreDisplay } from "../displays";
+import { GameConfig } from "./MinefieldController";
 
-export interface MinefieldProps {
-  timerId: string;
-  numberOfMines: number;
-  startTime: number;
-  mineMap: boolean[][];
-  mineCoords: MineCoordinates[][];
-  gameOverHandler: (event: any) => void;
+export interface MinefieldProps extends GameConfig {
+  setIsGameActive: (isGameActive: boolean) => void;
+  setIsVictory: (isVictory: boolean) => void;
 }
-export interface MinefieldState {
-  gameOver: boolean;
-  field: MineCoordinates[][];
-  visited: boolean[][];
-  hidden: boolean[][];
-}
+// import { v4 } from "uuid";
+// import { GameOver } from "../displays";
+// import { TimerDisplay, ScoreDisplay } from "../displays";
+// export interface MinefieldState {
+//   gameOver: boolean;
+//   field: MineCoordinates[][];
+//   visited: boolean[][];
+//   hidden: boolean[][];
+// }
 
 export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
-  const mineMap = props.mineMap;
-
-  // abstract to utility function
   const visitNeighbors = (
     row: number,
     col: number,
@@ -146,13 +140,10 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     left: "0",
   };
 
-  const isGameActive = !(gameOver || gameWon);
-  const gameOverProps = {
-    hidden: hiddenMap.hidden,
-    flagged: flaggedMap.flagged,
-    gameWon,
-    gameOverHandler: props.gameOverHandler,
-  };
+  if (gameOver || gameWon) {
+    props.setIsVictory(gameWon);
+    props.setIsGameActive(false);
+  }
 
   const mines = [];
   for (let i = 0; i < hiddenMap.hidden.length; i++) {
@@ -168,32 +159,6 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
       mines.push(<Mine {...mineOpts} />);
     }
   }
-  const currentTime = new Date().getTime();
-  // TODO: handle isGameActive in comp
-  const gameOverComp = isGameActive ? (
-    <span />
-  ) : (
-    <GameOver key={v4()} {...gameOverProps}></GameOver>
-  );
-  const display = isGameActive ? (
-    <TimerDisplay key={props.timerId}></TimerDisplay>
-  ) : (
-    <ScoreDisplay
-      key={v4()}
-      time={currentTime - props.startTime}
-      gameWon={gameWon}
-      squaresInRow={mineMap.length}
-      numMines={props.numberOfMines}
-    ></ScoreDisplay>
-  );
 
-  return (
-    <div className="ExperienceContainer">
-      {display}
-      <div className="MinefieldContainer">
-        <div style={style}>{mines}</div>
-        {gameOverComp}
-      </div>
-    </div>
-  );
+  return <div style={style}>{mines}</div>;
 };

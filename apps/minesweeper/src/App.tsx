@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { v4 } from "uuid";
 import "./App.css";
-import { Minefield } from "./field";
+import { MinefieldController } from "./field";
 import {
   createMineCoordinates,
   createMineMap,
@@ -22,9 +22,9 @@ export type MinefieldDifficultyManifest = {
 
 const difficulties: MinefieldDifficultyManifest = {
   Beginner: {
-    numberOfMines: 10,
-    rowCount: 15,
-    columnCount: 10,
+    numberOfMines: 6,
+    rowCount: 10,
+    columnCount: 6,
   },
   Intermediate: {
     numberOfMines: 22,
@@ -39,9 +39,12 @@ const difficulties: MinefieldDifficultyManifest = {
 };
 
 function App() {
-  const numberOfMines = 24;
-  const squaresInRow = 14;
-  const squaresInColumn = 20;
+  const [difficulty, setDifficulty] = useState<DifficultyKeys>("Beginner");
+  const selectedDifficulty = difficulties[difficulty];
+  const numberOfMines = selectedDifficulty.numberOfMines;
+  const squaresInRow = selectedDifficulty.rowCount;
+  const squaresInColumn = selectedDifficulty.columnCount;
+
   console.log("generating map");
   const mineMap = createMineMap(numberOfMines, squaresInRow, squaresInColumn);
   const neighborMap = createNeighborMap(mineMap);
@@ -58,9 +61,9 @@ function App() {
     );
     setMines({ mines: newMines });
   };
-  const minefieldOpts = {
+  const minefieldControllerOpts = {
     numberOfMines,
-    timerId: v4(),
+    sessionId: v4(),
     startTime: new Date().getTime(),
     mineMap: mines.mines,
     mineCoords,
@@ -69,9 +72,10 @@ function App() {
 
   return (
     <div className="AppContainer">
-      <div className="MinefieldContainer">
-        <Minefield key={v4()} {...minefieldOpts} />
-      </div>
+      <MinefieldController
+        key={v4()}
+        {...minefieldControllerOpts}
+      ></MinefieldController>
     </div>
   );
 }
