@@ -1,28 +1,21 @@
+import * as CSS from "csstype";
 import React, { FunctionComponent, useState } from "react";
-import "./Minefield.css";
+
 import { Mine, MineCoordinates, MineProps } from "./Mine";
+import { GameConfig } from "./MinefieldController";
 import {
   NEIGHBORS_FILTER,
   BOUNDS_GAURD,
   createBooleanMap,
   WIN_CONDITION,
-  generateMinefieldCSS,
 } from "../utility";
-import { GameConfig } from "./MinefieldController";
+
+import "./Minefield.css";
 
 export interface MinefieldProps extends GameConfig {
   setIsGameActive: (isGameActive: boolean) => void;
   setIsVictory: (isVictory: boolean) => void;
 }
-// import { v4 } from "uuid";
-// import { GameOver } from "../displays";
-// import { TimerDisplay, ScoreDisplay } from "../displays";
-// export interface MinefieldState {
-//   gameOver: boolean;
-//   field: MineCoordinates[][];
-//   visited: boolean[][];
-//   hidden: boolean[][];
-// }
 
 export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
   const visitNeighbors = (
@@ -131,4 +124,38 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
 
   const style = generateMinefieldCSS(hiddenMap.hidden[0].length);
   return <div style={style}>{mines}</div>;
+};
+
+const gridTemplateColumnsTemplate = (numColumns: number): string => {
+  let gridCols = "auto";
+  let colLen = 1;
+  while (colLen < numColumns) {
+    gridCols = gridCols + " auto";
+    colLen++;
+  }
+  return gridCols;
+};
+
+export const generateMinefieldCSS = (numColumns: number): CSS.Properties => {
+  const gridTemplateColumns = gridTemplateColumnsTemplate(numColumns);
+
+  const style: CSS.Properties = {
+    gridTemplateColumns,
+    display: "grid",
+    border: "1px solid slateblue",
+    backgroundColor: "slateblue",
+    gap: "5px 5px",
+
+    alignItems: "center",
+    margin: "0 auto",
+
+    height: "100%",
+    width: "100%",
+    // paddingTop: "100%",
+    // position: "absolute",
+    top: "0",
+    left: "0",
+  };
+
+  return style;
 };
