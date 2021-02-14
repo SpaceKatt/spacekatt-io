@@ -1,8 +1,6 @@
 import { FunctionComponent } from "react";
 
 export interface GameOverProps {
-  hidden: boolean[][];
-  flagged: boolean[][];
   gameWon: boolean;
   onClick: (event: any) => void;
 }

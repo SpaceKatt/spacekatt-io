@@ -1,18 +1,18 @@
 import React, { FunctionComponent, useState } from "react";
 import * as CSS from "csstype";
 import { v4 } from "uuid";
-import { GameOver } from "./GameOver";
+import "./Minefield.css";
+import { GameOver } from "../displays";
 import { Mine, MineCoordinates, MineProps } from "./Mine";
 import {
   initializeField,
   NEIGHBORS_FILTER,
   BOUNDS_GAURD,
-  createMineMap,
   createBooleanMap,
   WIN_CONDITION,
-} from "./utility";
-import { TimerDisplay } from "./TimerDisplay";
-import { ScoreDisplay } from "./ScoreDisplay";
+} from "../utility";
+import { TimerDisplay } from "../displays/TimerDisplay";
+import { ScoreDisplay } from "../displays/ScoreDisplay";
 
 const createNeighborMap = (mineMap: boolean[][]): number[][] => {
   const neighborMap = initializeField(mineMap.length);

@@ -1,4 +1,4 @@
-import { MineCoordinates } from "./Mine";
+import { MineCoordinates } from "./field/Mine";
 
 export const NEIGHBORS_FILTER = [
   [-1, -1],

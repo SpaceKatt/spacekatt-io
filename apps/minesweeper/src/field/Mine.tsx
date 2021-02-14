@@ -1,4 +1,5 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
+import "./Mine.css";
 
 export interface MineCoordinates {
   x: number;

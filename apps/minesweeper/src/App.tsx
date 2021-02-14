@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { v4 } from "uuid";
 import "./App.css";
-import { Minefield } from "./Minefield";
-import { TimerDisplay } from "./TimerDisplay";
+import { Minefield } from "./field/Minefield";
 import { createMineMap } from "./utility";
 
 function App() {
