@@ -38,15 +38,21 @@ export const Mine: FunctionComponent<MineProps> = (props) => {
   };
 
   const hiddenSquare = props.flagged ? (
-    <div className="HiddenIcon"></div>
+    <div className="HiddenIcon">
+      <div className="Invis">0</div>
+    </div>
   ) : (
-    <div></div>
+    <div className="Invis">0</div>
   );
   const exposed = props.coords.isMine ? (
     <div className="ExplodedMine"></div>
   ) : (
     <div className="Counter">
-      <p className="NeighborCounter">{props.coords.neighbors}</p>
+      {props.coords.neighbors === 0 ? (
+        <span> </span>
+      ) : (
+        <div className="NeighborCounter">{props.coords.neighbors}</div>
+      )}
     </div>
   );
   const square = props.hidden ? hiddenSquare : exposed;

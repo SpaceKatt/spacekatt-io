@@ -25,23 +25,38 @@
   height: 100%;
   background-color: aquamarine;
   position: relative;
+  /* vertical-align: middle; */
+  display: flex;
+  justify-content: center;
+  padding: 0px;
+}
+.Invis {
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  text-align: center;
+
+  position: relative;
+  line-height: 0px;
+
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .NeighborCounter {
   height: 100%;
   width: 100%;
-  /* display: flex; */
 
   background-color: aquamarine;
   text-align: center;
-  overflow: hidden;
 
-  position: absolute;
-  top: 50%; /* 3 */
-  transform: translate(0, -50%);
+  position: relative;
+  line-height: 0px;
 
-  margin-top: 0;
-  margin-bottom: 0;
-  vertical-align: middle;
-  display: inherit;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

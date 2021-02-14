@@ -5,8 +5,8 @@ import { Minefield } from "./field";
 import { createMineMap } from "./utility";
 
 function App() {
-  const numberOfMines = 1;
-  const squaresInRow = 10;
+  const numberOfMines = 24;
+  const squaresInRow = 14;
   console.log("generating map");
   const mineMap = createMineMap(squaresInRow, numberOfMines);
   console.log("map generated");

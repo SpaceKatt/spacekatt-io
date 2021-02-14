@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import "./GameOver";
+import "./GameOver.css";
 
 export interface GameOverProps {
   gameWon: boolean;
