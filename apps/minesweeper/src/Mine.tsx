@@ -8,6 +8,7 @@ export interface MineCoordinates {
 }
 
 export interface MineProps {
+  key: string;
   coords: MineCoordinates;
   flagged: boolean;
   hidden: boolean;

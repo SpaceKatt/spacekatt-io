@@ -12,6 +12,7 @@ import {
   WIN_CONDITION,
 } from "./utility";
 import { TimerDisplay } from "./TimerDisplay";
+import { ScoreDisplay } from "./ScoreDisplay";
 
 const createNeighborMap = (mineMap: boolean[][]): number[][] => {
   const neighborMap = initializeField(mineMap.length);
@@ -40,7 +41,9 @@ const createNeighborMap = (mineMap: boolean[][]): number[][] => {
 
 export interface MinefieldProps {
   squaresInRow: number;
+  timerId: string;
   numberOfMines: number;
+  startTime: number;
   mineMap: boolean[][];
   onClick: (event: any) => void;
 }
@@ -190,33 +193,36 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
   for (let i = 0; i < hiddenMap.hidden.length; i++) {
     for (let j = 0; j < hiddenMap.hidden.length; j++) {
       const mineOpts: MineProps = {
+        key: String(i) + String(j),
         coords: mineCoords[i][j],
         flagged: flaggedMap.flagged[i][j],
         hidden: hiddenMap.hidden[i][j],
         mineHandler,
         flagHandler,
       };
-      mines.push(<Mine key={v4()} {...mineOpts} />);
+      mines.push(<Mine {...mineOpts} />);
     }
   }
+  const currentTime = new Date().getTime();
   // TODO: handle isGameActive in comp
   const gameOverComp = isGameActive ? (
     <span />
   ) : (
     <GameOver key={v4()} {...gameOverProps}></GameOver>
   );
-
-  const [time, setTime] = useState(0);
-  setTimeout(() => {
-    if (isGameActive) {
-      setTime(time + 1);
-    }
-  }, 1000);
-  const timerDisplayOpts = { time };
+  const timeDisplay = isGameActive ? (
+    <TimerDisplay key={props.timerId}></TimerDisplay>
+  ) : (
+    <ScoreDisplay
+      key={v4()}
+      time={currentTime - props.startTime}
+      gameWon={gameWon}
+    ></ScoreDisplay>
+  );
 
   return (
     <div className="ExperienceContainer">
-      <TimerDisplay key={v4()} {...timerDisplayOpts}></TimerDisplay>
+      {timeDisplay}
       <div className="MinefieldContainer">
         <div style={style}>{mines}</div>
         {gameOverComp}

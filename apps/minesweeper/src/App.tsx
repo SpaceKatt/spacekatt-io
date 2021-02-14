@@ -6,8 +6,8 @@ import { TimerDisplay } from "./TimerDisplay";
 import { createMineMap } from "./utility";
 
 function App() {
-  const numberOfMines = 3;
-  const squaresInRow = 6;
+  const numberOfMines = 1;
+  const squaresInRow = 10;
   console.log("generating map");
   const mineMap = createMineMap(squaresInRow, numberOfMines);
   console.log("map generated");
@@ -21,6 +21,8 @@ function App() {
   const minefieldOpts = {
     numberOfMines,
     squaresInRow,
+    timerId: v4(),
+    startTime: new Date().getTime(),
     mineMap: mines.mines,
     onClick,
   };
