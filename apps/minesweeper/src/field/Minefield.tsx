@@ -5,47 +5,20 @@ import "./Minefield.css";
 import { GameOver } from "../displays";
 import { Mine, MineCoordinates, MineProps } from "./Mine";
 import {
-  initializeField,
   NEIGHBORS_FILTER,
   BOUNDS_GAURD,
   createBooleanMap,
   WIN_CONDITION,
 } from "../utility";
-import { TimerDisplay } from "../displays/TimerDisplay";
-import { ScoreDisplay } from "../displays/ScoreDisplay";
-
-const createNeighborMap = (mineMap: boolean[][]): number[][] => {
-  const neighborMap = initializeField(mineMap.length);
-
-  for (let i = 0; i < mineMap.length; i++) {
-    for (let j = 0; j < mineMap[i].length; j++) {
-      let neighborCount = 0;
-
-      for (const neighbor of NEIGHBORS_FILTER) {
-        const row = i + neighbor[0];
-        const col = j + neighbor[1];
-        if (BOUNDS_GAURD(row, col, mineMap.length)) {
-          continue;
-        }
-        if (mineMap[row][col]) {
-          neighborCount++;
-        }
-      }
-
-      neighborMap[i][j] = neighborCount;
-    }
-  }
-
-  return neighborMap;
-};
+import { TimerDisplay, ScoreDisplay } from "../displays";
 
 export interface MinefieldProps {
-  squaresInRow: number;
   timerId: string;
   numberOfMines: number;
   startTime: number;
   mineMap: boolean[][];
-  onClick: (event: any) => void;
+  mineCoords: MineCoordinates[][];
+  gameOverHandler: (event: any) => void;
 }
 export interface MinefieldState {
   gameOver: boolean;
@@ -56,37 +29,25 @@ export interface MinefieldState {
 
 export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
   const mineMap = props.mineMap;
-  const neighborMap = createNeighborMap(mineMap);
-  // abstract this
-  const mineCoords: MineCoordinates[][] = [];
-  for (let i = 0; i < mineMap.length; i++) {
-    const mineRow = [];
-    for (let j = 0; j < mineMap[i].length; j++) {
-      const mineOpts = {
-        x: i,
-        y: j,
-        isMine: mineMap[i][j],
-        neighbors: neighborMap[i][j],
-      };
-      mineRow.push(mineOpts);
-    }
-    mineCoords.push(mineRow);
-  }
 
   // abstract to utility function
   const visitNeighbors = (
     row: number,
     col: number,
-    nMap: boolean[][]
+    hiddenField: boolean[][],
+    mineCoords: MineCoordinates[][]
   ): void => {
-    const visited: boolean[][] = createBooleanMap(nMap.length);
+    const visited: boolean[][] = createBooleanMap(
+      hiddenField.length,
+      hiddenField[0].length
+    );
     const queue: number[][] = [[row, col]];
     do {
       const nextNeighbor = queue.pop();
       if (nextNeighbor) {
         const [x, y] = nextNeighbor;
         visited[x][y] = true;
-        nMap[x][y] = false;
+        hiddenField[x][y] = false;
         if (mineCoords[x][y].neighbors !== 0) {
           continue;
         }
@@ -94,7 +55,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
           const [diff_x, diff_y] = neighbor;
           const i = x + diff_x;
           const j = y + diff_y;
-          if (BOUNDS_GAURD(i, j, mineCoords.length)) {
+          if (BOUNDS_GAURD(i, j, mineCoords.length, mineCoords[0].length)) {
             continue;
           }
           if (visited[i][j]) {
@@ -107,14 +68,14 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
   };
 
   const initialHiddenMap: boolean[][] = createBooleanMap(
-    mineCoords.length,
-    mineCoords[0].length,
+    props.mineCoords.length,
+    props.mineCoords[0].length,
     true
   );
 
   const initialFlaggedMap: boolean[][] = createBooleanMap(
-    mineCoords.length,
-    mineCoords[0].length
+    props.mineCoords.length,
+    props.mineCoords[0].length
   );
   const [hiddenMap, setHiddenMap] = useState({ hidden: initialHiddenMap });
   const [flaggedMap, setFlaggedMap] = useState({ flagged: initialFlaggedMap });
@@ -131,14 +92,14 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     newField[row][col] = false;
     setHiddenMap({ hidden: newField });
 
-    if (mineCoords[row][col].isMine) {
+    if (props.mineCoords[row][col].isMine) {
       setHiddenMap({ hidden: newField });
       setGaveOver(true);
       return;
     }
 
-    if (mineCoords[row][col].neighbors === 0) {
-      visitNeighbors(row, col, newField);
+    if (props.mineCoords[row][col].neighbors === 0) {
+      visitNeighbors(row, col, newField, props.mineCoords);
     }
   };
   // click handler to toggle flag state
@@ -150,7 +111,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
 
   const gameWon = WIN_CONDITION(
     flaggedMap.flagged,
-    mineCoords,
+    props.mineCoords,
     hiddenMap.hidden,
     props.numberOfMines
   );
@@ -164,7 +125,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
       colLen++;
     }
     return gridCols;
-  })(mineCoords[0].length);
+  })(props.mineCoords[0].length);
 
   // TODO: move to UTILS
   const style: CSS.Properties = {
@@ -190,7 +151,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     hidden: hiddenMap.hidden,
     flagged: flaggedMap.flagged,
     gameWon,
-    onClick: props.onClick,
+    gameOverHandler: props.gameOverHandler,
   };
 
   const mines = [];
@@ -198,7 +159,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     for (let j = 0; j < hiddenMap.hidden[i].length; j++) {
       const mineOpts: MineProps = {
         key: String(i) + String(j),
-        coords: mineCoords[i][j],
+        coords: props.mineCoords[i][j],
         flagged: flaggedMap.flagged[i][j],
         hidden: hiddenMap.hidden[i][j],
         mineHandler,

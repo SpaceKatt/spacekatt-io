@@ -3,15 +3,15 @@ import "./GameOver.css";
 
 export interface GameOverProps {
   gameWon: boolean;
-  onClick: (event: any) => void;
+  gameOverHandler: (event: any) => void;
 }
 export const GameOver: FunctionComponent<GameOverProps> = (props) => {
   const retryButton = props.gameWon ? (
-    <button className="GameWon" onClick={props.onClick}>
+    <button className="GameWon" onClick={props.gameOverHandler}>
       Retry?
     </button>
   ) : (
-    <button className="GameOverButton" onClick={props.onClick}>
+    <button className="GameOverButton" onClick={props.gameOverHandler}>
       Retry?
     </button>
   );

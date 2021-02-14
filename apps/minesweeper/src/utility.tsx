@@ -32,8 +32,60 @@ export const WIN_CONDITION = (
   return visibleCount + flaggedCount + mineCorrection === target;
 };
 
-export const BOUNDS_GAURD = (x: number, y: number, len: number): boolean => {
-  return !(x >= 0 && y >= 0 && x < len && y < len);
+export const BOUNDS_GAURD = (
+  row: number,
+  col: number,
+  lenRow: number,
+  lenCol: number
+): boolean => {
+  return !(row >= 0 && col >= 0 && row < lenRow && col < lenCol);
+};
+
+export const createMineCoordinates = (
+  mineMap: boolean[][],
+  neighborMap: number[][]
+): MineCoordinates[][] => {
+  const mineCoords: MineCoordinates[][] = [];
+
+  for (let i = 0; i < mineMap.length; i++) {
+    const mineRow = [];
+    for (let j = 0; j < mineMap[i].length; j++) {
+      const mineOpts = {
+        x: i,
+        y: j,
+        isMine: mineMap[i][j],
+        neighbors: neighborMap[i][j],
+      };
+      mineRow.push(mineOpts);
+    }
+    mineCoords.push(mineRow);
+  }
+  return mineCoords;
+};
+
+export const createNeighborMap = (mineMap: boolean[][]): number[][] => {
+  const neighborMap = initializeField(mineMap.length);
+
+  for (let i = 0; i < mineMap.length; i++) {
+    for (let j = 0; j < mineMap[i].length; j++) {
+      let neighborCount = 0;
+
+      for (const neighbor of NEIGHBORS_FILTER) {
+        const row = i + neighbor[0];
+        const col = j + neighbor[1];
+        if (BOUNDS_GAURD(row, col, mineMap.length, mineMap[0].length)) {
+          continue;
+        }
+        if (mineMap[row][col]) {
+          neighborCount++;
+        }
+      }
+
+      neighborMap[i][j] = neighborCount;
+    }
+  }
+
+  return neighborMap;
 };
 
 export function getRandomInt(max: number) {
@@ -65,10 +117,11 @@ export const createMineMap = (
   squaresInRow: number,
   squaresInColumn?: number
 ): boolean[][] => {
-  const mineMap: boolean[][] = createBooleanMap(squaresInRow);
   if (!squaresInColumn) {
     squaresInColumn = squaresInRow;
   }
+
+  const mineMap: boolean[][] = createBooleanMap(squaresInRow, squaresInColumn);
 
   let mineCount = 0;
   while (mineCount < numMines) {
