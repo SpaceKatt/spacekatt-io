@@ -1,0 +1,30 @@
+.GameOver {
+  width: 100%;
+  height: 100%;
+  background-color: orchid;
+  position: absolute;
+  border: orange 9px;
+  opacity: 0.6;
+  /* z-index: 10; */
+  top: 0;
+  left: 0;
+  margin: 0px auto;
+
+  display: flex;
+}
+
+.GameOverButton {
+  width: 90%;
+  height: 90%;
+  background-color: #f44336;
+
+  transform: translate(5.8%, 5.8%);
+}
+.GameWon {
+  width: 90%;
+  height: 90%;
+  background-color: greenyellow;
+  opacity: 0.9;
+  margin: auto;
+  position: relative;
+}

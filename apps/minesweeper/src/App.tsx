@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { v4 } from "uuid";
 import "./App.css";
-import { Minefield } from "./field/Minefield";
+import { Minefield } from "./field";
 import { createMineMap } from "./utility";
 
 function App() {
