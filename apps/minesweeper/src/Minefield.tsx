@@ -54,6 +54,7 @@ export interface MinefieldState {
 export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
   const mineMap = props.mineMap;
   const neighborMap = createNeighborMap(mineMap);
+  // abstract this
   const mineCoords: MineCoordinates[][] = [];
   for (let i = 0; i < mineMap.length; i++) {
     const mineRow = [];
@@ -69,6 +70,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     mineCoords.push(mineRow);
   }
 
+  // abstract to utility function
   const visitNeighbors = (
     row: number,
     col: number,
@@ -105,14 +107,17 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     mineCoords.length,
     true
   );
+
   const initialFlaggedMap: boolean[][] = createBooleanMap(mineCoords.length);
   const [hiddenMap, setHiddenMap] = useState({ hidden: initialHiddenMap });
   const [flaggedMap, setFlaggedMap] = useState({ flagged: initialFlaggedMap });
   const [gameOver, setGaveOver] = useState(false);
 
+  // click handler for a normal mine click
   const mineHandler = (row: number, col: number) => {
     const newField = hiddenMap.hidden;
     if (flaggedMap.flagged[row][col]) {
+      // TODO: animation to register click
       return;
     }
 
@@ -129,10 +134,56 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
       visitNeighbors(row, col, newField);
     }
   };
+  // click handler to toggle flag state
   const flagHandler = (row: number, col: number) => {
     const newField = flaggedMap.flagged;
     newField[row][col] = !newField[row][col];
     setFlaggedMap({ flagged: newField });
+  };
+
+  const gameWon = WIN_CONDITION(
+    flaggedMap.flagged,
+    mineCoords,
+    hiddenMap.hidden,
+    props.numberOfMines
+  );
+
+  // TODO: move to UTILs
+  const gridTemplateColumns = ((numMinesInRow: number): string => {
+    let gridCols = "auto";
+    let colLen = 1;
+    while (colLen < numMinesInRow) {
+      gridCols = gridCols + " auto";
+      colLen++;
+    }
+    return gridCols;
+  })(mineCoords.length);
+
+  // TODO: move to UTILS
+  const style: CSS.Properties = {
+    gridTemplateColumns,
+    display: "grid",
+    border: "1px solid slateblue",
+    backgroundColor: "slateblue",
+    gap: "5px 5px",
+
+    alignItems: "center",
+    margin: "0 auto",
+
+    height: "100%",
+    width: "100%",
+    // paddingTop: "100%",
+    // position: "absolute",
+    top: "0",
+    left: "0",
+  };
+
+  const isGameActive = !(gameOver || gameWon);
+  const gameOverProps = {
+    hidden: hiddenMap.hidden,
+    flagged: flaggedMap.flagged,
+    gameWon,
+    onClick: props.onClick,
   };
 
   const mines = [];
@@ -148,55 +199,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
       mines.push(<Mine key={v4()} {...mineOpts} />);
     }
   }
-
-  // const onClick = (event: any) => {
-  //   setHiddenMap({ hidden: initialHiddenMap });
-  //   setFlaggedMap({ flagged: initialFlaggedMap });
-  //   setGaveOver(false);
-  // };
-  const gameWon = WIN_CONDITION(
-    flaggedMap.flagged,
-    mineCoords,
-    hiddenMap.hidden,
-    props.numberOfMines
-  );
-  console.log(gameWon);
-  const gameOverProps = {
-    hidden: hiddenMap.hidden,
-    flagged: flaggedMap.flagged,
-    gameWon,
-    onClick: props.onClick,
-  };
-
-  const gridTemplateColumns = ((numMinesInRow: number): string => {
-    let gridCols = "auto";
-    let colLen = 1;
-    while (colLen < numMinesInRow) {
-      gridCols = gridCols + " auto";
-      colLen++;
-    }
-    return gridCols;
-  })(mineCoords.length);
-
-  const style: CSS.Properties = {
-    gridTemplateColumns,
-    display: "grid",
-    border: "1px solid slateblue",
-    backgroundColor: "slateblue",
-    gap: "5px 5px",
-
-    alignItems: "center",
-    margin: "0 auto",
-
-    height: "100%",
-    width: "100%",
-    position: "absolute",
-    top: "0",
-    left: "0",
-  };
-
-  const isGameActive = !(gameOver || gameWon);
-  const minefield = <div style={style}>{mines}</div>;
+  // TODO: handle isGameActive in comp
   const gameOverComp = isGameActive ? (
     <span />
   ) : (
@@ -212,10 +215,10 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
   const timerDisplayOpts = { time };
 
   return (
-    <div>
+    <div className="ExperienceContainer">
       <TimerDisplay key={v4()} {...timerDisplayOpts}></TimerDisplay>
       <div className="MinefieldContainer">
-        {minefield}
+        <div style={style}>{mines}</div>
         {gameOverComp}
       </div>
     </div>
