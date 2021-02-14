@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from "react";
 import { v4 } from "uuid";
 import { TimerDisplay, ScoreDisplay, GameOver } from "../displays";
 import { MineCoordinates } from "./Mine";
-import { Minefield, MinefieldProps } from "./Minefield";
+import { Minefield } from "./Minefield";
 
 export interface GameConfig {
   sessionId: string;
@@ -10,6 +10,27 @@ export interface GameConfig {
   mineMap: boolean[][];
   mineCoords: MineCoordinates[][];
 }
+
+export const checkHighScore = (
+  numMines: number,
+  numRow: number,
+  numColumn: number,
+  time: number,
+  gameWon: boolean
+): string => {
+  const highScoreKey = `HIGH_SCORE_${numRow}_${numColumn}_${numMines}`;
+
+  let highScore = localStorage.getItem(highScoreKey) || "";
+  if (gameWon) {
+    if (!highScore || time < Number(highScore)) {
+      localStorage.setItem(highScoreKey, String(time));
+      highScore = String(time);
+      console.log("New high score");
+    }
+  }
+
+  return highScore || "N/A";
+};
 
 export interface MinefieldControllerProps extends GameConfig {
   startTime: number;
@@ -30,8 +51,16 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
       setIsVictory(isVictory);
     },
   };
-
   const currentTime = new Date().getTime();
+  const playTime = currentTime - props.startTime;
+  const highScore = checkHighScore(
+    props.numberOfMines,
+    props.mineCoords.length,
+    props.mineCoords[0].length,
+    currentTime - props.startTime,
+    isVictory
+  );
+
   const display = isGameActive ? (
     <TimerDisplay key={props.sessionId}></TimerDisplay>
   ) : (
@@ -39,8 +68,7 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
       key={v4()}
       time={currentTime - props.startTime}
       gameWon={isVictory}
-      squaresInRow={props.mineCoords.length}
-      numMines={props.numberOfMines}
+      highScore={highScore}
     ></ScoreDisplay>
   );
   const gameOverProps = {
