@@ -210,19 +210,21 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
   ) : (
     <GameOver key={v4()} {...gameOverProps}></GameOver>
   );
-  const timeDisplay = isGameActive ? (
+  const display = isGameActive ? (
     <TimerDisplay key={props.timerId}></TimerDisplay>
   ) : (
     <ScoreDisplay
       key={v4()}
       time={currentTime - props.startTime}
       gameWon={gameWon}
+      squaresInRow={mineMap.length}
+      numMines={props.numberOfMines}
     ></ScoreDisplay>
   );
 
   return (
     <div className="ExperienceContainer">
-      {timeDisplay}
+      {display}
       <div className="MinefieldContainer">
         <div style={style}>{mines}</div>
         {gameOverComp}

@@ -13,5 +13,10 @@ export const TimerDisplay: FunctionComponent<TimerDisplayProps> = (props) => {
       clearTimeout(timer);
     };
   });
-  return <p>{time}</p>;
+  return (
+    <p>
+      <div style={{ opacity: "0" }}>0</div>
+      {time}
+    </p>
+  );
 };
