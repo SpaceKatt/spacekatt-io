@@ -41,3 +41,6 @@ RUN apk update
 RUN apk --no-cache add ca-certificates
 
 RUN apk add --no-cache nodejs nginx
+
+#### TODO: configure nginx service
+#### TODO: expose nginx service
