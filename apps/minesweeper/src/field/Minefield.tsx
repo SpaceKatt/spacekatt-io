@@ -18,42 +18,6 @@ export interface MinefieldProps extends GameConfig {
 }
 
 export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
-  const visitNeighbors = (
-    row: number,
-    col: number,
-    hiddenField: boolean[][],
-    mineCoords: MineCoordinates[][]
-  ): void => {
-    const visited: boolean[][] = createBooleanMap(
-      hiddenField.length,
-      hiddenField[0].length
-    );
-    const queue: number[][] = [[row, col]];
-    do {
-      const nextNeighbor = queue.pop();
-      if (nextNeighbor) {
-        const [x, y] = nextNeighbor;
-        visited[x][y] = true;
-        hiddenField[x][y] = false;
-        if (mineCoords[x][y].neighbors !== 0) {
-          continue;
-        }
-        for (const neighbor of NEIGHBORS_FILTER) {
-          const [diff_x, diff_y] = neighbor;
-          const i = x + diff_x;
-          const j = y + diff_y;
-          if (BOUNDS_GAURD(i, j, mineCoords.length, mineCoords[0].length)) {
-            continue;
-          }
-          if (visited[i][j]) {
-            continue;
-          }
-          queue.push([i, j]);
-        }
-      }
-    } while (queue.length > 0);
-  };
-
   const initialHiddenMap: boolean[][] = createBooleanMap(
     props.mineCoords.length,
     props.mineCoords[0].length,
@@ -88,6 +52,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
       visitNeighbors(row, col, newField, props.mineCoords);
     }
   };
+
   // click handler to toggle flag state
   const flagHandler = (row: number, col: number) => {
     const newField = flaggedMap.flagged;
@@ -158,4 +123,45 @@ export const generateMinefieldCSS = (numColumns: number): CSS.Properties => {
   };
 
   return style;
+};
+
+export const visitNeighbors = (
+  row: number,
+  col: number,
+  hiddenField: boolean[][],
+  mineCoords: MineCoordinates[][]
+): void => {
+  const visited: boolean[][] = createBooleanMap(
+    hiddenField.length,
+    hiddenField[0].length
+  );
+  const queue: number[][] = [[row, col]];
+  do {
+    const nextNeighbor = queue.pop();
+    if (nextNeighbor) {
+      const [x, y] = nextNeighbor;
+
+      // set visit memo and set element to visible
+      hiddenField[x][y] = false;
+
+      if (mineCoords[x][y].neighbors !== 0) {
+        continue;
+      }
+      for (const neighbor of NEIGHBORS_FILTER) {
+        const [diff_x, diff_y] = neighbor;
+        const i = x + diff_x;
+        const j = y + diff_y;
+        if (BOUNDS_GAURD(i, j, mineCoords.length, mineCoords[0].length)) {
+          continue;
+        }
+        if (visited[i][j]) {
+          continue;
+        }
+        // visit all unvisited neighbors of a square is not adjacent
+        // to a mine square
+        visited[i][j] = true;
+        queue.push([i, j]);
+      }
+    }
+  } while (queue.length > 0);
 };
