@@ -372,6 +372,10 @@
     {
       "packageName": "spacekatt-minesweeper",
       "projectFolder": "apps/minesweeper"
+    },
+    {
+      "packageName": "spacekatt-io",
+      "projectFolder": "spacekatt-io"
     }
     // {
     //   /**
