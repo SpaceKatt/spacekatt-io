@@ -1,9 +1,11 @@
 .ExperienceContainer {
-  width: 70%;
-  height: 70%;
+  width: 75%;
+  height: 75%;
   left: 50%;
   top: 50%;
-  position: absolute;
+  position: relative;
+  /* position: absolute; */
+  /* margin: 0 auto; */
   transform: translate(-50%, -50%);
 }
 .MinefieldContainer {
