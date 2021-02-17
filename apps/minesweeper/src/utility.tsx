@@ -48,18 +48,22 @@ export const checkHighScore = (
   time: number,
   gameWon: boolean
 ): string => {
-  const highScoreKey = `HIGH_SCORE_${numRow}_${numColumn}_${numMines}`;
+  if (typeof window !== "undefined") {
+    const highScoreKey = `HIGH_SCORE_${numRow}_${numColumn}_${numMines}`;
 
-  let highScore = localStorage.getItem(highScoreKey) || "";
-  if (gameWon) {
-    if (!highScore || time < Number(highScore)) {
-      localStorage.setItem(highScoreKey, String(time));
-      highScore = String(time);
-      console.log("New high score");
+    let highScore = localStorage.getItem(highScoreKey) || "";
+    if (gameWon) {
+      if (!highScore || time < Number(highScore)) {
+        localStorage.setItem(highScoreKey, String(time));
+        highScore = String(time);
+        console.log("New high score");
+      }
     }
-  }
 
-  return highScore || "N/A";
+    return highScore || "N/A";
+  } else {
+    return "N/A";
+  }
 };
 
 export const createMineCoordinates = (

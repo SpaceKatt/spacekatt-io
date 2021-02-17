@@ -38,7 +38,7 @@ const difficulties: MinefieldDifficultyManifest = {
   },
 };
 
-function App() {
+export function App() {
   const [difficulty, setDifficulty] = useState<DifficultyKeys>("Beginner");
   const selectedDifficulty = difficulties[difficulty];
   const numberOfMines = selectedDifficulty.numberOfMines;
