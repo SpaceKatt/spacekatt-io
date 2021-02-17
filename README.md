@@ -4,7 +4,7 @@ Shared code for public website and profile.
 
 ## Build Toolchain
 
-This project uses [Rush Stack](https://rushstack.io/) as a build orchestrator and [Heft](https://rushstack.io/pages/heft/overview/) as a test orchestrator.
+This project uses [Rush Stack](https://rushstack.io/) and [Heft](https://rushstack.io/pages/heft/overview/) for build and test orchestration.
 
 ### Installation
 
@@ -18,8 +18,6 @@ rush build
 ```
 
 ### Testing
-
-, on a project level.
 
 ```bash
 cd <package_dir>
