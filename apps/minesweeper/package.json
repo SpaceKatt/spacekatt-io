@@ -1,6 +1,7 @@
 {
   "name": "spacekatt-minesweeper",
   "version": "0.1.0",
+  "main": "./lib/App.js",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "5.11.9",
@@ -17,8 +18,10 @@
     "uuid": "8.3.2"
   },
   "scripts": {
+    "clean": "rimraf lib/",
     "start": "react-scripts start",
-    "build": "heft build --clean",
+    "build": "heft build --clean && npm run copy-files",
+    "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css lib/ && copyfiles -u 1 src/*.css lib/",
     "react-build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -47,6 +50,8 @@
     "@rushstack/heft-node-rig": "0.2.4",
     "@types/heft-jest": "1.0.2",
     "@types/uuid": "8.3.0",
+    "copyfiles": "2.4.1",
+    "rimraf": "3.0.2",
     "typescript": "4.1.3"
   }
 }
