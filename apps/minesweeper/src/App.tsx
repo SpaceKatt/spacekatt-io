@@ -1,7 +1,6 @@
 import * as CSS from "csstype";
 import React, { useState } from "react";
 import { v4 } from "uuid";
-// import "./App.css";
 import { MinefieldController } from "./field";
 import {
   createMineCoordinates,
