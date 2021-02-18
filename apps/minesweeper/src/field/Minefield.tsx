@@ -10,8 +10,6 @@ import {
   WIN_CONDITION,
 } from "../utility";
 
-import "./Minefield.css";
-
 export interface MinefieldProps extends GameConfig {
   setIsGameActive: (isGameActive: boolean) => void;
   setIsVictory: (isVictory: boolean) => void;
@@ -101,6 +99,7 @@ const gridTemplateColumnsTemplate = (numColumns: number): string => {
   return gridCols;
 };
 
+// TODO: accept MinefieldProps
 export const generateMinefieldCSS = (numColumns: number): CSS.Properties => {
   const gridTemplateColumns = gridTemplateColumnsTemplate(numColumns);
 
@@ -114,11 +113,13 @@ export const generateMinefieldCSS = (numColumns: number): CSS.Properties => {
     alignItems: "center",
     margin: "0 auto",
 
-    height: "100%",
-    width: "100%",
+    // height: "100%",
+    // width: "100%",
     // paddingTop: "100%",
-    // position: "absolute",
+    position: "absolute",
     top: "0",
+    right: "0",
+    bottom: "0",
     left: "0",
   };
 

@@ -1,6 +1,7 @@
+import * as CSS from "csstype";
 import React, { useState } from "react";
 import { v4 } from "uuid";
-import "./App.css";
+// import "./App.css";
 import { MinefieldController } from "./field";
 import {
   createMineCoordinates,
@@ -70,8 +71,12 @@ export function App() {
     gameOverHandler,
   };
 
+  const appContainerStyle = generateAppContainerCSS(selectedDifficulty);
+  const dummyContainer = generateMinefieldContainerCSS(selectedDifficulty);
+
   return (
-    <div className="AppContainer">
+    <div style={appContainerStyle}>
+      <div style={dummyContainer}></div>
       <MinefieldController
         key={v4()}
         {...minefieldControllerOpts}
@@ -79,5 +84,33 @@ export function App() {
     </div>
   );
 }
+
+export const generateAppContainerCSS = (
+  minefieldConfig: MinefieldConfig
+): CSS.Properties => {
+  const style: CSS.Properties = {
+    width: "100%",
+    height: "100vh",
+    position: "relative",
+    display: "inline-block",
+    margin: "0 auto",
+  };
+  return style;
+};
+
+export const generateMinefieldContainerCSS = (
+  minefieldConfig: MinefieldConfig
+): CSS.Properties => {
+  const style: CSS.Properties = {
+    // marginTop: "75%",
+    width: "100vh",
+    height: "100vh",
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%, -50%)",
+  };
+  return style;
+};
 
 export default App;

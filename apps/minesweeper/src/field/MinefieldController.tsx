@@ -1,9 +1,11 @@
+import * as CSS from "csstype";
 import React, { FunctionComponent, useState } from "react";
 import { v4 } from "uuid";
 import { GameStateDisplay, GameOver } from "../displays";
 import { checkHighScore } from "../utility";
 import { MineCoordinates } from "./Mine";
 import { Minefield } from "./Minefield";
+import "./Minefield.css";
 
 export interface GameConfig {
   sessionId: string;
@@ -52,8 +54,9 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
     isGameActive,
     gameOverHandler: props.gameOverHandler,
   };
+  const expContainerStyle = generateExperienceContainerCSS();
   return (
-    <div className="ExperienceContainer">
+    <div style={expContainerStyle}>
       <GameStateDisplay {...displayProps}></GameStateDisplay>
       <div className="MinefieldContainer">
         <Minefield {...minefieldOpts} />
@@ -61,4 +64,18 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
       </div>
     </div>
   );
+};
+
+const generateExperienceContainerCSS = (): CSS.Properties => {
+  const style: CSS.Properties = {
+    width: "75%",
+    height: "75%",
+    left: "50%",
+    top: "50%",
+    position: "relative",
+    /* position: absolute; *',
+  /* margin: 0 auto; */
+    transform: "translate(-50%, -50%)",
+  };
+  return style;
 };

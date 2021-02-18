@@ -1,16 +1,5 @@
 .AppContainer {
-  width: 100%;
-  height: 100vh;
-  position: center;
-  margin: 0 auto;
 }
 
 .MinefieldContainer {
-  width: 100vh;
-  height: 100vh;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-
-  transform: translate(-50%, -50%);
 }
