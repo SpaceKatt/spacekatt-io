@@ -97,7 +97,7 @@ export const generateAppContainerCSS = (
   minefieldConfig: MinefieldConfig
 ): CSS.Properties => {
   const style: CSS.Properties = {
-    width: "max(min(100%, 55vh), 350px)",
+    width: "max(min(100%, 55vh), 390px)",
     // height: "100vh",
     position: "relative",
     display: "inline-block",
