@@ -10,21 +10,22 @@ module.exports = {
   projectName: "spacekatt-io",
   themeConfig: {
     navbar: {
-      title: "My Site",
+      title: "SpaceKatt.io",
       logo: {
         alt: "My Site Logo",
         src: "img/logo.svg",
       },
       items: [
         {
-          to: "docs/",
-          activeBasePath: "docs",
-          label: "Docs",
+          to: "projects/",
+          activeBasePath: "projects",
+          sidebarPath: "projects",
+          label: "Projects",
           position: "left",
         },
         { to: "blog", label: "Blog", position: "left" },
         {
-          href: "https://github.com/facebook/docusaurus",
+          href: "https://github.com/spacekatt/",
           label: "GitHub",
           position: "right",
         },
@@ -34,50 +35,46 @@ module.exports = {
       style: "dark",
       links: [
         {
-          title: "Docs",
+          title: "Apps",
           items: [
             {
-              label: "Style Guide",
-              to: "docs/",
+              label: "Minesweeper",
+              to: "projects/",
             },
             {
-              label: "Second Doc",
-              to: "docs/doc2/",
+              label: "Game of Life",
+              to: "projects/gameOfLife/",
             },
           ],
         },
         {
-          title: "Community",
+          title: "Music",
           items: [
             {
-              label: "Stack Overflow",
-              href: "https://stackoverflow.com/questions/tagged/docusaurus",
+              label: "BandCamp",
+              href: "https://spacekatt.bandcamp.com",
             },
             {
-              label: "Discord",
-              href: "https://discordapp.com/invite/docusaurus",
-            },
-            {
-              label: "Twitter",
-              href: "https://twitter.com/docusaurus",
+              label: "SoundCloud",
+              href: "https://soundcloud.com/spacekatt",
             },
           ],
         },
         {
-          title: "More",
+          title: "Other",
           items: [
+            {
+              label: "GitHub",
+              href: "https://github.com/SpaceKatt",
+            },
             {
               label: "Blog",
               to: "blog",
             },
-            {
-              label: "GitHub",
-              href: "https://github.com/facebook/docusaurus",
-            },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Neuromancy Cybernetics, LLC.`,
     },
   },
   presets: [
@@ -87,6 +84,8 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
+          path: "projects",
+          routeBasePath: "projects",
           editUrl:
             "https://github.com/facebook/docusaurus/edit/master/website/",
         },
