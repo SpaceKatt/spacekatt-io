@@ -110,17 +110,18 @@ export const generateMinefieldCSS = (numColumns: number): CSS.Properties => {
     backgroundColor: "slateblue",
     gap: "5px 5px",
 
-    alignItems: "center",
-    margin: "0 auto",
+    // alignItems: "center",
+    // margin: "0 auto",
+    margin: "auto",
 
-    // height: "100%",
-    // width: "100%",
+    height: "100%",
+    width: "100%",
     // paddingTop: "100%",
-    position: "absolute",
-    top: "0",
-    right: "0",
-    bottom: "0",
-    left: "0",
+    // position: "absolute",
+    // top: "0",
+    // right: "0",
+    // bottom: "0",
+    // left: "0",
   };
 
   return style;

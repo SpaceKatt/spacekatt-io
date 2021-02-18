@@ -54,10 +54,11 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
     gameOverHandler: props.gameOverHandler,
   };
   const expContainerStyle = generateExperienceContainerCSS();
+  const minefieldContStle = generateMinefieldContainerCSS();
   return (
     <div className="expContainer" style={expContainerStyle}>
       <GameStateDisplay {...displayProps}></GameStateDisplay>
-      <div className="MinefieldContainer">
+      <div style={minefieldContStle} className="MinefieldContainer">
         <Minefield {...minefieldOpts} />
         <GameOver key={v4()} {...gameOverProps}></GameOver>
       </div>
@@ -65,6 +66,14 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
   );
 };
 
+const generateMinefieldContainerCSS = (): CSS.Properties => {
+  const style: CSS.Properties = {
+    width: "100%",
+    height: "100%",
+    verticalAlign: "top",
+  };
+  return style;
+};
 const generateExperienceContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
     // width: "75%",
@@ -80,6 +89,8 @@ const generateExperienceContainerCSS = (): CSS.Properties => {
     right: "0",
     bottom: "0",
     left: "0",
+    display: "flex",
+    flexDirection: "column",
   };
   return style;
 };
