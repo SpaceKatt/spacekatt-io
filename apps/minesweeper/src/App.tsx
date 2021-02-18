@@ -23,23 +23,23 @@ export type MinefieldDifficultyManifest = {
 const difficulties: MinefieldDifficultyManifest = {
   Beginner: {
     numberOfMines: 6,
-    rowCount: 10,
-    columnCount: 6,
+    rowCount: 6,
+    columnCount: 8,
   },
   Intermediate: {
     numberOfMines: 22,
-    rowCount: 18,
-    columnCount: 18,
+    rowCount: 14,
+    columnCount: 10,
   },
   Advanced: {
-    numberOfMines: 22,
-    rowCount: 18,
+    numberOfMines: 42,
+    rowCount: 22,
     columnCount: 18,
   },
 };
 
 export function App() {
-  const [difficulty, setDifficulty] = useState<DifficultyKeys>("Beginner");
+  const [difficulty, setDifficulty] = useState<DifficultyKeys>("Advanced");
   const selectedDifficulty = difficulties[difficulty];
   const numberOfMines = selectedDifficulty.numberOfMines;
   const squaresInRow = selectedDifficulty.rowCount;
@@ -71,15 +71,24 @@ export function App() {
   };
 
   const appContainerStyle = generateAppContainerCSS(selectedDifficulty);
-  const dummyContainer = generateMinefieldContainerCSS(selectedDifficulty);
+
+  const aspectRatioMap: {
+    [K in DifficultyKeys]: string;
+  } = {
+    Beginner: "45%",
+    Intermediate: "130%",
+    Advanced: "130%",
+  };
+  const dummyContainer = generateDummyDivCSS(aspectRatioMap[difficulty]);
 
   return (
     <div style={appContainerStyle}>
-      <div style={dummyContainer}></div>
-      <MinefieldController
-        key={v4()}
-        {...minefieldControllerOpts}
-      ></MinefieldController>
+      <div style={dummyContainer}>
+        <MinefieldController
+          key={v4()}
+          {...minefieldControllerOpts}
+        ></MinefieldController>
+      </div>
     </div>
   );
 }
@@ -89,7 +98,7 @@ export const generateAppContainerCSS = (
 ): CSS.Properties => {
   const style: CSS.Properties = {
     width: "100%",
-    height: "100vh",
+    // height: "100vh",
     position: "relative",
     display: "inline-block",
     margin: "0 auto",
@@ -97,17 +106,15 @@ export const generateAppContainerCSS = (
   return style;
 };
 
-export const generateMinefieldContainerCSS = (
-  minefieldConfig: MinefieldConfig
-): CSS.Properties => {
+export const generateDummyDivCSS = (aspectRation: string): CSS.Properties => {
   const style: CSS.Properties = {
-    // marginTop: "75%",
-    width: "100vh",
-    height: "100vh",
-    position: "absolute",
-    left: "50%",
-    top: "50%",
-    transform: "translate(-50%, -50%)",
+    marginTop: aspectRation,
+    // width: "100vh",
+    // height: "100vh",
+    // position: "absolute",
+    // left: "50%",
+    // top: "50%",
+    // transform: "translate(-50%, -50%)",
   };
   return style;
 };

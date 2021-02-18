@@ -50,7 +50,7 @@ export const Mine: FunctionComponent<MineProps> = (props) => {
   ) : (
     <div className="Counter">
       {props.coords.neighbors === 0 ? (
-        <span> </span>
+        <div className="Invis">0</div>
       ) : (
         <div className="NeighborCounter">{props.coords.neighbors}</div>
       )}

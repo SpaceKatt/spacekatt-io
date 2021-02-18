@@ -55,7 +55,7 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
   };
   const expContainerStyle = generateExperienceContainerCSS();
   return (
-    <div style={expContainerStyle}>
+    <div className="expContainer" style={expContainerStyle}>
       <GameStateDisplay {...displayProps}></GameStateDisplay>
       <div className="MinefieldContainer">
         <Minefield {...minefieldOpts} />
@@ -67,14 +67,19 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
 
 const generateExperienceContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
-    width: "75%",
-    height: "75%",
-    left: "50%",
-    top: "50%",
-    position: "relative",
+    // width: "75%",
+    // height: "75%",
+    // left: "50%",
+    // top: "50%",
+    // position: "relative",
     /* position: absolute; *',
-  /* margin: 0 auto; */
-    transform: "translate(-50%, -50%)",
+    /* margin: 0 auto; */
+    // transform: "translate(-50%, -50%)",
+    position: "absolute",
+    top: "0",
+    right: "0",
+    bottom: "0",
+    left: "0",
   };
   return style;
 };
