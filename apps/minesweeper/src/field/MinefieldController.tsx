@@ -5,7 +5,6 @@ import { GameStateDisplay, GameOver } from "../displays";
 import { checkHighScore } from "../utility";
 import { MineCoordinates } from "./Mine";
 import { Minefield } from "./Minefield";
-import "./Minefield.css";
 
 export interface GameConfig {
   sessionId: string;
