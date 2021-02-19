@@ -82,8 +82,8 @@ export function App() {
   const dummyContainer = generateDummyDivCSS(aspectRatioMap[difficulty]);
 
   return (
-    <div style={appContainerStyle}>
-      <div style={dummyContainer}>
+    <div style={appContainerStyle} id="AppContainer">
+      <div style={dummyContainer} id="Dummy">
         <MinefieldController
           key={v4()}
           {...minefieldControllerOpts}

@@ -86,7 +86,11 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
   }
 
   const style = generateMinefieldCSS(hiddenMap.hidden[0].length);
-  return <div style={style}>{mines}</div>;
+  return (
+    <div id="Minefield" style={style}>
+      {mines}
+    </div>
+  );
 };
 
 const gridTemplateColumnsTemplate = (numColumns: number): string => {

@@ -58,7 +58,11 @@ export const Mine: FunctionComponent<MineProps> = (props) => {
   );
   const square = props.hidden ? hiddenSquare : exposed;
   return (
-    <div className="Mine" onClick={handleClick}>
+    <div
+      className="Mine"
+      id={`mine-${props.coords.x}-${props.coords.y}`}
+      onClick={handleClick}
+    >
       {square}
     </div>
   );

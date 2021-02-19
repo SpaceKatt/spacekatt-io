@@ -56,9 +56,9 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
   const expContainerStyle = generateExperienceContainerCSS();
   const minefieldContStle = generateMinefieldContainerCSS();
   return (
-    <div className="expContainer" style={expContainerStyle}>
+    <div id="expContainer" style={expContainerStyle}>
       <GameStateDisplay {...displayProps}></GameStateDisplay>
-      <div style={minefieldContStle} className="MinefieldContainer">
+      <div style={minefieldContStle} id="MinefieldContainer">
         <Minefield {...minefieldOpts} />
         <GameOver key={v4()} {...gameOverProps}></GameOver>
       </div>
