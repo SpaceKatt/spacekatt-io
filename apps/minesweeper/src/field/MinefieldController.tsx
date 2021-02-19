@@ -2,7 +2,8 @@ import * as CSS from "csstype";
 import React, { FunctionComponent, useState } from "react";
 import { v4 } from "uuid";
 import { GameStateDisplay, GameOver } from "../displays";
-import { checkHighScore } from "../utility";
+import { getHighScoreSummary, HighScoreSummary } from "../displays/HighScore";
+import { setHighScore } from "../utility";
 import { MineCoordinates } from "./Mine";
 import { Minefield } from "./Minefield";
 
@@ -34,7 +35,7 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
   };
   const currentTime = new Date().getTime();
   const playTime = (currentTime - props.startTime) / 1000;
-  const highScore = checkHighScore(
+  const highScore = setHighScore(
     props.numberOfMines,
     props.mineCoords.length,
     props.mineCoords[0].length,
@@ -53,6 +54,9 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
     isGameActive,
     gameOverHandler: props.gameOverHandler,
   };
+  const highScoreSummaryProps = {
+    config: getHighScoreSummary(),
+  };
   const expContainerStyle = generateExperienceContainerCSS();
   const minefieldContStle = generateMinefieldContainerCSS();
   return (
@@ -62,6 +66,7 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
         <Minefield {...minefieldOpts} />
         <GameOver key={v4()} {...gameOverProps}></GameOver>
       </div>
+      <HighScoreSummary {...highScoreSummaryProps}></HighScoreSummary>
     </div>
   );
 };

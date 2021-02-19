@@ -41,7 +41,7 @@ export const BOUNDS_GAURD = (
   return !(row >= 0 && col >= 0 && row < lenRow && col < lenCol);
 };
 
-export const checkHighScore = (
+export const setHighScore = (
   numMines: number,
   numRow: number,
   numColumn: number,
@@ -64,6 +64,19 @@ export const checkHighScore = (
   } else {
     return "N/A";
   }
+};
+
+export const checkHighScore = (
+  numMines: number,
+  numRow: number,
+  numColumn: number
+): string => {
+  let highScore = "N/A";
+  if (typeof window !== "undefined") {
+    const highScoreKey = `HIGH_SCORE_${numRow}_${numColumn}_${numMines}`;
+    highScore = localStorage.getItem(highScoreKey) || highScore;
+  }
+  return highScore;
 };
 
 export const createMineCoordinates = (

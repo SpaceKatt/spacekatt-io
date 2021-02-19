@@ -14,13 +14,15 @@ export interface MinefieldConfig {
   columnCount: number;
 }
 
-export type DifficultyKeys = "Beginner" | "Intermediate" | "Advanced";
+export const difficultyKeyLiteral = ["Beginner", "Intermediate", "Advanced"];
+export const difficultyKeys = ["Beginner", "Intermediate", "Advanced"] as const;
+export type DifficultyKeys = typeof difficultyKeys[number];
 
 export type MinefieldDifficultyManifest = {
   [K in DifficultyKeys]: MinefieldConfig;
 };
 
-const difficulties: MinefieldDifficultyManifest = {
+export const difficulties: MinefieldDifficultyManifest = {
   Beginner: {
     numberOfMines: 6,
     rowCount: 6,
@@ -39,7 +41,7 @@ const difficulties: MinefieldDifficultyManifest = {
 };
 
 export function App() {
-  const [difficulty, setDifficulty] = useState<DifficultyKeys>("Advanced");
+  const [difficulty, setDifficulty] = useState<DifficultyKeys>("Beginner");
   const selectedDifficulty = difficulties[difficulty];
   const numberOfMines = selectedDifficulty.numberOfMines;
   const squaresInRow = selectedDifficulty.rowCount;
