@@ -8,32 +8,32 @@ import styles from "./styles.module.css";
 
 const features = [
   {
-    title: "Easy to Use",
+    title: "Create.",
     imageUrl: "img/undraw_docusaurus_mountain.svg",
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        SpaceKatt creates art, music, and technology. Come see the fun we're
+        having!
       </>
     ),
   },
   {
-    title: "Focus on What Matters",
+    title: "Learn.",
     imageUrl: "img/undraw_docusaurus_tree.svg",
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Consolidate and reconcile the oddities we bumble into along the path of
+        creation. Share the findings we uncover in our pursuit.
       </>
     ),
   },
   {
-    title: "Powered by React",
+    title: "Grow.",
     imageUrl: "img/undraw_docusaurus_react.svg",
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        How does our experience change the future? Check the
+        <a href="/blog"> blog</a> for content updates on this site.
       </>
     ),
   },
