@@ -1,5 +1,5 @@
 import * as CSS from "csstype";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 
 import { Mine, MineCoordinates, MineProps } from "./Mine";
 import { GameConfig } from "./MinefieldController";
@@ -41,8 +41,10 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     setHiddenMap({ hidden: newField });
 
     if (props.mineCoords[row][col].isMine) {
-      setHiddenMap({ hidden: newField });
-      setGaveOver(true);
+      // setHiddenMap({ hidden: newField });
+      setGaveOver((_) => {
+        return true;
+      });
       return;
     }
 
@@ -65,10 +67,12 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     props.numberOfMines
   );
 
-  if (gameOver || gameWon) {
-    props.setIsVictory(gameWon);
-    props.setIsGameActive(false);
-  }
+  useEffect(() => {
+    if (gameOver || gameWon) {
+      props.setIsVictory(gameWon);
+      props.setIsGameActive(false);
+    }
+  });
 
   const mines = [];
   for (let i = 0; i < hiddenMap.hidden.length; i++) {

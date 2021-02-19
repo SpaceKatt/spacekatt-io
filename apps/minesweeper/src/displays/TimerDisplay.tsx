@@ -15,9 +15,9 @@ export const TimerDisplay: FunctionComponent<TimerDisplayProps> = (props) => {
     };
   });
   return (
-    <p>
+    <div>
       <div style={{ opacity: "0" }}>0</div>
       {time}
-    </p>
+    </div>
   );
 };

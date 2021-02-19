@@ -1,6 +1,7 @@
 import * as CSS from "csstype";
 import React from "react";
 import { FunctionComponent } from "react";
+import { v4 } from "uuid";
 import {
   difficulties,
   difficultyKeyLiteral,
@@ -44,13 +45,14 @@ export const HighScoreSummary: FunctionComponent<HighScoreSummaryProps> = (
     const card = (
       <div
         id={`${difficulty}HighScore`}
-      >{`Difficulty: ${difficulty} Score: ${score}`}</div>
+        key={v4()}
+      >{`${difficulty} High Score: ${score}`}</div>
     );
     summaryCards.push(card);
   }
   const highScoreStyle = generateHighScoreContainerCSS();
   return (
-    <div id="HighScoreSummary" style={highScoreStyle}>
+    <div id="HighScoreSummary" style={highScoreStyle} key={v4()}>
       {summaryCards}
     </div>
   );
