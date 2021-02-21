@@ -1,0 +1,11 @@
+:root {
+  --minefield-background-color: slateblue;
+}
+
+.MetaMinesweeperContainer {
+  background-color: var(--minefield-background-color);
+  border: 2px;
+  border-style: solid;
+  display: flex;
+  flex-direction: column;
+}

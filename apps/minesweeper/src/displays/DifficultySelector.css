@@ -1,0 +1,54 @@
+.DifficultySelectorContainer {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--minefield-background-color);
+  vertical-align: bottom;
+  padding: 10px 17px;
+}
+
+.DifficultyPlaying {
+  display: flex;
+
+  height: 100%;
+  color: black;
+  padding: 2px 20px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+}
+.DifficultyButtons {
+  font-weight: var(--ifm-font-weight-bold);
+  padding-left: 0;
+}
+.DifficultyButtons--block {
+  display: flex;
+  justify-content: stretch;
+  gap: 10px;
+}
+
+.DifficultyButtons--block .SelectedDifficulty {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.SelectedDifficulty {
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: inline-block;
+  list-style-type: none;
+  padding: 0.25rem 1rem;
+  transition: background var(--ifm-transition-fast)
+    var(--ifm-transition-timing-default);
+  opacity: 0.2;
+  /* flex-grow: 1; */
+}
+
+.SelectedDifficulty--active {
+  opacity: 0.9;
+  color: var(--ifm-pills-color-active);
+}
+
+.SelectedDifficulty:not(.SelectedDifficulty--active):hover {
+  opacity: 0.8;
+}

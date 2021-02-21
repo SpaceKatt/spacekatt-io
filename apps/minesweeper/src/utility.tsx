@@ -2,6 +2,7 @@ import { MineCoordinates } from "./field/Mine";
 
 export class ConfigConstants {
   static readonly gameStateDisplayHeight = "70px";
+  static readonly highscoreDisplayHeight = "72px";
 }
 
 export const NEIGHBORS_FILTER = [

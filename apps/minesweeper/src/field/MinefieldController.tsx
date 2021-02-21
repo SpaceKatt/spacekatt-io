@@ -92,7 +92,6 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
   };
   const expContainerStyle = generateExperienceContainerCSS();
   const minefieldContStle = generateMinefieldContainerCSS();
-  const config = getHighScoreSummary();
   return (
     <div id="expContainer" style={expContainerStyle}>
       <div id="TimerAndMinesLeft">
@@ -102,7 +101,6 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
         <Minefield {...minefieldOpts} />
         <GameOver key="gameOver" {...gameOverProps}></GameOver>
       </div>
-      <HighScoreSummary key={v4()} {...{ config }} />
     </div>
   );
 };
@@ -123,8 +121,8 @@ const generateExperienceContainerCSS = (): CSS.Properties => {
     right: "0",
     bottom: "0",
     left: "0",
-    border: "2px",
-    borderStyle: "solid",
+    // border: "2px",
+    // borderStyle: "solid",
   };
   return style;
 };

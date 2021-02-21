@@ -1,8 +1,14 @@
 import * as CSS from "csstype";
 import React from "react";
 import { FunctionComponent } from "react";
-import { difficulties, difficultyKeyLiteral, DifficultyKeys } from "../App";
-import { checkHighScore } from "../utility";
+import {
+  buttonMap,
+  colorMap,
+  difficulties,
+  difficultyKeyLiteral,
+  DifficultyKeys,
+} from "../App";
+import { checkHighScore, ConfigConstants } from "../utility";
 
 export type HighScoreSummaryConfig = {
   [K in DifficultyKeys]: string;
@@ -33,13 +39,18 @@ export const HighScoreSummary: FunctionComponent<HighScoreSummaryProps> = (
 ) => {
   const summaryCards = [];
   for (const key of Object.keys(props.config)) {
-    const difficulty = key;
-    const score = props.config[key as DifficultyKeys];
+    const difficulty = key as DifficultyKeys;
+    const score = props.config[difficulty];
+    const cardStyle = generateHighScoreCardSCC();
     const card = (
       <div
         id={`${difficulty}HighScore`}
         key={difficulty}
-      >{`${difficulty} High Score: ${score}`}</div>
+        style={cardStyle}
+        className={buttonMap[difficulty]}
+      >
+        {difficulty} <br /> {score}
+      </div>
     );
     summaryCards.push(card);
   }
@@ -53,8 +64,16 @@ export const HighScoreSummary: FunctionComponent<HighScoreSummaryProps> = (
 
 const generateHighScoreContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
+    height: ConfigConstants.highscoreDisplayHeight,
     display: "flex",
     flexDirection: "row",
+    justifyContent: "space-around",
+    padding: "7px",
   };
+  return style;
+};
+
+const generateHighScoreCardSCC = (): CSS.Properties => {
+  const style: CSS.Properties = {};
   return style;
 };

@@ -2,13 +2,17 @@ import * as CSS from "csstype";
 import React, { useState } from "react";
 import { v4 } from "uuid";
 import { DifficultySelector, DifficultySelectorProps } from "./displays";
+import { HighScoreSummary, getHighScoreSummary } from "./displays/HighScore";
 import { MinefieldController } from "./field";
 import {
+  ConfigConstants,
   createMineCoordinates,
   createMineMap,
   createNeighborMap,
   getWidthCssProp,
 } from "./utility";
+
+import "./App.css";
 
 export interface MinefieldConfig {
   numberOfMines: number;
@@ -45,12 +49,28 @@ export const difficulties: MinefieldDifficultyManifest = {
   },
 };
 
-const aspectRatioMap: {
+export const aspectRatioMap: {
   [K in DifficultyKeys]: string;
 } = {
   Beginner: "109%",
   Intermediate: "125%",
   Advanced: "130%",
+};
+
+export const colorMap: {
+  [K in DifficultyKeys]: string;
+} = {
+  Beginner: "#10D7AE",
+  Intermediate: "#E68E36",
+  Advanced: "#DD517F",
+};
+
+export const buttonMap: {
+  [K in DifficultyKeys]: string;
+} = {
+  Beginner: "button button--success",
+  Intermediate: "button button--warning",
+  Advanced: "button button--danger",
 };
 
 export function App() {
@@ -96,7 +116,10 @@ export function App() {
   const dummyContainer = generateDummyDivCSS(aspectRatioMap[difficulty]);
 
   return (
-    <div id="metaMinesweeperContainer" style={generateMetaContainerCSS()}>
+    <div
+      className="MetaMinesweeperContainer"
+      style={generateMetaContainerCSS()}
+    >
       {diffSelector}
       <div style={appContainerStyle} id="AppContainer">
         <div style={dummyContainer} id="Dummy"></div>
@@ -105,6 +128,7 @@ export function App() {
           {...minefieldControllerOpts}
         ></MinefieldController>
       </div>
+      <HighScoreSummary {...{ config: getHighScoreSummary() }} />
     </div>
   );
 }
@@ -112,12 +136,7 @@ export function App() {
 export const generateMetaContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
     width: getWidthCssProp(),
-    height: "800%",
-    display: "flex",
-    flexDirection: "column",
-    // justifyContent: "center",
-    // border: "4px",
-    // borderStyle: "solid",
+    height: `calc(800% + ${ConfigConstants.highscoreDisplayHeight}}`,
   };
   return style;
 };

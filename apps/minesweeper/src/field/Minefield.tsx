@@ -9,6 +9,7 @@ import {
   createBooleanMap,
   WIN_CONDITION,
 } from "../utility";
+import "./Minefield.css";
 
 export interface MinefieldProps extends GameConfig {
   setIsGameActive: (isGameActive: boolean) => void;
@@ -99,7 +100,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
 
   const style = generateMinefieldCSS(hiddenMap.hidden[0].length);
   return (
-    <div id="Minefield" style={style}>
+    <div id="Minefield" className="Minefield" style={style}>
       {mines}
     </div>
   );
@@ -121,26 +122,6 @@ export const generateMinefieldCSS = (numColumns: number): CSS.Properties => {
 
   const style: CSS.Properties = {
     gridTemplateColumns,
-    display: "grid",
-    // alignItems: "stretch",
-    border: "2px",
-    // borderStyle: "solid",
-    backgroundColor: "slateblue",
-    gap: "5px 5px",
-
-    // alignItems: "center",
-    // margin: "0 auto",
-    margin: "auto",
-
-    height: "100%",
-
-    width: "100%",
-    // paddingTop: "100%",
-    // position: "absolute",
-    // top: "0",
-    // right: "0",
-    // bottom: "0",
-    // left: "0",
   };
 
   return style;

@@ -1,12 +1,13 @@
 import * as CSS from "csstype";
 import React, { MouseEvent } from "react";
-import { ChangeEvent } from "react";
-import { useState } from "react";
 import { FunctionComponent } from "react";
-import { DifficultyKeys, MinefieldConfig } from "../App";
-import "infima/dist/css/default/default.css";
 import { v4 } from "uuid";
+
+import { colorMap, DifficultyKeys } from "../App";
 import { getWidthCssProp } from "../utility";
+
+import "infima/dist/css/default/default.css";
+import "./DifficultySelector.css";
 
 export interface DifficultySelectorProps {
   difficulties: DifficultyKeys[];
@@ -26,15 +27,15 @@ export const DifficultySelector: FunctionComponent<DifficultySelectorProps> = (
   for (const difficulty of props.difficulties) {
     const classNom =
       props.selectedDifficulty === difficulty
-        ? "pills__item pills__item--active"
-        : "pills__item";
+        ? "SelectedDifficulty SelectedDifficulty--active"
+        : "SelectedDifficulty";
     const diffButton = (
       <div
         key={v4()}
         className={classNom}
         defaultValue={difficulty}
         onClick={onRadioChangeCurry(difficulty)}
-        style={{ color: colorMap[difficulty] }}
+        style={{ backgroundColor: colorMap[difficulty] }}
       >
         {difficulty}
       </div>
@@ -46,39 +47,30 @@ export const DifficultySelector: FunctionComponent<DifficultySelectorProps> = (
   //   event.preventDefault();
   //   console.log(selected);
   // };
-  const style = generateDifficultySelectorCSS(props);
+  const style = generateDifficultySelectorContainerCSS();
   const formStyle = generateFormCSS();
-  const difficultyCSS = generateDifficultyCSS(props.selectedDifficulty);
+  const difficultyCSS = generateDifficultyPlayingCSS(props.selectedDifficulty);
   return (
-    <div id="DifficultySelector" key={v4()} style={style}>
-      <div key={v4()} className="pills pills--block" style={formStyle}>
+    <div className="DifficultySelectorContainer" style={style}>
+      <div
+        className="DifficultyButtons DifficultyButtons--block"
+        style={formStyle}
+      >
         {difficultyButtons}
       </div>
 
-      <div style={difficultyCSS} key={v4()}>
+      <div className="DifficultyPlaying" style={difficultyCSS}>
         Playing =&gt; {props.selectedDifficulty}
       </div>
     </div>
   );
 };
-const colorMap: {
-  [K in DifficultyKeys]: string;
-} = {
-  Beginner: "#10D7AE",
-  Intermediate: "#E68E36",
-  Advanced: "#DD517F",
-};
 
-const generateDifficultyCSS = (difficulty: DifficultyKeys): CSS.Properties => {
+const generateDifficultyPlayingCSS = (
+  difficulty: DifficultyKeys
+): CSS.Properties => {
   const style: CSS.Properties = {
-    display: "flex",
-
-    // height: "100%",
-    // color: "black",
-    padding: "2px 20px",
-    justifyContent: "center",
     backgroundColor: colorMap[difficulty],
-    borderRadius: "16px",
   };
   return style;
 };
@@ -98,19 +90,9 @@ const generateFormCSS = (): CSS.Properties => {
   return style;
 };
 
-export const generateDifficultySelectorCSS = (
-  difficultySelectorProps: DifficultySelectorProps
-): CSS.Properties => {
+export const generateDifficultySelectorContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
-    display: "flex",
-    flexDirection: "column",
-    verticalAlign: "bottom",
-    padding: "10px 17px",
-
     width: getWidthCssProp(),
-    border: "2px",
-    borderStyle: "solid",
-    height: "100px",
     // padding: "14px",
     // position: "relative",
     // display: "inline-block",
