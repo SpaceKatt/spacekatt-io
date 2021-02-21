@@ -7,7 +7,7 @@ export interface MinesLeftProps {
 }
 export const MinesLeft: FunctionComponent<MinesLeftProps> = (props) => {
   return (
-    <div className="button button--danger">
+    <div className="Display Display-MinesLeft">
       Mines left <br /> {props.minesLeft}
     </div>
   );

@@ -2,6 +2,7 @@ import * as CSS from "csstype";
 import React from "react";
 import { FunctionComponent } from "react";
 import { getWidthCssProp } from "../utility";
+import "./index.css";
 
 export interface ScoreDisplayProps {
   gameWon: boolean;
@@ -13,27 +14,27 @@ export interface ScoreDisplayProps {
 export const ScoreDisplay: FunctionComponent<ScoreDisplayProps> = (props) => {
   const scoreStyle = generateScoreCSS();
   const gameWon = props.gameWon ? (
-    <span className="button button--success">
+    <span className="Display Display-Win">
       You Won! <br /> Congrats!
     </span>
   ) : (
-    <span className="button button--danger">
+    <span className="Display Display-Lose">
       You Lost... <br /> Sucks to suck!
     </span>
   );
   const highScore = props.isNewHighScore ? (
-    <span className="button button--warning">
+    <span className="Display Display-NewHighScore">
       New High <br /> Score!!!!!
     </span>
   ) : (
-    <span className="button button--info">
+    <span className="Display Display-Info">
       High score <br /> {props.highScore || "N/A"}
     </span>
   );
   return (
-    <div style={scoreStyle}>
+    <div className="DisplayContainer DisplayContainer--block">
       {gameWon}
-      <span className="button button--info">
+      <span className="Display Display-Timer">
         Time <br /> {Number(props.time)} seconds
       </span>
       {highScore}
@@ -43,7 +44,7 @@ export const ScoreDisplay: FunctionComponent<ScoreDisplayProps> = (props) => {
 
 export const generateScoreCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
-    width: getWidthCssProp(),
+    // width: getWidthCssProp(),
     height: "100%",
     display: "flex",
     alignItems: "center",

@@ -1,0 +1,49 @@
+.DisplayContainer {
+  font-weight: var(--ifm-font-weight-bold);
+  padding-left: 0;
+  padding: 15px;
+}
+.DisplayContainer--block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  vertical-align: middle;
+  height: 10;
+  /* display: flex; */
+  /* justify-content: stretch; */
+  gap: 10px;
+}
+
+.DisplayContainer--block .Display {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.Display {
+  border-radius: 6px;
+}
+
+.Display-Win {
+  background-color: green;
+}
+
+.Display-Info {
+  background-color: aliceblue;
+}
+
+.Display-Lose {
+  background-color: red;
+}
+
+.Display-NewHighScore {
+  background-color: yellow;
+}
+
+.Display-MinesLeft {
+  background-color: aquamarine;
+}
+
+.Display-Timer {
+  background-color: aqua;
+}

@@ -3,9 +3,15 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import { v4 } from "uuid";
 import { GameStateDisplay, GameOver } from "../displays";
 import { getHighScoreSummary, HighScoreSummary } from "../displays/HighScore";
-import { checkHighScore, ConfigConstants, setHighScore } from "../utility";
+import {
+  checkHighScore,
+  ConfigConstants,
+  getWidthCssProp,
+  setHighScore,
+} from "../utility";
 import { MineCoordinates } from "./Mine";
 import { Minefield } from "./Minefield";
+import "./Minefield.css";
 
 export interface GameConfig {
   sessionId: string;
@@ -93,8 +99,8 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
   const expContainerStyle = generateExperienceContainerCSS();
   const minefieldContStle = generateMinefieldContainerCSS();
   return (
-    <div id="expContainer" style={expContainerStyle}>
-      <div id="TimerAndMinesLeft">
+    <div className="ExperienceContainer" style={expContainerStyle}>
+      <div className="TimerAndMinesLeft">
         <GameStateDisplay {...displayProps}></GameStateDisplay>
       </div>
       <div style={minefieldContStle} id="MinefieldContainer">
@@ -107,7 +113,7 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
 
 const generateMinefieldContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
-    width: "100%",
+    // width: getWidthCssProp(),
     height: `calc(100% - ${ConfigConstants.gameStateDisplayHeight})`,
     verticalAlign: "top",
     position: "relative",
@@ -116,11 +122,6 @@ const generateMinefieldContainerCSS = (): CSS.Properties => {
 };
 const generateExperienceContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
-    position: "absolute",
-    top: "0",
-    right: "0",
-    bottom: "0",
-    left: "0",
     // border: "2px",
     // borderStyle: "solid",
   };

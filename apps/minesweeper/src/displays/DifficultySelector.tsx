@@ -76,27 +76,20 @@ const generateDifficultyPlayingCSS = (
 };
 const generateFormCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
-    // width: "max(min(100%, 55vh), 390px)",
     display: "flex",
     flexGrow: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    // verticalAlign: "middle",
-    // padding: "10px 30px",
     paddingBottom: "8px",
     paddingTop: "0px",
-    // alignItems: "baseline",
   };
   return style;
 };
 
 export const generateDifficultySelectorContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
-    width: getWidthCssProp(),
-    // padding: "14px",
-    // position: "relative",
-    // display: "inline-block",
-    // margin: "0 auto",
+    width: `calc(${getWidthCssProp()} - 4px`,
+    paddingRight: "11px",
   };
   return style;
 };

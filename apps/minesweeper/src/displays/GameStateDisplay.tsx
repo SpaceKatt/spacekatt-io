@@ -4,6 +4,8 @@ import { TimerDisplay, ScoreDisplay } from ".";
 import { ConfigConstants } from "../utility";
 import { MinesLeft } from "./MinesLeft";
 
+import "./index.css";
+
 export interface GameStateDisplayProps {
   playTime: number;
   isVictory: boolean;
@@ -18,7 +20,7 @@ export const GameStateDisplay: FunctionComponent<GameStateDisplayProps> = (
   const timerMinesLeftCSS = generateTimeMinesLeftCSS();
   const gameStateDisplayCSS = generateGameStateDisplayCSS();
   const display = props.isGameActive ? (
-    <div style={timerMinesLeftCSS}>
+    <div className="DisplayContainer DisplayContainer--block">
       <TimerDisplay {...{ playTime: props.playTime }}></TimerDisplay>
       <MinesLeft {...{ minesLeft: props.minesLeft }}></MinesLeft>
     </div>
@@ -36,20 +38,11 @@ export const GameStateDisplay: FunctionComponent<GameStateDisplayProps> = (
 const generateGameStateDisplayCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
     height: ConfigConstants.gameStateDisplayHeight,
-    borderBottom: "3px",
-    borderBottomStyle: "solid",
   };
   return style;
 };
 
 const generateTimeMinesLeftCSS = (): CSS.Properties => {
-  const style: CSS.Properties = {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    verticalAlign: "middle",
-    height: "100%",
-  };
+  const style: CSS.Properties = {};
   return style;
 };

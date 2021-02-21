@@ -1,7 +1,7 @@
 import { MineCoordinates } from "./field/Mine";
 
 export class ConfigConstants {
-  static readonly gameStateDisplayHeight = "70px";
+  static readonly gameStateDisplayHeight = "80px";
   static readonly highscoreDisplayHeight = "72px";
 }
 
@@ -195,5 +195,5 @@ export const initializeField = (
 };
 
 export const getWidthCssProp = (): string => {
-  return "max(min(100%, 55vh), 420px)";
+  return "max(min(100%, 55vh), 424px)";
 };
