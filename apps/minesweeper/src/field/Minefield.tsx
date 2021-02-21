@@ -29,7 +29,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
   );
   const [hiddenMap, setHiddenMap] = useState({ hidden: initialHiddenMap });
   const [flaggedMap, setFlaggedMap] = useState({ flagged: initialFlaggedMap });
-  const [gameOver, setGaveOver] = useState(false);
+  // const [gameOver, setGaveOver] = useState(false);
 
   // click handler for a normal mine click
   const mineHandler = (row: number, col: number) => {
@@ -44,7 +44,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     if (props.mineCoords[row][col].isMine) {
       setHiddenMap({ hidden: newField });
       props.setIsVictory(false);
-      setGaveOver(true);
+      props.setIsGameActive(false);
       return;
     }
 
@@ -52,6 +52,19 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
       visitNeighbors(row, col, newField, props.mineCoords);
     }
     setHiddenMap({ hidden: newField });
+    const gameWon = WIN_CONDITION(
+      flaggedMap.flagged,
+      props.mineCoords,
+      hiddenMap.hidden,
+      props.numberOfMines
+    );
+
+    props.setMinesLeft(props.numberOfMines - flaggedCount);
+
+    if (gameWon) {
+      props.setIsVictory(gameWon);
+      props.setIsGameActive(false);
+    }
   };
 
   let flaggedCount = 0;
@@ -67,21 +80,6 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     newField[row][col] = !newField[row][col];
     setFlaggedMap({ flagged: newField });
   };
-
-  const gameWon = WIN_CONDITION(
-    flaggedMap.flagged,
-    props.mineCoords,
-    hiddenMap.hidden,
-    props.numberOfMines
-  );
-
-  useEffect(() => {
-    props.setMinesLeft(props.numberOfMines - flaggedCount);
-    if (gameOver || gameWon) {
-      props.setIsVictory(gameWon);
-      props.setIsGameActive(false);
-    }
-  });
 
   const mines = [];
   for (let i = 0; i < hiddenMap.hidden.length; i++) {

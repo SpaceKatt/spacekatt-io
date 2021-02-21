@@ -32,9 +32,7 @@ export const WIN_CONDITION = (
     }
   }
 
-  const mineCorrection = mineCount - flaggedCount;
-
-  return visibleCount + flaggedCount + mineCorrection === target;
+  return visibleCount + flaggedCount + mineCount === target;
 };
 
 export const BOUNDS_GAURD = (
