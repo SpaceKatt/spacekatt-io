@@ -1,15 +1,8 @@
 import * as CSS from "csstype";
 import React from "react";
 import { FunctionComponent } from "react";
-import { v4 } from "uuid";
-import {
-  difficulties,
-  difficultyKeyLiteral,
-  DifficultyKeys,
-  difficultyKeys,
-  MinefieldConfig,
-} from "../App";
-import { checkHighScore, setHighScore } from "../utility";
+import { difficulties, difficultyKeyLiteral, DifficultyKeys } from "../App";
+import { checkHighScore } from "../utility";
 
 export type HighScoreSummaryConfig = {
   [K in DifficultyKeys]: string;
@@ -24,11 +17,12 @@ export const getHighScoreSummary = (): HighScoreSummaryConfig => {
 
   for (const key of difficultyKeyLiteral) {
     const config = difficulties[key as DifficultyKeys];
-    codex[key as DifficultyKeys] = checkHighScore(
-      config.numberOfMines,
-      config.rowCount,
-      config.columnCount
-    );
+    codex[key as DifficultyKeys] =
+      checkHighScore(
+        config.numberOfMines,
+        config.rowCount,
+        config.columnCount
+      ) || "N/A";
   }
 
   return codex;

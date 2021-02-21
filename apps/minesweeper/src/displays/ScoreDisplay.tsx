@@ -1,18 +1,56 @@
+import * as CSS from "csstype";
 import React from "react";
 import { FunctionComponent } from "react";
+import { getWidthCssProp } from "../utility";
 
 export interface ScoreDisplayProps {
   gameWon: boolean;
+  isNewHighScore: boolean;
   highScore: string;
   time: number;
 }
 
 export const ScoreDisplay: FunctionComponent<ScoreDisplayProps> = (props) => {
+  const scoreStyle = generateScoreCSS();
+  const gameWon = props.gameWon ? (
+    <span className="button button--success">
+      You Won! <br /> Congrats!
+    </span>
+  ) : (
+    <span className="button button--danger">
+      You Lost... <br /> Sucks to suck!
+    </span>
+  );
+  const highScore = props.isNewHighScore ? (
+    <span className="button button--warning">
+      New High <br /> Score!!!!!
+    </span>
+  ) : (
+    <span className="button button--info">
+      High score <br /> {props.highScore || "N/A"}
+    </span>
+  );
   return (
-    <div>
-      {props.gameWon ? <p>you won</p> : <p>you lost</p>} Time:{" "}
-      {Number(props.time).toFixed(0)} seconds. High score:{" "}
-      {Number(props.highScore).toFixed(0)}
+    <div style={scoreStyle}>
+      {gameWon}
+      <span className="button button--info">
+        Time <br /> {Number(props.time)} seconds
+      </span>
+      {highScore}
     </div>
   );
+};
+
+export const generateScoreCSS = (): CSS.Properties => {
+  const style: CSS.Properties = {
+    width: getWidthCssProp(),
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    // alignContent: "stretch",
+    flexDirection: "row",
+    flexGrow: 1,
+    justifyContent: "space-around",
+  };
+  return style;
 };

@@ -9,11 +9,11 @@ import {
   createBooleanMap,
   WIN_CONDITION,
 } from "../utility";
-import { v4 } from "uuid";
 
 export interface MinefieldProps extends GameConfig {
   setIsGameActive: (isGameActive: boolean) => void;
   setIsVictory: (isVictory: boolean) => void;
+  setMinesLeft: (minesLeft: number) => void;
 }
 
 export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
@@ -38,19 +38,27 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
       return;
     }
 
+    newField[row][col] = false;
+
     if (props.mineCoords[row][col].isMine) {
-      // setHiddenMap({ hidden: newField });
+      setHiddenMap({ hidden: newField });
+      props.setIsVictory(false);
       setGaveOver(true);
       return;
     }
-
-    newField[row][col] = false;
 
     if (props.mineCoords[row][col].neighbors === 0) {
       visitNeighbors(row, col, newField, props.mineCoords);
     }
     setHiddenMap({ hidden: newField });
   };
+
+  let flaggedCount = 0;
+  for (let i = 0; i < flaggedMap.flagged.length; i++) {
+    for (let j = 0; j < flaggedMap.flagged[i].length; j++) {
+      if (flaggedMap.flagged[i][j]) flaggedCount++;
+    }
+  }
 
   // click handler to toggle flag state
   const flagHandler = (row: number, col: number) => {
@@ -67,6 +75,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
   );
 
   useEffect(() => {
+    props.setMinesLeft(props.numberOfMines - flaggedCount);
     if (gameOver || gameWon) {
       props.setIsVictory(gameWon);
       props.setIsGameActive(false);
@@ -113,7 +122,9 @@ export const generateMinefieldCSS = (numColumns: number): CSS.Properties => {
   const style: CSS.Properties = {
     gridTemplateColumns,
     display: "grid",
-    border: "1px solid slateblue",
+    // alignItems: "stretch",
+    border: "2px",
+    // borderStyle: "solid",
     backgroundColor: "slateblue",
     gap: "5px 5px",
 
@@ -122,6 +133,7 @@ export const generateMinefieldCSS = (numColumns: number): CSS.Properties => {
     margin: "auto",
 
     height: "100%",
+
     width: "100%",
     // paddingTop: "100%",
     // position: "absolute",

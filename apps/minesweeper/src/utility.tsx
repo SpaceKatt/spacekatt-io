@@ -1,5 +1,9 @@
 import { MineCoordinates } from "./field/Mine";
 
+export class ConfigConstants {
+  static readonly gameStateDisplayHeight = "70px";
+}
+
 export const NEIGHBORS_FILTER = [
   [-1, -1],
   [0, -1],
@@ -187,4 +191,8 @@ export const initializeField = (
   }
 
   return field;
+};
+
+export const getWidthCssProp = (): string => {
+  return "max(min(100%, 55vh), 420px)";
 };

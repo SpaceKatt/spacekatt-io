@@ -6,6 +6,7 @@ import { FunctionComponent } from "react";
 import { DifficultyKeys, MinefieldConfig } from "../App";
 import "infima/dist/css/default/default.css";
 import { v4 } from "uuid";
+import { getWidthCssProp } from "../utility";
 
 export interface DifficultySelectorProps {
   difficulties: DifficultyKeys[];
@@ -15,14 +16,8 @@ export interface DifficultySelectorProps {
 export const DifficultySelector: FunctionComponent<DifficultySelectorProps> = (
   props
 ) => {
-  const [selected, setSelected] = useState<DifficultyKeys>(
-    props.selectedDifficulty
-  );
-
   const onRadioChangeCurry = (difficulty: DifficultyKeys) => {
     return (event: MouseEvent<HTMLDivElement>) => {
-      // console.log(event.target.value);
-      // setSelected(event.target.value as DifficultyKeys);
       props.setDifficulty(difficulty);
     };
   };
@@ -61,7 +56,7 @@ export const DifficultySelector: FunctionComponent<DifficultySelectorProps> = (
       </div>
 
       <div style={difficultyCSS} key={v4()}>
-        Playing: {props.selectedDifficulty}
+        Playing =&gt; {props.selectedDifficulty}
       </div>
     </div>
   );
@@ -80,7 +75,7 @@ const generateDifficultyCSS = (difficulty: DifficultyKeys): CSS.Properties => {
 
     // height: "100%",
     // color: "black",
-    padding: "9px 20px",
+    padding: "2px 20px",
     justifyContent: "center",
     backgroundColor: colorMap[difficulty],
     borderRadius: "16px",
@@ -96,7 +91,7 @@ const generateFormCSS = (): CSS.Properties => {
     justifyContent: "space-between",
     // verticalAlign: "middle",
     // padding: "10px 30px",
-    paddingBottom: "10px",
+    paddingBottom: "8px",
     paddingTop: "0px",
     // alignItems: "baseline",
   };
@@ -112,10 +107,10 @@ export const generateDifficultySelectorCSS = (
     verticalAlign: "bottom",
     padding: "10px 17px",
 
-    width: "max(min(100%, 55vh), 390px)",
+    width: getWidthCssProp(),
     border: "2px",
     borderStyle: "solid",
-    height: "115px",
+    height: "100px",
     // padding: "14px",
     // position: "relative",
     // display: "inline-block",

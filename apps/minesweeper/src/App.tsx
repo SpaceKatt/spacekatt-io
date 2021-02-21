@@ -1,5 +1,5 @@
 import * as CSS from "csstype";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { v4 } from "uuid";
 import { DifficultySelector, DifficultySelectorProps } from "./displays";
 import { MinefieldController } from "./field";
@@ -7,6 +7,7 @@ import {
   createMineCoordinates,
   createMineMap,
   createNeighborMap,
+  getWidthCssProp,
 } from "./utility";
 
 export interface MinefieldConfig {
@@ -26,23 +27,35 @@ export type MinefieldDifficultyManifest = {
 export const difficulties: MinefieldDifficultyManifest = {
   Beginner: {
     numberOfMines: 1,
-    rowCount: 6,
-    columnCount: 8,
+    // numberOfMines: 5,
+    rowCount: 7,
+    columnCount: 7,
   },
   Intermediate: {
     numberOfMines: 1,
+    // numberOfMines: 18,
     rowCount: 14,
-    columnCount: 10,
+    columnCount: 12,
   },
   Advanced: {
-    numberOfMines: 40,
-    rowCount: 22,
+    numberOfMines: 1,
+    // numberOfMines: 50,
+    rowCount: 24,
     columnCount: 18,
   },
 };
 
+const aspectRatioMap: {
+  [K in DifficultyKeys]: string;
+} = {
+  Beginner: "109%",
+  Intermediate: "125%",
+  Advanced: "130%",
+};
+
 export function App() {
   const [difficulty, setDifficulty] = useState<DifficultyKeys>("Beginner");
+
   const selectedDifficulty = difficulties[difficulty];
   const numberOfMines = selectedDifficulty.numberOfMines;
   const squaresInRow = selectedDifficulty.rowCount;
@@ -60,6 +73,7 @@ export function App() {
     <DifficultySelector {...difficultySelectorProps}></DifficultySelector>
   );
 
+  // TODO add <>
   const [mines, setMines] = useState({ mines: mineMap });
 
   const gameOverHandler = (event: any) => {
@@ -78,15 +92,7 @@ export function App() {
     gameOverHandler,
   };
 
-  const appContainerStyle = generateAppContainerCSS(selectedDifficulty);
-
-  const aspectRatioMap: {
-    [K in DifficultyKeys]: string;
-  } = {
-    Beginner: "45%",
-    Intermediate: "130%",
-    Advanced: "130%",
-  };
+  const appContainerStyle = generateAppContainerCSS();
   const dummyContainer = generateDummyDivCSS(aspectRatioMap[difficulty]);
 
   return (
@@ -105,24 +111,22 @@ export function App() {
 
 export const generateMetaContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
+    width: getWidthCssProp(),
+    height: "800%",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    // justifyContent: "center",
+    // border: "4px",
+    // borderStyle: "solid",
   };
   return style;
 };
-export const generateAppContainerCSS = (
-  minefieldConfig: MinefieldConfig
-): CSS.Properties => {
+export const generateAppContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
-    width: "max(min(100%, 55vh), 390px)",
+    width: getWidthCssProp(),
     position: "relative",
-    // margin: "0 auto",
     display: "flex",
     flexDirection: "column",
-
-    // height: "100vh",
-    // display: "inline-block",
   };
   return style;
 };
@@ -130,12 +134,6 @@ export const generateAppContainerCSS = (
 export const generateDummyDivCSS = (aspectRation: string): CSS.Properties => {
   const style: CSS.Properties = {
     marginTop: aspectRation,
-    // width: "100%",
-    // height: "100%",
-    // position: "absolute",
-    // left: "50%",
-    // top: "50%",
-    // transform: "translate(-50%, -50%)",
   };
   return style;
 };

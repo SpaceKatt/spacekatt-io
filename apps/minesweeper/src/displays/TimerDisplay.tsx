@@ -16,9 +16,10 @@ export const TimerDisplay: FunctionComponent<TimerDisplayProps> = (props) => {
     };
   });
   return (
-    <div>
-      <div style={{ opacity: "0" }}>0</div>
-      {playTime.toFixed(0)}
+    <div className="button button--primary">
+      {/* <div style={{ opacity: "0" }}>0</div> */}
+      Time <br />
+      {` ${playTime.toFixed(0)}`}
     </div>
   );
 };
