@@ -52,17 +52,6 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
       visitNeighbors(row, col, newField, flaggedMap.flagged, props.mineCoords);
     }
     setHiddenMap({ hidden: newField });
-    const gameWon = WIN_CONDITION(
-      flaggedMap.flagged,
-      props.mineCoords,
-      hiddenMap.hidden,
-      props.numberOfMines
-    );
-
-    if (gameWon) {
-      props.setIsVictory(gameWon);
-      props.setIsGameActive(false);
-    }
   };
 
   useEffect(() => {
@@ -74,6 +63,18 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     }
 
     props.setMinesLeft(props.numberOfMines - flaggedCount);
+
+    const gameWon = WIN_CONDITION(
+      flaggedMap.flagged,
+      props.mineCoords,
+      hiddenMap.hidden,
+      props.numberOfMines
+    );
+
+    if (gameWon) {
+      props.setIsVictory(gameWon);
+      props.setIsGameActive(false);
+    }
   });
 
   // click handler to toggle flag state

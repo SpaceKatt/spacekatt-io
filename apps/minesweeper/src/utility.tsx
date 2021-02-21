@@ -31,8 +31,9 @@ export const WIN_CONDITION = (
       if (!hidden[i][j]) visibleCount++;
     }
   }
+  const mineCorrection = Math.max(0, mineCount - flaggedCount);
 
-  return visibleCount + flaggedCount + mineCount === target;
+  return visibleCount + flaggedCount + mineCorrection === target;
 };
 
 export const BOUNDS_GAURD = (

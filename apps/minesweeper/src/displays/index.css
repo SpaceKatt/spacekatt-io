@@ -10,8 +10,6 @@
   align-items: center;
   vertical-align: middle;
   height: 10;
-  /* display: flex; */
-  /* justify-content: stretch; */
   gap: 10px;
 }
 
@@ -22,6 +20,18 @@
 
 .Display {
   border-radius: 6px;
+}
+
+.Display-Beginner {
+  background-color: #10d7ae;
+}
+
+.Display-Beginner {
+  background-color: #e68e36;
+}
+
+.Display-Advanced {
+  background-color: #dd517f;
 }
 
 .Display-Win {

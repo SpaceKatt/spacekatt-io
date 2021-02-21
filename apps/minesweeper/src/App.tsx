@@ -30,20 +30,17 @@ export type MinefieldDifficultyManifest = {
 
 export const difficulties: MinefieldDifficultyManifest = {
   Beginner: {
-    numberOfMines: 1,
-    // numberOfMines: 5,
+    numberOfMines: 5,
     rowCount: 7,
     columnCount: 7,
   },
   Intermediate: {
-    numberOfMines: 1,
-    // numberOfMines: 18,
+    numberOfMines: 18,
     rowCount: 14,
     columnCount: 12,
   },
   Advanced: {
-    numberOfMines: 1,
-    // numberOfMines: 50,
+    numberOfMines: 50,
     rowCount: 24,
     columnCount: 18,
   },
@@ -65,12 +62,12 @@ export const colorMap: {
   Advanced: "#DD517F",
 };
 
-export const buttonMap: {
+export const displayMap: {
   [K in DifficultyKeys]: string;
 } = {
-  Beginner: "button button--success",
-  Intermediate: "button button--warning",
-  Advanced: "button button--danger",
+  Beginner: "Display Display-Beginner",
+  Intermediate: "Display Display-Intermediate",
+  Advanced: "Display Display-Advanced",
 };
 
 export function App() {
