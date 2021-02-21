@@ -49,7 +49,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
     }
 
     if (props.mineCoords[row][col].neighbors === 0) {
-      visitNeighbors(row, col, newField, props.mineCoords);
+      visitNeighbors(row, col, newField, flaggedMap.flagged, props.mineCoords);
     }
     setHiddenMap({ hidden: newField });
     const gameWon = WIN_CONDITION(
@@ -59,20 +59,22 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
       props.numberOfMines
     );
 
-    props.setMinesLeft(props.numberOfMines - flaggedCount);
-
     if (gameWon) {
       props.setIsVictory(gameWon);
       props.setIsGameActive(false);
     }
   };
 
-  let flaggedCount = 0;
-  for (let i = 0; i < flaggedMap.flagged.length; i++) {
-    for (let j = 0; j < flaggedMap.flagged[i].length; j++) {
-      if (flaggedMap.flagged[i][j]) flaggedCount++;
+  useEffect(() => {
+    let flaggedCount = 0;
+    for (let i = 0; i < flaggedMap.flagged.length; i++) {
+      for (let j = 0; j < flaggedMap.flagged[i].length; j++) {
+        if (flaggedMap.flagged[i][j]) flaggedCount++;
+      }
     }
-  }
+
+    props.setMinesLeft(props.numberOfMines - flaggedCount);
+  });
 
   // click handler to toggle flag state
   const flagHandler = (row: number, col: number) => {
@@ -129,6 +131,7 @@ export const visitNeighbors = (
   row: number,
   col: number,
   hiddenField: boolean[][],
+  flaggedField: boolean[][],
   mineCoords: MineCoordinates[][]
 ): void => {
   const visited: boolean[][] = createBooleanMap(
@@ -140,7 +143,9 @@ export const visitNeighbors = (
     const nextNeighbor = queue.pop();
     if (nextNeighbor) {
       const [x, y] = nextNeighbor;
-
+      if (flaggedField[x][y]) {
+        continue;
+      }
       // set visit memo and set element to visible
       hiddenField[x][y] = false;
 
