@@ -22,6 +22,7 @@ dependencies:
   clsx: 1.1.1
   copyfiles: 2.4.1
   csstype: 3.0.6
+  infima: 0.2.0-alpha.19
   react: 17.0.1
   react-dom: 17.0.1_react@17.0.1
   react-scripts: 4.0.2_react@17.0.1+typescript@4.1.3
@@ -8985,6 +8986,12 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-ndSEffXzjgM/eiSm5jpLTX6ON9MmylzxqBnV2bTiC3kCSyDYdvzTs+bSwf+C4TWayuqnRTnBK1JUePo3m6Bnfg==
+  /infima/0.2.0-alpha.19:
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-3ZWyljOy6xNbOsEXJ2wecj3yXtL2vno4PbAEekTQxsSt6fu4kIOnleZH8RSW9ZLbWnaAokZgoJsAZZk3dI4hcg==
   /inflight/1.0.6:
     dependencies:
       once: 1.4.0
@@ -17503,6 +17510,7 @@ packages:
       babel-loader: 8.1.0
       copyfiles: 2.4.1
       csstype: 3.0.6
+      infima: 0.2.0-alpha.19
       react: 17.0.1
       react-dom: 17.0.1_react@17.0.1
       react-scripts: 4.0.2_react@17.0.1+typescript@4.1.3
@@ -17513,7 +17521,7 @@ packages:
     dev: false
     name: '@rush-temp/spacekatt-minesweeper'
     resolution:
-      integrity: sha512-uyt881ohJladd1AIvbTjmMBirZ3Pk0+682xv2SMMxP8/h+NpOGpu6sCbg/6WOLG3BLcvrkKjgjQE3DSQkV0+ug==
+      integrity: sha512-TV+n5H2TDOTaiUspsJ9yCBMRqPMB7OQd3yDzppjXvFXHe9q/nkpDO3S8OoodS/bKjJYGRbzzYtHOEdsJPzOT+w==
       tarball: 'file:projects/spacekatt-minesweeper.tgz'
     version: 0.0.0
 registry: ''
@@ -17541,6 +17549,7 @@ specifiers:
   clsx: 1.1.1
   copyfiles: 2.4.1
   csstype: 3.0.6
+  infima: 0.2.0-alpha.19
   react: 17.0.1
   react-dom: 17.0.1
   react-scripts: 4.0.2
