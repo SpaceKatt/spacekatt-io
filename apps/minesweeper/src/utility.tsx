@@ -45,24 +45,15 @@ export const setHighScore = (
   numMines: number,
   numRow: number,
   numColumn: number,
-  time: number,
-  gameWon: boolean
-): string => {
+  time: number
+): void => {
   if (typeof window !== "undefined") {
     const highScoreKey = `HIGH_SCORE_${numRow}_${numColumn}_${numMines}`;
 
-    let highScore = localStorage.getItem(highScoreKey) || "";
-    if (gameWon) {
-      if (!highScore || time < Number(highScore)) {
-        localStorage.setItem(highScoreKey, String(time));
-        highScore = String(time);
-        console.log("New high score");
-      }
+    const highScore = localStorage.getItem(highScoreKey) || "";
+    if (!highScore || time < Number(highScore)) {
+      localStorage.setItem(highScoreKey, String(Math.round(time * 10) / 10));
     }
-
-    return highScore || "N/A";
-  } else {
-    return "N/A";
   }
 };
 
@@ -71,7 +62,7 @@ export const checkHighScore = (
   numRow: number,
   numColumn: number
 ): string => {
-  let highScore = "N/A";
+  let highScore = "";
   if (typeof window !== "undefined") {
     const highScoreKey = `HIGH_SCORE_${numRow}_${numColumn}_${numMines}`;
     highScore = localStorage.getItem(highScoreKey) || highScore;

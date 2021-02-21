@@ -9,6 +9,7 @@ import {
   createBooleanMap,
   WIN_CONDITION,
 } from "../utility";
+import { v4 } from "uuid";
 
 export interface MinefieldProps extends GameConfig {
   setIsGameActive: (isGameActive: boolean) => void;
@@ -37,20 +38,18 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
       return;
     }
 
-    newField[row][col] = false;
-    setHiddenMap({ hidden: newField });
-
     if (props.mineCoords[row][col].isMine) {
       // setHiddenMap({ hidden: newField });
-      setGaveOver((_) => {
-        return true;
-      });
+      setGaveOver(true);
       return;
     }
+
+    newField[row][col] = false;
 
     if (props.mineCoords[row][col].neighbors === 0) {
       visitNeighbors(row, col, newField, props.mineCoords);
     }
+    setHiddenMap({ hidden: newField });
   };
 
   // click handler to toggle flag state
@@ -78,7 +77,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
   for (let i = 0; i < hiddenMap.hidden.length; i++) {
     for (let j = 0; j < hiddenMap.hidden[i].length; j++) {
       const mineOpts: MineProps = {
-        key: String(i) + String(j),
+        key: `${String(i)}-${String(j)}`,
         coords: props.mineCoords[i][j],
         flagged: flaggedMap.flagged[i][j],
         hidden: hiddenMap.hidden[i][j],

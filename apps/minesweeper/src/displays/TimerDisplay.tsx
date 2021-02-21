@@ -4,20 +4,21 @@ import { FunctionComponent } from "react";
 
 export interface TimerDisplayProps {}
 export const TimerDisplay: FunctionComponent<TimerDisplayProps> = (props) => {
-  const [time, setTime] = useState(0);
-
+  const [playTime, setPlayTime] = useState(0);
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setTime(time + 1);
+    const id = setInterval(() => {
+      setPlayTime((t) => {
+        return t + 1;
+      });
     }, 1000);
     return () => {
-      clearTimeout(timer);
+      clearInterval(id);
     };
   });
   return (
     <div>
       <div style={{ opacity: "0" }}>0</div>
-      {time}
+      {playTime.toFixed(0)}
     </div>
   );
 };

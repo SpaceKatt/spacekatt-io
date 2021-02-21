@@ -10,8 +10,9 @@ export interface ScoreDisplayProps {
 export const ScoreDisplay: FunctionComponent<ScoreDisplayProps> = (props) => {
   return (
     <div>
-      {props.gameWon ? <p>you won</p> : <p>you lost</p>} Time: {props.time}{" "}
-      seconds. High score: {props.highScore}
+      {props.gameWon ? <p>you won</p> : <p>you lost</p>} Time:{" "}
+      {Number(props.time).toFixed(0)} seconds. High score:{" "}
+      {Number(props.highScore).toFixed(0)}
     </div>
   );
 };

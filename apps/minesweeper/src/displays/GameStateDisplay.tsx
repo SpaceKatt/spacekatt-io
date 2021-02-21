@@ -12,10 +12,9 @@ export const GameStateDisplay: FunctionComponent<GameStateDisplayProps> = (
   props
 ) => {
   const display = props.isGameActive ? (
-    <TimerDisplay key={v4()}></TimerDisplay>
+    <TimerDisplay {...{ playTime: props.playTime }}></TimerDisplay>
   ) : (
     <ScoreDisplay
-      key={v4()}
       time={props.playTime}
       gameWon={props.isVictory}
       highScore={props.highScore}

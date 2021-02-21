@@ -37,7 +37,6 @@ export const getHighScoreSummary = (): HighScoreSummaryConfig => {
 export const HighScoreSummary: FunctionComponent<HighScoreSummaryProps> = (
   props
 ) => {
-  console.log(props);
   const summaryCards = [];
   for (const key of Object.keys(props.config)) {
     const difficulty = key;
@@ -45,14 +44,14 @@ export const HighScoreSummary: FunctionComponent<HighScoreSummaryProps> = (
     const card = (
       <div
         id={`${difficulty}HighScore`}
-        key={v4()}
+        key={difficulty}
       >{`${difficulty} High Score: ${score}`}</div>
     );
     summaryCards.push(card);
   }
   const highScoreStyle = generateHighScoreContainerCSS();
   return (
-    <div id="HighScoreSummary" style={highScoreStyle} key={v4()}>
+    <div id="HighScoreSummary" style={highScoreStyle}>
       {summaryCards}
     </div>
   );

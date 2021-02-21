@@ -12,6 +12,7 @@
     "@types/react": "17.0.1",
     "@types/react-dom": "17.0.0",
     "csstype": "3.0.6",
+    "infima": "0.2.0-alpha.19",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-scripts": "4.0.2",

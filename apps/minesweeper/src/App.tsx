@@ -1,6 +1,7 @@
 import * as CSS from "csstype";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 } from "uuid";
+import { DifficultySelector, DifficultySelectorProps } from "./displays";
 import { MinefieldController } from "./field";
 import {
   createMineCoordinates,
@@ -24,17 +25,17 @@ export type MinefieldDifficultyManifest = {
 
 export const difficulties: MinefieldDifficultyManifest = {
   Beginner: {
-    numberOfMines: 6,
+    numberOfMines: 1,
     rowCount: 6,
     columnCount: 8,
   },
   Intermediate: {
-    numberOfMines: 22,
+    numberOfMines: 1,
     rowCount: 14,
     columnCount: 10,
   },
   Advanced: {
-    numberOfMines: 42,
+    numberOfMines: 40,
     rowCount: 22,
     columnCount: 18,
   },
@@ -47,11 +48,17 @@ export function App() {
   const squaresInRow = selectedDifficulty.rowCount;
   const squaresInColumn = selectedDifficulty.columnCount;
 
-  console.log("generating map");
   const mineMap = createMineMap(numberOfMines, squaresInRow, squaresInColumn);
   const neighborMap = createNeighborMap(mineMap);
   const mineCoords = createMineCoordinates(mineMap, neighborMap);
-  console.log("map generated");
+  const difficultySelectorProps: DifficultySelectorProps = {
+    difficulties: difficultyKeyLiteral as DifficultyKeys[],
+    selectedDifficulty: difficulty,
+    setDifficulty,
+  };
+  const diffSelector = (
+    <DifficultySelector {...difficultySelectorProps}></DifficultySelector>
+  );
 
   const [mines, setMines] = useState({ mines: mineMap });
 
@@ -66,7 +73,6 @@ export function App() {
   const minefieldControllerOpts = {
     numberOfMines,
     sessionId: v4(),
-    startTime: new Date().getTime(),
     mineMap: mines.mines,
     mineCoords,
     gameOverHandler,
@@ -84,8 +90,10 @@ export function App() {
   const dummyContainer = generateDummyDivCSS(aspectRatioMap[difficulty]);
 
   return (
-    <div style={appContainerStyle} id="AppContainer">
-      <div style={dummyContainer} id="Dummy">
+    <div id="metaMinesweeperContainer" style={generateMetaContainerCSS()}>
+      {diffSelector}
+      <div style={appContainerStyle} id="AppContainer">
+        <div style={dummyContainer} id="Dummy"></div>
         <MinefieldController
           key={v4()}
           {...minefieldControllerOpts}
@@ -95,15 +103,26 @@ export function App() {
   );
 }
 
+export const generateMetaContainerCSS = (): CSS.Properties => {
+  const style: CSS.Properties = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  };
+  return style;
+};
 export const generateAppContainerCSS = (
   minefieldConfig: MinefieldConfig
 ): CSS.Properties => {
   const style: CSS.Properties = {
     width: "max(min(100%, 55vh), 390px)",
-    // height: "100vh",
     position: "relative",
-    display: "inline-block",
-    margin: "0 auto",
+    // margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+
+    // height: "100vh",
+    // display: "inline-block",
   };
   return style;
 };
@@ -111,8 +130,8 @@ export const generateAppContainerCSS = (
 export const generateDummyDivCSS = (aspectRation: string): CSS.Properties => {
   const style: CSS.Properties = {
     marginTop: aspectRation,
-    // width: "100vh",
-    // height: "100vh",
+    // width: "100%",
+    // height: "100%",
     // position: "absolute",
     // left: "50%",
     // top: "50%",
