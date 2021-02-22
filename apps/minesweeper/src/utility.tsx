@@ -16,6 +16,10 @@ export const NEIGHBORS_FILTER = [
   [1, 1],
 ];
 
+export const onContextDevNull = (e: any) => {
+  e.preventDefault();
+};
+
 export const WIN_CONDITION = (
   flagged: boolean[][],
   mineMap: MineCoordinates[][],

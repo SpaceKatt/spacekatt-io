@@ -7,6 +7,7 @@ import {
   checkHighScore,
   ConfigConstants,
   getWidthCssProp,
+  onContextDevNull,
   setHighScore,
 } from "../utility";
 import { MineCoordinates } from "./Mine";
@@ -99,7 +100,11 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
   const expContainerStyle = generateExperienceContainerCSS();
   const minefieldContStle = generateMinefieldContainerCSS();
   return (
-    <div className="ExperienceContainer" style={expContainerStyle}>
+    <div
+      className="ExperienceContainer"
+      style={expContainerStyle}
+      onContextMenu={onContextDevNull}
+    >
       <div className="TimerAndMinesLeft">
         <GameStateDisplay {...displayProps}></GameStateDisplay>
       </div>

@@ -24,7 +24,11 @@ export const Mine: FunctionComponent<MineProps> = (props) => {
       return;
     }
 
-    if (event.altKey && props.flagHandler) {
+    if (props.flagHandler && (event.type === "contextmenu" || event.altKey)) {
+      if (event.preventDefault) {
+        event.preventDefault();
+      }
+
       props.flagHandler(props.coords.x, props.coords.y);
       return;
     }
@@ -64,6 +68,7 @@ export const Mine: FunctionComponent<MineProps> = (props) => {
       className="Mine"
       id={`mine-${props.coords.x}-${props.coords.y}`}
       onClick={handleClick}
+      onContextMenu={handleClick}
     >
       {square}
     </div>

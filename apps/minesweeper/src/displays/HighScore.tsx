@@ -8,7 +8,7 @@ import {
   difficultyKeyLiteral,
   DifficultyKeys,
 } from "../App";
-import { checkHighScore, ConfigConstants } from "../utility";
+import { checkHighScore, ConfigConstants, onContextDevNull } from "../utility";
 
 import "./index.css";
 
@@ -58,7 +58,7 @@ export const HighScoreSummary: FunctionComponent<HighScoreSummaryProps> = (
   }
   const highScoreStyle = generateHighScoreContainerCSS();
   return (
-    <div className="DisplayContainer">
+    <div className="DisplayContainer" onContextMenu={onContextDevNull}>
       <div
         className="Display Display-Info"
         style={{ backgroundColor: "aliceblue" }}

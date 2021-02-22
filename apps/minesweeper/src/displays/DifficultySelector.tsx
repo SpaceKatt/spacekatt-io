@@ -4,7 +4,7 @@ import { FunctionComponent } from "react";
 import { v4 } from "uuid";
 
 import { colorMap, DifficultyKeys } from "../App";
-import { getWidthCssProp } from "../utility";
+import { getWidthCssProp, onContextDevNull } from "../utility";
 
 import "infima/dist/css/default/default.css";
 import "./DifficultySelector.css";
@@ -51,7 +51,11 @@ export const DifficultySelector: FunctionComponent<DifficultySelectorProps> = (
   const formStyle = generateFormCSS();
   const difficultyCSS = generateDifficultyPlayingCSS(props.selectedDifficulty);
   return (
-    <div className="DifficultySelectorContainer" style={style}>
+    <div
+      className="DifficultySelectorContainer"
+      style={style}
+      onContextMenu={onContextDevNull}
+    >
       <div
         className="DifficultyButtons DifficultyButtons--block"
         style={formStyle}
