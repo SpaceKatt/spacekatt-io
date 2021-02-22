@@ -132,8 +132,8 @@ export function App() {
 
 export const generateMetaContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
-    width: getWidthCssProp(),
-    height: `calc(800% + ${ConfigConstants.highscoreDisplayHeight}}`,
+    width: `max(min(${getWidthCssProp()}, 50%), 424px)`,
+    // height: `calc(${ConfigConstants.highscoreDisplayHeight}}`,
   };
   return style;
 };
