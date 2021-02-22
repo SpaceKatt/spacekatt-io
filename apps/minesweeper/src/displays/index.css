@@ -47,6 +47,15 @@
 
 .Display-NewHighScore {
   background-color: yellow;
+  animation: crescendo 1s alternate infinite ease-in;
+}
+@keyframes crescendo {
+  0% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1.1);
+  }
 }
 
 .Display-MinesLeft {
