@@ -5,20 +5,14 @@
 .Mine {
   width: 100%;
   height: 100%;
-  border-radius: var(--mine-border-radius);
-  background-color: var(--mine-color);
 }
 
 .HiddenIcon {
   height: 100%;
   width: 100%;
-}
-
-.HiddenIcon {
-  height: 100%;
-  width: 100%;
-  background-color: orange;
+  background-color: var(--hidden-color);
   border-radius: var(--mine-border-radius);
+  cursor: not-allowed;
 }
 
 .ExplodedMine {
@@ -51,7 +45,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: default;
 }
 
 .NeighborCounter {
@@ -62,6 +55,7 @@
   background-color: var(--beginner-color);
   text-align: center;
   cursor: default;
+  user-select: none;
 
   position: relative;
   line-height: 0px;
@@ -70,4 +64,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.Unexplored {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  border-radius: var(--mine-border-radius);
+  background-color: var(--mine-color);
+}
+
+.Unexplored:hover {
+  transform: scale(1.1);
 }

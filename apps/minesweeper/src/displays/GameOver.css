@@ -1,9 +1,9 @@
 .GameOver {
   width: 100%;
   height: 100%;
-  background-color: orchid;
+  /* background-color: orchid; */
   position: absolute;
-  border: orange 9px;
+  /* border: orange 9px; */
   opacity: 0.6;
   /* z-index: 10; */
   top: 0;
@@ -14,11 +14,15 @@
 }
 
 .GameOverButton {
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
   background-color: #f44336;
+  border-radius: 6px;
+  font-weight: var(--ifm-font-weight-bold);
+  font-size: xx-large;
 
-  transform: translate(5.8%, 5.8%);
+  /* transform: translate(5.8%, 5.8%); */
 }
 .GameWon {
   width: 90%;

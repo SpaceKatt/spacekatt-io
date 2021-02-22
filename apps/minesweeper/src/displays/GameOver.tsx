@@ -11,10 +11,16 @@ export const GameOver: FunctionComponent<GameOverProps> = (props) => {
   const retryButton = props.gameWon ? (
     <button className="GameWon" onClick={props.gameOverHandler}>
       Retry?
+      <br />
+      <br />
+      Click anywhere on map to beat your score!
     </button>
   ) : (
     <button className="GameOverButton" onClick={props.gameOverHandler}>
       Retry?
+      <br />
+      <br />
+      Click anywhere on map
     </button>
   );
   return props.isGameActive ? (

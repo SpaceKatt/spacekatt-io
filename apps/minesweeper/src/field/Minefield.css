@@ -6,6 +6,7 @@
   margin: auto;
   height: 100%;
   width: 100%;
+  border-radius: 10px;
   /* padding: 15px; */
 
   /* # alignItems: "stretch", */
@@ -34,5 +35,6 @@
   display: flex;
   flex-direction: column;
   padding: 15px;
+  padding-bottom: 0;
   gap: 15px;
 }

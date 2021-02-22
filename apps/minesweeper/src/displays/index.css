@@ -29,6 +29,8 @@
 
 .Display {
   border-radius: 6px;
+  cursor: default;
+  user-select: none;
 }
 
 .Display-Win {

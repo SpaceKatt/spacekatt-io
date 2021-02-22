@@ -5,15 +5,20 @@
   --beginner-color: #cbffe6;
   --intermediate-color: #feffbe;
   --advanced-color: #dd517f;
-  --mine-color: #bfb9ff;
+  /* --mine-color: #bfb9ff; */
+  --mine-color: #43457f;
   --hidden-color: #ff9b83;
-  --info-color: #afe9ff;
+  --info-color: #ffffff;
+  /* --info-color: #afe9ff; */
+
+  --active-difficulty-color: #afe9ff;
 }
 
 .MetaMinesweeperContainer {
   background-color: var(--minefield-background-color);
   border: 2px;
   border-style: solid;
+  border-radius: 6px;
   display: flex;
   flex-direction: column;
 }

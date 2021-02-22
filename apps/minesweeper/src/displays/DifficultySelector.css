@@ -12,12 +12,15 @@
 
 .DifficultyPlaying {
   display: flex;
+  cursor: default;
+  font-weight: var(--ifm-font-weight-bold);
 
   height: 100%;
   color: black;
   padding: 2px 20px;
   align-items: center;
   justify-content: center;
+  user-select: none;
   border-radius: 16px;
 }
 .DifficultyButtons {
@@ -45,11 +48,15 @@
     var(--ifm-transition-timing-default);
   opacity: 0.2;
   /* flex-grow: 1; */
+  user-select: none;
+}
+.SelectedDifficulty:hover {
+  transform: scale(1.1);
 }
 
 .SelectedDifficulty--active {
   opacity: 0.9;
-  color: var(--ifm-pills-color-active);
+  color: var(--active-difficulty-color);
 }
 
 .SelectedDifficulty:not(.SelectedDifficulty--active):hover {

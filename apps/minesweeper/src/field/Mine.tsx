@@ -43,7 +43,9 @@ export const Mine: FunctionComponent<MineProps> = (props) => {
       <div className="Invis">0</div>
     </div>
   ) : (
-    <div className="Invis">0</div>
+    <div className="Unexplored">
+      <div className="Invis">0</div>
+    </div>
   );
   const exposed = props.coords.isMine ? (
     <div className="ExplodedMine"></div>

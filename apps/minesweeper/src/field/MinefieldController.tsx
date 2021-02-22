@@ -117,6 +117,7 @@ const generateMinefieldContainerCSS = (): CSS.Properties => {
     height: `calc(100% - ${ConfigConstants.gameStateDisplayHeight})`,
     verticalAlign: "top",
     position: "relative",
+    borderRadius: "10px",
   };
   return style;
 };
