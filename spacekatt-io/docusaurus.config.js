@@ -13,7 +13,7 @@ module.exports = {
       title: "SpaceKatt.io",
       logo: {
         alt: "My Site Logo",
-        src: "img/logo.svg",
+        src: "img/spacekatt_logo.jpg",
       },
       items: [
         {

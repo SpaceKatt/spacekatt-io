@@ -8,31 +8,21 @@ import styles from "./styles.module.css";
 
 const features = [
   {
-    title: "Create.",
-    imageUrl: "img/undraw_docusaurus_mountain.svg",
-    description: (
-      <>
-        SpaceKatt creates art, music, and technology. Come see the fun we're
-        having!
-      </>
-    ),
+    title: "Tech",
+    imageUrl: "img/spacekatt_logo.jpg",
+    description: <> SpaceKatt Tech </>,
   },
   {
-    title: "Learn.",
-    imageUrl: "img/undraw_docusaurus_tree.svg",
-    description: (
-      <>
-        Consolidate and reconcile the oddities we bumble into along the path of
-        creation. Share the findings we uncover in our pursuit.
-      </>
-    ),
+    title: "Art",
+    imageUrl: "img/spacekatt_logo.jpg",
+    description: <>SpaceKatt Art</>,
   },
   {
-    title: "Grow.",
-    imageUrl: "img/undraw_docusaurus_react.svg",
+    title: "And More!",
+    imageUrl: "img/spacekatt_logo.jpg",
     description: (
       <>
-        How does our experience change the future? Check the
+        Change is constant! Check the
         <a href="/blog"> blog</a> for content updates on this site.
       </>
     ),
