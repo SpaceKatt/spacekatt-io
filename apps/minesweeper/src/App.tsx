@@ -31,27 +31,27 @@ export type MinefieldDifficultyManifest = {
 export const difficulties: MinefieldDifficultyManifest = {
   Beginner: {
     numberOfMines: 5,
-    rowCount: 7,
-    columnCount: 7,
+    rowCount: 5,
+    columnCount: 10,
   },
   Intermediate: {
-    numberOfMines: 18,
+    numberOfMines: 22,
     rowCount: 14,
     columnCount: 12,
   },
   Advanced: {
-    numberOfMines: 50,
-    rowCount: 24,
-    columnCount: 18,
+    numberOfMines: 60,
+    rowCount: 20,
+    columnCount: 24,
   },
 };
 
 export const aspectRatioMap: {
   [K in DifficultyKeys]: string;
 } = {
-  Beginner: "109%",
-  Intermediate: "125%",
-  Advanced: "145%",
+  Beginner: "var(--beginner-aspect-ratio)",
+  Intermediate: "var(--inter-aspect-ratio)",
+  Advanced: "var(--advanced-aspect-ratio)",
 };
 
 export const colorMap: {
@@ -115,7 +115,7 @@ export function App() {
   return (
     <div
       className="MetaMinesweeperContainer"
-      style={generateMetaContainerCSS()}
+      style={generateMetaContainerCSS(difficulty)}
     >
       {diffSelector}
       <div style={appContainerStyle} id="AppContainer">
@@ -130,9 +130,16 @@ export function App() {
   );
 }
 
-export const generateMetaContainerCSS = (): CSS.Properties => {
+export const generateMetaContainerCSS = (
+  difficulty: string
+): CSS.Properties => {
+  const ratioMap: { [key: string]: string } = {
+    Beginner: "20%",
+    Intermediate: "60%",
+    Advanced: "100%",
+  };
   const style: CSS.Properties = {
-    width: `max(min(${getWidthCssProp()}, 50%), 424px)`,
+    width: `max(min(${getWidthCssProp()}, ${ratioMap[difficulty]}), 424px)`,
     // height: `calc(${ConfigConstants.highscoreDisplayHeight}}`,
   };
   return style;
