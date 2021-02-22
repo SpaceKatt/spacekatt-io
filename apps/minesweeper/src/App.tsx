@@ -51,15 +51,15 @@ export const aspectRatioMap: {
 } = {
   Beginner: "109%",
   Intermediate: "125%",
-  Advanced: "130%",
+  Advanced: "145%",
 };
 
 export const colorMap: {
   [K in DifficultyKeys]: string;
 } = {
-  Beginner: "#10D7AE",
-  Intermediate: "#E68E36",
-  Advanced: "#DD517F",
+  Beginner: "var(--beginner-color)",
+  Intermediate: "var(--intermediate-color)",
+  Advanced: "var(--advanced-color)",
 };
 
 export const displayMap: {

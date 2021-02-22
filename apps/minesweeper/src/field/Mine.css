@@ -6,7 +6,7 @@
   width: 100%;
   height: 100%;
   border-radius: var(--mine-border-radius);
-  background-color: plum;
+  background-color: var(--mine-color);
 }
 
 .HiddenIcon {
@@ -24,14 +24,14 @@
 .ExplodedMine {
   width: 100%;
   height: 100%;
-  background-color: maroon;
+  background-color: var(--advanced-color);
   border-radius: var(--mine-border-radius);
 }
 .Counter {
   width: 100%;
   height: 100%;
   border-radius: var(--mine-border-radius);
-  background-color: aquamarine;
+  background-color: var(--beginner-color);
   position: relative;
   /* vertical-align: middle; */
   display: flex;
@@ -59,7 +59,7 @@
   width: 100%;
   border-radius: var(--mine-border-radius);
 
-  background-color: aquamarine;
+  background-color: var(--beginner-color);
   text-align: center;
   cursor: default;
 

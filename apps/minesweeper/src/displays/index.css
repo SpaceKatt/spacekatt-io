@@ -18,32 +18,29 @@
   text-align: center;
 }
 
+.DisplayContainer--col {
+  display: flex;
+  flex-direction: column;
+}
+.DisplayContainer--col .Display {
+  flex-grow: 1;
+  text-align: center;
+}
+
 .Display {
   border-radius: 6px;
 }
 
-.Display-Beginner {
-  background-color: #10d7ae;
-}
-
-.Display-Beginner {
-  background-color: #e68e36;
-}
-
-.Display-Advanced {
-  background-color: #dd517f;
-}
-
 .Display-Win {
-  background-color: green;
+  background-color: #cbffe6;
 }
 
 .Display-Info {
-  background-color: aliceblue;
+  background-color: #afe9ff;
 }
 
 .Display-Lose {
-  background-color: red;
+  background-color: var(--advanced-color);
 }
 
 .Display-NewHighScore {
@@ -51,9 +48,9 @@
 }
 
 .Display-MinesLeft {
-  background-color: aquamarine;
+  background-color: var(--beginner-color);
 }
 
 .Display-Timer {
-  background-color: aqua;
+  background-color: var(--info-color);
 }

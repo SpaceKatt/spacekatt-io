@@ -1,5 +1,13 @@
 :root {
-  --minefield-background-color: slateblue;
+  --minefield-background-color: #ffcfea;
+  /* --beginner-color: #10d7ae; */
+  /* --intermediate-color: #e68e36; */
+  --beginner-color: #cbffe6;
+  --intermediate-color: #feffbe;
+  --advanced-color: #dd517f;
+  --mine-color: #bfb9ff;
+  --hidden-color: #ff9b83;
+  --info-color: #afe9ff;
 }
 
 .MetaMinesweeperContainer {

@@ -49,7 +49,7 @@ export const HighScoreSummary: FunctionComponent<HighScoreSummaryProps> = (
         id={`${difficulty}HighScore`}
         key={difficulty}
         style={cardStyle}
-        className={displayMap[difficulty]}
+        className="Display"
       >
         {difficulty} <br /> {score}
       </div>
@@ -58,23 +58,39 @@ export const HighScoreSummary: FunctionComponent<HighScoreSummaryProps> = (
   }
   const highScoreStyle = generateHighScoreContainerCSS();
   return (
-    <div
-      id="HighScoreSummary"
-      className="DisplayContainer DisplayContainer--block"
-      style={highScoreStyle}
-    >
-      {summaryCards}
+    <div className="DisplayContainer">
+      <div
+        className="Display Display-Info"
+        style={{ backgroundColor: "aliceblue" }}
+      >
+        <div
+          className="DisplayContainer DisplayContainer--col"
+          style={{ height: ConfigConstants.highscoreDisplayHeight }}
+        >
+          <div className="Display Display-Timer">Previous High Scores</div>
+          <div
+            id="HighScoreSummary"
+            className="DisplayContainer DisplayContainer--block"
+            style={highScoreStyle}
+          >
+            {summaryCards}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
 const generateHighScoreContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
-    height: ConfigConstants.highscoreDisplayHeight,
+    // ,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
-    paddingTop: "0px",
+    // padding: "0",
+    // paddingTop: "0px",
+    paddingLeft: "0px",
+    paddingRight: "0px",
     // padding: "7px",
   };
   return style;
