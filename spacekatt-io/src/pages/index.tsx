@@ -62,7 +62,7 @@ function Home() {
                 "button button--outline button--secondary button--lg",
                 styles.getStarted
               )}
-              to={useBaseUrl("projects/")}
+              to={useBaseUrl("tech/")}
             >
               View Site Content
             </Link>

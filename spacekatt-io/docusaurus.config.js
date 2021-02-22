@@ -1,7 +1,7 @@
 module.exports = {
   title: "International SpaceKatt Station",
   tagline: "Welcome aboard the ISS.",
-  url: "https://spacekattt.io",
+  url: "https://spacekatt.io",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -17,10 +17,10 @@ module.exports = {
       },
       items: [
         {
-          to: "projects/",
-          activeBasePath: "projects",
-          sidebarPath: "projects",
-          label: "Projects",
+          to: "tech/",
+          activeBasePath: "tech",
+          sidebarPath: "tech",
+          label: "Tech",
           position: "left",
         },
         { to: "blog", label: "Blog", position: "left" },
@@ -39,11 +39,11 @@ module.exports = {
           items: [
             {
               label: "Minesweeper",
-              to: "projects/",
+              to: "tech/",
             },
             {
               label: "Game of Life",
-              to: "projects/gameOfLife/",
+              to: "tech/gameOfLife/",
             },
           ],
         },
@@ -84,16 +84,16 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          path: "projects",
-          routeBasePath: "projects",
+          path: "tech",
+          routeBasePath: "tech",
           editUrl:
-            "https://github.com/facebook/docusaurus/edit/master/website/",
+            "https://github.com/SpaceKatt/spacekatt-io/edit/main/spacekatt-io/",
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            "https://github.com/facebook/docusaurus/edit/master/website/blog/",
+            "https://github.com/SpaceKatt/spacekatt-io/edit/main/spacekatt-io/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
