@@ -18,7 +18,7 @@
     "clsx": "1.1.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "spacekatt-minesweeper": "0.1.0"
+    "spacekatt-minesweeper": "0.1.2"
   },
   "browserslist": {
     "production": [
