@@ -63,8 +63,12 @@ export const HighScoreSummary: FunctionComponent<HighScoreSummaryProps> = (
   }
   const highScoreStyle = generateHighScoreContainerCSS();
   return (
-    <div className="DisplayContainer" style={{ width: getWidthCssProp() }}>
-      {/* <div className="DisplayContainer" onContextMenu={onContextDevNull}> */}
+    // <div className="DisplayContainer" style={{ width: getWidthCssProp() }}>
+    <div
+      className="DisplayContainer"
+      onContextMenu={onContextDevNull}
+      style={{ width: getWidthCssProp() }}
+    >
       <div
         className="Display Display-Info"
         style={{ backgroundColor: "aliceblue" }}
