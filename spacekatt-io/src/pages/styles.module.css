@@ -35,3 +35,45 @@
   height: 200px;
   width: 200px;
 }
+
+.main-page-feature {
+  background-color: var(--ifm-button-background-color);
+  border-color: var(--ifm-button-border-color);
+  border-radius: var(--ifm-button-border-radius);
+  border-style: solid;
+  border-width: 5px;
+  color: black;
+  /* color: var(--ifm-button-color); */
+  cursor: pointer;
+  display: inline-block;
+  font-size: calc(0.875rem * var(--ifm-button-size-multiplier));
+  font-weight: var(--ifm-button-font-weight);
+  line-height: 1.5;
+  padding: calc(
+      var(--ifm-button-padding-vertical) * var(--ifm-button-size-multiplier)
+    )
+    calc(
+      var(--ifm-button-padding-horizontal) * var(--ifm-button-size-multiplier)
+    );
+  text-align: center;
+  text-decoration: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  transition-property: color, background, border-color;
+  transition-duration: var(--ifm-button-transition-duration);
+  transition-timing-function: var(--ifm-transition-timing-default);
+
+  --ifm-button-size-multiplier: 1.35;
+  --ifm-button-border-color: var(--ifm-color-secondary);
+}
+
+.border-man {
+  /* border-radius: 7px; */
+  border-width: 3px;
+  border-color: black;
+  border-style: solid;
+}

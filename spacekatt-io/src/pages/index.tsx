@@ -10,7 +10,7 @@ const features = [
   {
     title: "Tech",
     imageUrl: "img/spacekatt_logo.jpg",
-    description: <> SpaceKatt Tech </>,
+    description: <>SpaceKatt Tech</>,
   },
   {
     title: "Art",
@@ -21,10 +21,7 @@ const features = [
     title: "And More!",
     imageUrl: "img/spacekatt_logo.jpg",
     description: (
-      <>
-        Change is constant! Check the
-        <a href="/blog"> blog</a> for content updates on this site.
-      </>
+      <>Change is constant! Check the blog for content updates on this site.</>
     ),
   },
 ];
@@ -32,18 +29,19 @@ const features = [
 function Feature({ imageUrl, title, description }) {
   const imgUrl = useBaseUrl(imageUrl);
   return (
-    <div className={clsx("col col--4", styles.feature)}>
+    <div className="border-man">
       {imgUrl && (
         <div className="text--center">
           <img className={styles.featureImage} src={imgUrl} alt={title} />
         </div>
       )}
-      <h3>{title}</h3>
-      <p>{description}</p>
+      <h3 style={{ color: "black" }}>{title}</h3>
+      <p style={{ color: "clue" }}>{description}</p>
     </div>
   );
 }
 
+const urlArr = ["tech/", "tech/", "blog/"];
 function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
@@ -75,7 +73,14 @@ function Home() {
             <div className="container">
               <div className="row">
                 {features.map((props, idx) => (
-                  <Feature key={idx} {...props} />
+                  <div className={clsx("border-man col col--4")}>
+                    <Link
+                      className={clsx(styles.borderMan, styles.mainPageFeature)}
+                      to={useBaseUrl(urlArr[idx])}
+                    >
+                      <Feature key={idx} {...props}></Feature>
+                    </Link>
+                  </div>
                 ))}
               </div>
             </div>

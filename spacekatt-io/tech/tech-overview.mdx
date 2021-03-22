@@ -5,31 +5,62 @@ sidebar_label: Tech Overview
 slug: /
 ---
 
-For now, we mostly just have minesweeper.
+For now, we mostly just have a weather telemetry station and minesweeper.
 
-Chack back soon for more content!
+Check back soon for more content!
 
 ## Content Gallery View
 
-<div style={{ width: "200px" }}>
-  <div class="card">
-    <div class="card__image">
-      <img
-        src="/img/minesweeper.png"
-        alt="Minesweeper squares during gameplay"
-        title="Minesweeper Screenshot"
-      />
+<div class="container">
+  <div class="row" style={{ gap: "50px" }}>
+    <div class="card col">
+      <div class="card__image">
+        <img
+          src="/img/weather_station.png"
+          alt="Image of SpaceKatt Weather Station"
+          title="SpaceKatt Weather Station"
+          height="200px"
+        />
+      </div>
+      <div class="card__body">
+        <h4>Weather Station</h4>
+        <small>
+          WiFi-connected temperature and humidity telemetry node, using an
+          ESP32.
+        </small>
+      </div>
+      <div class="card__footer">
+        <a
+          href="/tech/esp32-weather-telemetry-station"
+          class="button button--primary button--block"
+        >
+          Visit
+        </a>
+      </div>
     </div>
-    <div class="card__body">
-      <h4>Minesweeper</h4>
-      <small>
-        Classic game implemented using React 17 Hooks. Vaporwave aesthetic.
-      </small>
-    </div>
-    <div class="card__footer">
-      <a href="/tech/minesweeper" class="button button--primary button--block">
-        Visit
-      </a>
+    <div class="card col">
+      <div class="card__image">
+        <img
+          src="/img/minesweeper.png"
+          alt="Minesweeper squares during gameplay"
+          title="Minesweeper Screenshot"
+          height="200px"
+        />
+      </div>
+      <div class="card__body">
+        <h4>Minesweeper</h4>
+        <small>
+          Classic game implemented using React 17 Hooks. Vaporwave aesthetic.
+        </small>
+      </div>
+      <div class="card__footer">
+        <a
+          href="/tech/minesweeper"
+          class="button button--primary button--block"
+        >
+          Visit
+        </a>
+      </div>
     </div>
   </div>
 </div>
