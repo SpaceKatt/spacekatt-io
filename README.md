@@ -55,3 +55,9 @@ docker build -t spacekatt/spacekatt-io:latest .
 docker ps
 docker exec -it <container_name> /bin/sh
 ```
+
+## Publishing static build to gcloud
+
+```bash
+gsutil rsync -Rd build/ gs://<BUCKET_NAME>
+```

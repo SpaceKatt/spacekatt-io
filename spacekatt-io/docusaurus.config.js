@@ -42,8 +42,8 @@ module.exports = {
               to: "tech/",
             },
             {
-              label: "Game of Life",
-              to: "tech/gameOfLife/",
+              label: "Weather Station",
+              to: "tech/esp32-weather-telemetry-station/",
             },
           ],
         },
