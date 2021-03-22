@@ -6,18 +6,32 @@ Shared code for public website and profile.
 
 This project uses [Rush Stack](https://rushstack.io/) and [Heft](https://rushstack.io/pages/heft/overview/) for build and test orchestration.
 
-### Installation
+### Install node.v14, using `nvm`
 
-1. Install
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+source ~/.bashrc
+nvm install 14
+nvm use 14
+```
 
-### Useful commands
+### Install `pnpm`, `rush`, and `heft`
+
+```bash
+npm install --global pnpm
+pnpm install --global @microsoft/rush @rushstack/heft
+```
+
+### Build project
 
 ```bash
 rush update
 rush build
 ```
 
-### Testing
+> Run `$ rush update` after installing new packages and pulling code from remote git repository.
+
+## Testing
 
 ```bash
 cd <package_dir>
@@ -26,15 +40,13 @@ heft test
 
 ## Docker
 
-### Local Docker Dev
-
-#### Build Container Locally
+### Build Container Locally
 
 ```bash
 docker build -t spacekatt/spacekatt-io:latest .
 ```
 
-#### Run Container Locally
+### Run Container Locally
 
 ```bash
 docker ps
