@@ -6,11 +6,14 @@ Shared code for public website and profile.
 
 This project uses [Rush Stack](https://rushstack.io/) and [Heft](https://rushstack.io/pages/heft/overview/) for build and test orchestration.
 
-### Install node.v14, using `nvm`
+### Install node14, using `nvm`
 
 ```bash
+# Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
 source ~/.bashrc
+
+# Install node14
 nvm install 14
 nvm use 14
 ```
