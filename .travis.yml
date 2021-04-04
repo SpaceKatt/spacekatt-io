@@ -11,18 +11,17 @@ jobs:
       before_install:
         - docker build -t spacekatt/spacekatt-io:latest .
       script: echo 'Docker build successful'
+
     - stage: Rush build
       before_install:
         - echo 'Checking for missing change logs...' && echo -en 'travis_fold:start:change\\r'
         - git fetch origin main:refs/remotes/origin/main -a
         - node common/scripts/install-run-rush.js change -v
         - echo -en 'travis_fold:end:change\\r'
-
       install:
         - echo 'Installing...' && echo -en 'travis_fold:start:install\\r'
         - node common/scripts/install-run-rush.js install
         - echo -en 'travis_fold:end:install\\r'
-
       script:
         - echo 'Building...' && echo -en 'travis_fold:start:build\\r'
         - node common/scripts/install-run-rush.js rebuild --verbose
