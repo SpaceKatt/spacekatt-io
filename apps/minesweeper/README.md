@@ -1,5 +1,7 @@
 # SpaceKatt Minesweeper
 
+[![Build Status](https://travis-ci.org/SpaceKatt/spacekatt-io.svg?branch=main)](https://travis-ci.org/SpaceKatt/spacekatt-io)
+
 [Minesweeper implementation](https://spacekatt.io/tech/minesweeper), React 17 Hooks used as responsive application framework.
 
 - [SpaceKatt Minesweeper](#spacekatt-minesweeper)
