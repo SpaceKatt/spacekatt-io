@@ -46,7 +46,7 @@ Please see the section on CI/CD in the [parent README](../README.md#CI/CD).
 
 ## Deployment
 
-This project is deployed on the [`International SpaceKatt Station`](../spacekatt-io) and as a ~~[standalone `npm` package](https://www.npmjs.com/package/spacekatt-minesweeper)~~ the NPM package is currently broken (alpha).
+This project is deployed on the [`International SpaceKatt Station`](https://github.com/SpaceKatt/spacekatt-io/tree/main/spacekatt-io) and as a ~~[standalone `npm` package](https://www.npmjs.com/package/spacekatt-minesweeper)~~ the NPM package is currently broken (alpha).
 
 ### Publishing `npm` package
 
