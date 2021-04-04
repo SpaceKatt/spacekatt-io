@@ -1,9 +1,11 @@
 #####################################################################
-### spacekatt-io Dockerfile
+### spacekatt-io multi-stage Dockerfile
 ###
 ### currently builds nginx container to statically serve...
 ###  - spacekatt.io
 ###  - minesweeper
+###
+### useful for local testing and explicit setup docuementation.
 ###
 #####################################################################
 #####################################################################
@@ -46,11 +48,7 @@ RUN rush rebuild
 ### - configure nginx service
 ### - expose service to serve content
 
-### TODO: ensure production build only in second stage
-
-# TODO: use nginx container
-FROM nginx
-
+FROM nginx:alpine
 
 #### Copy built app code
 RUN mkdir -p /usr/local/src/
