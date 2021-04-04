@@ -34,5 +34,5 @@ jobs:
         - echo 'Testing Minesweeper...' && echo -en 'travis_fold:start:testminesweeper\\r'
         - cd apps/minesweeper
         - heft test
-          cd ../..
+        - cd ../..
         - echo -en 'travis_fold:end:testminesweeper\\r'
