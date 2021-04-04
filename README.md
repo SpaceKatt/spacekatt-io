@@ -1,10 +1,10 @@
 # spacekatt-io
 
-Shared code for public website and profile.
+Shared code for [public website](https://spacekatt.io/) and other applications.
 
 ## Build Toolchain
 
-This project uses [Rush Stack](https://rushstack.io/) and [Heft](https://rushstack.io/pages/heft/overview/) for build and test orchestration.
+This project uses [Rush Stack](https://rushstack.io/) and [Heft](https://rushstack.io/pages/heft/overview/) for build and test orchestration. Rush has the benefit of providing incremental builds, which makes it useful for use in the monorepo context (time savings).
 
 ### Install node14, using `nvm`
 
@@ -25,21 +25,37 @@ npm install --global pnpm
 pnpm install --global @microsoft/rush @rushstack/heft
 ```
 
-### Build project
+### Build all projects
 
 ```bash
 rush update
 rush build
+
+# force rebuild by not using build cache
+rush rebuild
 ```
 
 > Run `$ rush update` after installing new packages and pulling code from remote git repository.
 
+## Project Inventory
+
+| Project                                              | Description                                                    | README (if exists)                          |
+| ---------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------- |
+| [spacekatt.io](https://spacekatt.io/)                | Public website, used to host content and other projects        | [README link](./spacekatt-io/README.md)     |
+| [Minesweeper](https://spacekatt.io/tech/minesweeper) | Minesweeper implementation, first project using React 17 Hooks | [README link](./apps/minesweeper/README.md) |
+
 ## Testing
+
+Each project is responsible for its own testing. All projects use `heft` (`jest` under the covers) as a test runner.
 
 ```bash
 cd <package_dir>
 heft test
 ```
+
+## Linting
+
+Each project is responsible for defining its own linting rules. However, all must use `ESLint` (`TSLint` is now deprecated.)
 
 ## Docker
 
