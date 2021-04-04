@@ -3,12 +3,12 @@ jobs:
     - stage: Docker image build
       language: minimal
       services: docker
-      before_install:
+      script:
         - echo 'Building Docker image to serve content with NGINX...' && echo -en 'travis_fold:start:dockerbuild\\r'
         - set -e
         - docker build -t spacekatt/spacekatt-io:latest .
         - echo -en 'travis_fold:end:dockerbuild\\r'
-      script: echo 'Docker build successful'
+        - echo 'Docker build successful'
 
     - stage: rush build && heft test
       language: node_js
@@ -36,3 +36,5 @@ jobs:
         - heft test
         - cd ../..
         - echo -en 'travis_fold:end:testminesweeper\\r'
+
+        - echo 'All application tests run successfully'
