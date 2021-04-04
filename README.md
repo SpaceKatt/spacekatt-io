@@ -2,6 +2,20 @@
 
 Shared code for [public website](https://spacekatt.io/) and other applications.
 
+- [spacekatt-io](#spacekatt-io)
+  - [Build Toolchain](#build-toolchain)
+    - [Install node14, using `nvm`](#install-node14-using-nvm)
+    - [Install `pnpm`, `rush`, and `heft`](#install-pnpm-rush-and-heft)
+    - [Build all projects](#build-all-projects)
+  - [Project Inventory](#project-inventory)
+  - [Testing](#testing)
+  - [Linting](#linting)
+  - [Docker](#docker)
+    - [Build Docker Image](#build-docker-image)
+    - [Run Container Locally](#run-container-locally)
+    - [Stop running container](#stop-running-container)
+    - [Inspect running container](#inspect-running-container)
+
 ## Build Toolchain
 
 This project uses [Rush Stack](https://rushstack.io/) and [Heft](https://rushstack.io/pages/heft/overview/) for build and test orchestration. Rush has the benefit of providing incremental builds, which makes it useful for use in the monorepo context (time savings).
@@ -39,10 +53,10 @@ rush rebuild
 
 ## Project Inventory
 
-| Project                                              | Description                                                    | Source link                       |
-| ---------------------------------------------------- | -------------------------------------------------------------- | --------------------------------- |
-| [spacekatt.io](https://spacekatt.io/)                | Public website, used to host content and other projects        | [Source link](./spacekatt-io)     |
-| [Minesweeper](https://spacekatt.io/tech/minesweeper) | Minesweeper implementation, first project using React 17 Hooks | [Source link](./apps/minesweeper) |
+| Project                                              | Description                                                                            | Source link                       |
+| ---------------------------------------------------- | -------------------------------------------------------------------------------------- | --------------------------------- |
+| [spacekatt.io](https://spacekatt.io/)                | The `International SpaceKatt Station` website, used to host content and other projects | [Source link](./spacekatt-io)     |
+| [Minesweeper](https://spacekatt.io/tech/minesweeper) | Minesweeper implementation, first project using React 17 Hooks                         | [Source link](./apps/minesweeper) |
 
 ## Testing
 
@@ -59,7 +73,11 @@ Each project is responsible for defining its own linting rules. However, all mus
 
 ## Docker
 
-### Build Container Locally
+To ensure setup instructions are 100% discoverable and documented, a [`Dockerfile`](./Dockerfile) is provided. The produced docker image may be used to serve the `International SpaceKatt Station` and all bundled projects locally at [`http://127.0.0.1/`](http://127.0.0.1/) (and accessible from your favorite browser).
+
+The [`ngnix:alpine`](https://hub.docker.com/_/nginx) variant of [NGINX](https://www.nginx.com/) is used to serve static assets from within a container. Static assests are build in the first stage, then copied over to the `nginx:alpine` base in the second stage.
+
+### Build Docker Image
 
 ```bash
 docker build -t spacekatt/spacekatt-io:latest .
