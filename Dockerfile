@@ -14,7 +14,7 @@
 ### - install dependencies
 ### - build code
 
-FROM node:14.15.5-alpine3.13 as builder
+FROM node:14.16-alpine3.13 as builder
 
 RUN apk update
 RUN apk add nginx

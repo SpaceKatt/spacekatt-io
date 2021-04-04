@@ -58,8 +58,10 @@ This project is deployed on the [`International SpaceKatt Station`](https://gith
 
 ### Updating Versioning
 
-```bash
+[Semantic versioning](https://docs.npmjs.com/about-semantic-versioning) via [using `npm`](https://docs.npmjs.com/updating-your-published-package-version-number) is standard procedure.
 
+```bash
+npm version <major|minor|patch>
 ```
 
 ## Observability
