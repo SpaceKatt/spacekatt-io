@@ -77,9 +77,9 @@ Each project is responsible for defining its own linting rules. However, all mus
 
 ## Docker
 
-To ensure setup instructions are 100% discoverable and documented, a [`Dockerfile`](./Dockerfile) is provided. The produced docker image may be used to serve the `International SpaceKatt Station` and all bundled projects locally at [`http://127.0.0.1/`](http://127.0.0.1/) (and accessible from your favorite browser).
+To provide an artifact for CI/CD and ensure setup instructions are 100% discoverable and documented, a [`Dockerfile`](./Dockerfile) is present. The produced docker image may be used to serve the `International SpaceKatt Station`—and all bundled projects—locally at [`http://127.0.0.1/`](http://127.0.0.1/) (and accessible from your favorite browser).
 
-The [`ngnix:alpine`](https://hub.docker.com/_/nginx) variant of [NGINX](https://www.nginx.com/) is used to serve static assets from within a container. Static assests are built in the first stage, then copied over to the `nginx:alpine` base in the second stage.
+The [`ngnix:alpine`](https://hub.docker.com/_/nginx) variant of [NGINX](https://www.nginx.com/) is used to serve static assets from within a container. Static assests are built in the first stage, then copied over to the `nginx:alpine` base in the second stage, before finally configuring and exposing the `nginx` service.
 
 Alpline allowed for the optimization of image size; a `668MB` Docker image was reduced to `30.8MB` through the use of a multi-stage, alpine-based build.
 
@@ -116,7 +116,7 @@ docker exec -it <container_name> /bin/sh
 
 ## CI/CD
 
-Continuous integration is performed on [TravisCI](https://travis-ci.org/github/SpaceKatt/spacekatt-io), as defined by [`.travis.yml`](.travis.yml). Two jobs are performed: building the Docker image and building the project with Rush.
+Continuous integration is performed on [TravisCI](https://travis-ci.org/github/SpaceKatt/spacekatt-io), as defined by [`.travis.yml`](.travis.yml). Two jobs are performed: building the Docker image and building/testing the project with Rush/Heft (respectively).
 
 Continuous deployment is on the roadmap. However, automation for deployments have yet to be implemented. Please refer to the [`Project Inventory`](https://github.com/SpaceKatt/spacekatt-io#project-inventory) for links to `READMEs` with the manual deployment instructions for each project (until the process is automated).
 
