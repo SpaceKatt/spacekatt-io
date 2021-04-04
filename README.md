@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/SpaceKatt/spacekatt-io.svg?branch=main)](https://travis-ci.org/SpaceKatt/spacekatt-io)
 
-Shared code for [public website](https://spacekatt.io/) and other applications.
+Shared code for [public website](https://spacekatt.io/) and [other applications](https://github.com/SpaceKatt/spacekatt-io#project-inventory).
 
 - [spacekatt-io](#spacekatt-io)
   - [Build Toolchain](#build-toolchain)
