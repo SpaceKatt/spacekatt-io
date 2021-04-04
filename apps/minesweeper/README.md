@@ -62,6 +62,8 @@ Please see the section on CI/CD in the [parent README](https://github.com/SpaceK
 
 This project is deployed on the [`International SpaceKatt Station`](https://github.com/SpaceKatt/spacekatt-io/tree/main/spacekatt-io) and as a ~~[standalone `npm` package](https://www.npmjs.com/package/spacekatt-minesweeper)~~ the NPM package is currently broken (alpha).
 
+> TODO: use `rush` for publish and versioning
+
 ### Publishing `npm` package
 
 ```bash
