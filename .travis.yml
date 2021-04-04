@@ -32,6 +32,8 @@ jobs:
         - node common/scripts/install-run-rush.js rebuild --verbose
         - echo -en 'travis_fold:end:build\\r'
 
+        - echo 'Testing application packages...'
+
         - echo 'Testing Minesweeper...' && echo -en 'travis_fold:start:testminesweeper\\r'
         - cd apps/minesweeper
         - heft test
