@@ -60,7 +60,7 @@ rush rebuild
 | Project                                              | Description                                                                            | Source link                       |
 | ---------------------------------------------------- | -------------------------------------------------------------------------------------- | --------------------------------- |
 | [spacekatt.io](https://spacekatt.io/)                | The `International SpaceKatt Station` website, used to host content and other projects | [Source link](./spacekatt-io)     |
-| [Minesweeper](https://spacekatt.io/tech/minesweeper) | Minesweeper implementation, first project using React 17 Hooks                         | [Source link](./apps/minesweeper) |
+| [Minesweeper](https://spacekatt.io/tech/minesweeper) | Minesweeper implementation, React 17 Hooks used as responsive application framework    | [Source link](./apps/minesweeper) |
 
 ## Testing
 

@@ -10,7 +10,10 @@ This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern 
   - [Setup](#setup)
   - [Build](#build)
   - [Local Development](#local-development)
-  - [Publishing static build to gcloud](#publishing-static-build-to-gcloud)
+  - [CI/CD](#cicd)
+  - [Deployment](#deployment)
+    - [Publishing static build to gcloud](#publishing-static-build-to-gcloud)
+  - [Observability](#observability)
 
 ## Setup
 
@@ -40,8 +43,26 @@ npm start
 
 This command starts a local development server and open up a browser window. Most changes are reflected live without having to restart the server.
 
-## Publishing static build to gcloud
+## CI/CD
+
+Please see the section on CI/CI in the [parent README](../README.md#CI/CD)).
+
+## Deployment
+
+Built, static assets are distributed using [Google CDN](https://cloud.google.com/cdn), a ["`backend bucket`"](https://cloud.google.com/cdn/docs/setting-up-cdn-with-bucket#gcloud-or-gsutil) through an [external HTTPS load balancer](https://cloud.google.com/iap/docs/load-balancer-howto), and [Namecheap DNS and domain registration](https://www.namecheap.com/domains/).
+
+### Publishing static build to gcloud
 
 ```bash
 gsutil rsync -Rd build/ gs://<BUCKET_NAME>
 ```
+
+## Observability
+
+The follow table describes different views to the system's performance:
+
+| Observability Service                                                         | Description                                                                               |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| [Google Analytics](https://analytics.google.com/)                             | Flexible analytics platform to measure how users flow through site content                |
+| [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/) | Google service to measure how responsive and usable a page is                             |
+| [Search Console](https://support.google.com/webmasters/answer/9205520)        | The Search Console provides the Core Web Vitals report and a litany of usable information |
