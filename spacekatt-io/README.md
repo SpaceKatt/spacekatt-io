@@ -47,7 +47,7 @@ This command starts a local development server and open up a browser window. Mos
 
 ## CI/CD
 
-Please see the section on CI/CI in the [parent README](../README.md#CI/CD).
+Please see the section on CI/CI in the [parent README](https://github.com/SpaceKatt/spacekatt-io#cicd).
 
 ## Deployment
 
