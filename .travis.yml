@@ -4,10 +4,10 @@ jobs:
       language: minimal
       services: docker
       before_install:
-        - echo 'Building Docker image to serve content with NGINX...' && echo -en 'travis_fold:start:change\\r'
+        - echo 'Building Docker image to serve content with NGINX...' && echo -en 'travis_fold:start:dockerbuild\\r'
         - set -e
         - docker build -t spacekatt/spacekatt-io:latest .
-        - echo -en 'travis_fold:end:change\\r'
+        - echo -en 'travis_fold:end:dockerbuild\\r'
       script: echo 'Docker build successful'
 
     - stage: rush build && heft test
