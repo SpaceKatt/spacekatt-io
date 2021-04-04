@@ -3,7 +3,10 @@ jobs:
     - stage: Docker image build
       services: docker
       before_install:
+        - echo 'Building Docker image to serve content with NGINX...' && echo -en 'travis_fold:start:change\\r'
+        - set -e
         - docker build -t spacekatt/spacekatt-io:latest .
+        - echo -en 'travis_fold:end:change\\r'
       script: echo 'Docker build successful'
 
     - stage: Rush build
@@ -11,18 +14,18 @@ jobs:
       node_js:
         - "14.16.0"
       before_install:
-        - set -e
         - echo 'Checking for missing change logs...' && echo -en 'travis_fold:start:change\\r'
+        - set -e
         - git fetch origin main:refs/remotes/origin/main -a
         - node common/scripts/install-run-rush.js change -v
         - echo -en 'travis_fold:end:change\\r'
       install:
-        - set -e
         - echo 'Installing...' && echo -en 'travis_fold:start:install\\r'
+        - set -e
         - node common/scripts/install-run-rush.js install
         - echo -en 'travis_fold:end:install\\r'
       script:
-        - set -e
         - echo 'Building...' && echo -en 'travis_fold:start:build\\r'
+        - set -e
         - node common/scripts/install-run-rush.js rebuild --verbose
         - echo -en 'travis_fold:end:build\\r'
