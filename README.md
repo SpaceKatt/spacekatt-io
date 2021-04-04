@@ -75,7 +75,9 @@ Each project is responsible for defining its own linting rules. However, all mus
 
 To ensure setup instructions are 100% discoverable and documented, a [`Dockerfile`](./Dockerfile) is provided. The produced docker image may be used to serve the `International SpaceKatt Station` and all bundled projects locally at [`http://127.0.0.1/`](http://127.0.0.1/) (and accessible from your favorite browser).
 
-The [`ngnix:alpine`](https://hub.docker.com/_/nginx) variant of [NGINX](https://www.nginx.com/) is used to serve static assets from within a container. Static assests are build in the first stage, then copied over to the `nginx:alpine` base in the second stage.
+The [`ngnix:alpine`](https://hub.docker.com/_/nginx) variant of [NGINX](https://www.nginx.com/) is used to serve static assets from within a container. Static assests are built in the first stage, then copied over to the `nginx:alpine` base in the second stage.
+
+Alpline allowed for the optimization of image size; a `668MB` Docker image was reduced to `30.8MB` through the use of a multi-stage, alpine-based build.
 
 ### Build Docker Image
 
