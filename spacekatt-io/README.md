@@ -30,7 +30,7 @@ rush build
 
 ```bash
 # To build only this project...
-heft build
+npm run build
 ```
 
 These commands generate static content into the `build` directory and can be served using any static contents hosting service.
