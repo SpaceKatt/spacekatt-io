@@ -1,5 +1,7 @@
 # spacekatt-io
 
+[![Build Status](https://travis-ci.org/SpaceKatt/spacekatt-io.svg?branch=main)](https://travis-ci.org/SpaceKatt/spacekatt-io)
+
 Shared code for [public website](https://spacekatt.io/) and other applications.
 
 - [spacekatt-io](#spacekatt-io)
