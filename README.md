@@ -52,6 +52,24 @@ docker build -t spacekatt/spacekatt-io:latest .
 ### Run Container Locally
 
 ```bash
+docker image ls
+docker run -d -p 80:3000 spacekatt/spacekatt-io:latest
+```
+
+View site running from the container at `http://127.0.0.1/` in your favorite browser.
+
+### Stop running container
+
+```bash
+# List running containers
+docker ps
+docker stop <container_name>
+```
+
+### Inspect running container
+
+```bash
+# List running containers
 docker ps
 docker exec -it <container_name> /bin/sh
 ```
