@@ -1,11 +1,11 @@
 #####################################################################
 ### spacekatt-io multi-stage Dockerfile
 ###
-### currently builds nginx container to statically serve...
-###  - spacekatt.io
-###  - minesweeper
+### builds nginx container to statically serve spacekatt.io
 ###
 ### useful for local testing and explicit setup docuementation.
+###
+### Alpine base reduced 668MB image size to 30.8MB
 ###
 #####################################################################
 #####################################################################
@@ -18,21 +18,20 @@ FROM node:14.16-alpine3.13 as builder
 
 RUN apk update
 RUN apk add nginx
-
-RUN apk add --update npm
-RUN npm i npm@latest -g
-RUN npm install --global pnpm
-
 RUN apk add --no-cache --virtual build-dependencies \
         python3 \
         python3-dev \
         build-base \
         g++ \
-        make \
-    && pnpm install --global \
+        make
+
+RUN apk add --update npm
+RUN npm i npm@latest -g
+RUN npm install --global pnpm
+RUN pnpm install --global \
         @microsoft/rush \
-        @rushstack/heft  \
-    && apk del build-dependencies
+        @rushstack/heft
+RUN apk del build-dependencies
 
 RUN mkdir -p /usr/local/src
 WORKDIR /usr/local/src
