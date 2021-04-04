@@ -9,7 +9,7 @@ jobs:
   include:
     - stage: Docker image build
       before_install:
-        - docker build -t spacekatt/spacekatt-io:latest
+        - docker build -t spacekatt/spacekatt-io:latest .
       script: echo 'Docker build successful'
     - stage: Minesweeper tests
       before_install:
