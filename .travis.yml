@@ -24,7 +24,7 @@ jobs:
         - echo 'Installing...' && echo -en 'travis_fold:start:install\\r'
         - set -e
         - node common/scripts/install-run-rush.js install
-        - npm install --global heft
+        - npm install --global @rushstack/heft
         - echo -en 'travis_fold:end:install\\r'
       script:
         - echo 'Building...' && echo -en 'travis_fold:start:build\\r'
