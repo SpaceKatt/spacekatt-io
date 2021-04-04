@@ -96,7 +96,7 @@ docker image ls
 docker run -d -p 80:80 spacekatt/spacekatt-io:latest
 ```
 
-View site running from the container at `http://127.0.0.1/` in your favorite browser.
+View site running from the container at [`http://127.0.0.1/`](http://127.0.0.1/) in your favorite browser.
 
 ### Stop running container
 
