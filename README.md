@@ -39,10 +39,10 @@ rush rebuild
 
 ## Project Inventory
 
-| Project                                              | Description                                                    | README (if exists)                          |
-| ---------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------- |
-| [spacekatt.io](https://spacekatt.io/)                | Public website, used to host content and other projects        | [README link](./spacekatt-io/README.md)     |
-| [Minesweeper](https://spacekatt.io/tech/minesweeper) | Minesweeper implementation, first project using React 17 Hooks | [README link](./apps/minesweeper/README.md) |
+| Project                                              | Description                                                    | Source link                       |
+| ---------------------------------------------------- | -------------------------------------------------------------- | --------------------------------- |
+| [spacekatt.io](https://spacekatt.io/)                | Public website, used to host content and other projects        | [Source link](./spacekatt-io)     |
+| [Minesweeper](https://spacekatt.io/tech/minesweeper) | Minesweeper implementation, first project using React 17 Hooks | [Source link](./apps/minesweeper) |
 
 ## Testing
 
@@ -88,10 +88,4 @@ docker stop <container_name>
 # List running containers
 docker ps
 docker exec -it <container_name> /bin/sh
-```
-
-## Publishing static build to gcloud
-
-```bash
-gsutil rsync -Rd build/ gs://<BUCKET_NAME>
 ```
