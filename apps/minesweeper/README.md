@@ -48,11 +48,9 @@ This command starts a local development server and open up a browser window. Mos
 
 ### Prettier
 
-Prettify files using prettier.
+Assuming you [installed the right tools](../README.md#Linting)...
 
 ```bash
-# Install prettier, then use package.json script
-pnpm install --global prettier
 npm run prettify-files
 ```
 

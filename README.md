@@ -11,7 +11,7 @@ Shared code for [public website](https://spacekatt.io/) and other applications.
     - [Build all projects](#build-all-projects)
   - [Project Inventory](#project-inventory)
   - [Testing](#testing)
-  - [Linting / Prettification](#linting--prettification)
+  - [Linting](#linting)
     - [Install linting tools](#install-linting-tools)
   - [Docker](#docker)
     - [Build Docker Image](#build-docker-image)
@@ -72,7 +72,7 @@ cd <app_dir>
 heft test
 ```
 
-## Linting / Prettification
+## Linting
 
 Each project is responsible for defining its own linting rules.
 
