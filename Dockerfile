@@ -65,4 +65,4 @@ RUN mv -v /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig
 ADD ./deployment/etc/nginx/nginx.conf /etc/nginx
 
 #### expose nginx service
-EXPOSE 3000
+EXPOSE 80

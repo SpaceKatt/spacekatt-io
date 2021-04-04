@@ -15,6 +15,8 @@ Shared code for [public website](https://spacekatt.io/) and other applications.
     - [Run Container Locally](#run-container-locally)
     - [Stop running container](#stop-running-container)
     - [Inspect running container](#inspect-running-container)
+  - [Deployment && Observability](#deployment--observability)
+  - [CI/CD](#cicd)
 
 ## Build Toolchain
 
@@ -89,7 +91,7 @@ docker build -t spacekatt/spacekatt-io:latest .
 
 ```bash
 docker image ls
-docker run -d -p 80:3000 spacekatt/spacekatt-io:latest
+docker run -d -p 80:80 spacekatt/spacekatt-io:latest
 ```
 
 View site running from the container at `http://127.0.0.1/` in your favorite browser.
@@ -109,3 +111,9 @@ docker stop <container_name>
 docker ps
 docker exec -it <container_name> /bin/sh
 ```
+
+## Deployment && Observability
+
+Each project is responsible for their own deployment and observability strategies. Please refer to the [`Project Inventory`](https://github.com/SpaceKatt/spacekatt-io#project-inventory) for links to `READMEs` with the relevant information.
+
+## CI/CD

@@ -11,7 +11,7 @@ jobs:
       before_install:
         - docker build -t spacekatt/spacekatt-io:latest .
       script: echo 'Docker build successful'
-    - stage: Minesweeper tests
+    - stage: Heft build
       before_install:
         - echo 'Checking for missing change logs...' && echo -en 'travis_fold:start:change\\r'
         - git fetch origin main:refs/remotes/origin/main -a
@@ -27,7 +27,3 @@ jobs:
         - echo 'Building...' && echo -en 'travis_fold:start:build\\r'
         - node common/scripts/install-run-rush.js rebuild --verbose
         - echo -en 'travis_fold:end:build\\r'
-
-        - echo 'Run Minesweeper tests'
-        - cd apps/Minesweeper
-        - heft test
