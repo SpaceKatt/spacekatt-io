@@ -9,7 +9,7 @@ jobs:
         - echo -en 'travis_fold:end:change\\r'
       script: echo 'Docker build successful'
 
-    - stage: Rush build
+    - stage: rush build && heft test
       language: node_js
       node_js:
         - "14.16.0"
@@ -23,9 +23,17 @@ jobs:
         - echo 'Installing...' && echo -en 'travis_fold:start:install\\r'
         - set -e
         - node common/scripts/install-run-rush.js install
+        - npm install --global heft
         - echo -en 'travis_fold:end:install\\r'
       script:
         - echo 'Building...' && echo -en 'travis_fold:start:build\\r'
         - set -e
         - node common/scripts/install-run-rush.js rebuild --verbose
+        - echo -en 'travis_fold:end:build\\r'
+
+        - echo 'Testing Minesweeper...' && echo -en 'travis_fold:start:build\\r'
+        - set -e
+        - cd apps/minesweeper
+        - heft test
+
         - echo -en 'travis_fold:end:build\\r'

@@ -64,10 +64,10 @@ rush rebuild
 
 ## Testing
 
-Each project is responsible for its own testing. All projects use `heft` (`jest` under the covers) as a test runner.
+Each project is responsible for its own testing. All applications use [`heft`](https://rushstack.io/pages/heft_tutorials/everyday_commands/) (`jest` under the covers) as a test runner.
 
 ```bash
-cd <package_dir>
+cd <app_dir>
 heft test
 ```
 
