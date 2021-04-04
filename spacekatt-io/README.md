@@ -51,7 +51,7 @@ Please see the section on CI/CI in the [parent README](https://github.com/SpaceK
 
 ## Deployment
 
-Built, static assets are [distributed](https://spacekatt.io/) using [Google CDN](https://cloud.google.com/cdn), a ["`backend bucket`"](https://cloud.google.com/cdn/docs/setting-up-cdn-with-bucket#gcloud-or-gsutil) through an [external HTTPS load balancer](https://cloud.google.com/iap/docs/load-balancer-howto), and [Namecheap DNS and domain registration](https://www.namecheap.com/domains/).
+Built, static assets are [distributed](https://spacekatt.io/) using [Google CDN](https://cloud.google.com/cdn), a ["`backend bucket`"](https://cloud.google.com/cdn/docs/setting-up-cdn-with-bucket) through an [external HTTPS load balancer](https://cloud.google.com/iap/docs/load-balancer-howto), and [Namecheap DNS and domain registration](https://www.namecheap.com/domains/).
 
 ### Publishing static build to gcloud
 

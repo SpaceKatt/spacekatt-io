@@ -58,10 +58,10 @@ rush rebuild
 
 ## Project Inventory
 
-| Project                                              | Description                                                                            | Source link                       |
-| ---------------------------------------------------- | -------------------------------------------------------------------------------------- | --------------------------------- |
-| [spacekatt.io](https://spacekatt.io/)                | The `International SpaceKatt Station` website, used to host content and other projects | [Source link](./spacekatt-io)     |
-| [Minesweeper](https://spacekatt.io/tech/minesweeper) | Minesweeper implementation, React 17 Hooks used as responsive application framework    | [Source link](./apps/minesweeper) |
+| Project                                              | Description                                                                                                                      | Source link                       |
+| ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| [spacekatt.io](https://spacekatt.io/)                | The `International SpaceKatt Station` website, used to host content and other projects                                           | [Source link](./spacekatt-io)     |
+| [Minesweeper](https://spacekatt.io/tech/minesweeper) | Minesweeper implementation, [React 17 Hooks](https://reactjs.org/docs/hooks-intro.html) used as responsive application framework | [Source link](./apps/minesweeper) |
 
 ## Testing
 

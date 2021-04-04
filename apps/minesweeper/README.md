@@ -65,7 +65,7 @@ This project is deployed on the [`International SpaceKatt Station`](https://gith
 ### Publishing `npm` package
 
 ```bash
-
+npm publish
 ```
 
 ### Updating Versioning
