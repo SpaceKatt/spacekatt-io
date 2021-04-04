@@ -53,7 +53,7 @@ rush build
 rush rebuild
 ```
 
-> Run `$ rush update` after installing new packages and pulling code from remote git repository.
+> Run `$ rush update` after installing new packages and fetching code from remote git repository.
 
 ## Project Inventory
 
