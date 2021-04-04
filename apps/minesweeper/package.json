@@ -15,6 +15,7 @@
     "start": "react-scripts start",
     "build": "heft build --clean && npm run copy-files",
     "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css lib/ && copyfiles -u 1 src/*.css lib/",
+    "prettify-files": "prettier --config prettier.config.js 'src/**/*.ts?' --write",
     "react-build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -8,6 +8,8 @@
   - [Setup](#setup)
   - [Build](#build)
   - [Local Development](#local-development)
+  - [Linting / Prettification](#linting--prettification)
+    - [Prettier](#prettier)
   - [CI/CD](#cicd)
   - [Deployment](#deployment)
     - [Publishing `npm` package](#publishing-npm-package)
@@ -41,6 +43,18 @@ npm start
 ```
 
 This command starts a local development server and open up a browser window. Most changes are reflected live without having to restart the server.
+
+## Linting / Prettification
+
+### Prettier
+
+Prettify files using prettier.
+
+```bash
+# Install prettier, then use package.json script
+pnpm install --global prettier
+npm run prettify-files
+```
 
 ## CI/CD
 
