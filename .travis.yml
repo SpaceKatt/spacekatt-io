@@ -1,6 +1,7 @@
 jobs:
   include:
     - stage: Docker image build
+      language: minimal
       services: docker
       before_install:
         - echo 'Building Docker image to serve content with NGINX...' && echo -en 'travis_fold:start:change\\r'
