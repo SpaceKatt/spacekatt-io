@@ -1,10 +1,10 @@
-import * as CSS from "csstype";
-import React, { FunctionComponent } from "react";
-import { TimerDisplay, ScoreDisplay } from ".";
-import { ConfigConstants } from "../utility";
-import { MinesLeft } from "./MinesLeft";
+import * as CSS from 'csstype';
+import React, { FunctionComponent } from 'react';
+import { TimerDisplay, ScoreDisplay } from '.';
+import { ConfigConstants } from '../utility';
+import { MinesLeft } from './MinesLeft';
 
-import "./index.css";
+import './index.css';
 
 export interface GameStateDisplayProps {
   playTime: number;
@@ -15,7 +15,7 @@ export interface GameStateDisplayProps {
   minesLeft: number;
 }
 export const GameStateDisplay: FunctionComponent<GameStateDisplayProps> = (
-  props
+  props,
 ) => {
   const timerMinesLeftCSS = generateTimeMinesLeftCSS();
   const gameStateDisplayCSS = generateGameStateDisplayCSS();

@@ -1,18 +1,18 @@
-import * as CSS from "csstype";
-import React, { FunctionComponent, useEffect, useState } from "react";
-import { v4 } from "uuid";
-import { GameStateDisplay, GameOver } from "../displays";
-import { getHighScoreSummary, HighScoreSummary } from "../displays/HighScore";
+import * as CSS from 'csstype';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { v4 } from 'uuid';
+import { GameStateDisplay, GameOver } from '../displays';
+import { getHighScoreSummary, HighScoreSummary } from '../displays/HighScore';
 import {
   checkHighScore,
   ConfigConstants,
   getWidthCssProp,
   onContextDevNull,
   setHighScore,
-} from "../utility";
-import { MineCoordinates } from "./Mine";
-import { Minefield } from "./Minefield";
-import "./Minefield.css";
+} from '../utility';
+import { MineCoordinates } from './Mine';
+import { Minefield } from './Minefield';
+import './Minefield.css';
 
 export interface GameConfig {
   sessionId: string;
@@ -25,7 +25,7 @@ export interface MinefieldControllerProps extends GameConfig {
   gameOverHandler: (event: any) => void;
 }
 export const MinefieldController: FunctionComponent<MinefieldControllerProps> = (
-  props
+  props,
 ) => {
   const [isGameActive, setIsGameActive] = useState(true);
   const [minesLeft, setMinesLeft] = useState(props.numberOfMines);
@@ -54,7 +54,7 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
     const previousHighScore = checkHighScore(
       props.numberOfMines,
       props.mineCoords.length,
-      props.mineCoords[0].length
+      props.mineCoords[0].length,
     );
     const currentTime = new Date().getTime();
     const newPlayTime = Math.round((currentTime - startTime) / 1000);
@@ -71,7 +71,7 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
         props.numberOfMines,
         props.mineCoords.length,
         props.mineCoords[0].length,
-        newPlayTime
+        newPlayTime,
       );
       highScore = String(newPlayTime);
     }
@@ -81,7 +81,7 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
   const highScore = checkHighScore(
     props.numberOfMines,
     props.mineCoords.length,
-    props.mineCoords[0].length
+    props.mineCoords[0].length,
   );
 
   const displayProps = {
@@ -120,9 +120,9 @@ const generateMinefieldContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
     // width: getWidthCssProp(),
     height: `calc(100% - ${ConfigConstants.gameStateDisplayHeight})`,
-    verticalAlign: "top",
-    position: "relative",
-    borderRadius: "10px",
+    verticalAlign: 'top',
+    position: 'relative',
+    borderRadius: '10px',
   };
   return style;
 };

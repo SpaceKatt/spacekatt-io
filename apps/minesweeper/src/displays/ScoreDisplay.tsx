@@ -1,8 +1,8 @@
-import * as CSS from "csstype";
-import React from "react";
-import { FunctionComponent } from "react";
-import { getWidthCssProp } from "../utility";
-import "./index.css";
+import * as CSS from 'csstype';
+import React from 'react';
+import { FunctionComponent } from 'react';
+import { getWidthCssProp } from '../utility';
+import './index.css';
 
 export interface ScoreDisplayProps {
   gameWon: boolean;
@@ -28,7 +28,7 @@ export const ScoreDisplay: FunctionComponent<ScoreDisplayProps> = (props) => {
     </span>
   ) : (
     <span className="Display Display-Info">
-      High score <br /> {props.highScore || "N/A"}
+      High score <br /> {props.highScore || 'N/A'}
     </span>
   );
   return (
@@ -45,13 +45,13 @@ export const ScoreDisplay: FunctionComponent<ScoreDisplayProps> = (props) => {
 export const generateScoreCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
     // width: getWidthCssProp(),
-    height: "100%",
-    display: "flex",
-    alignItems: "center",
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
     // alignContent: "stretch",
-    flexDirection: "row",
+    flexDirection: 'row',
     flexGrow: 1,
-    justifyContent: "space-around",
+    justifyContent: 'space-around',
   };
   return style;
 };

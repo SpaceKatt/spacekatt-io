@@ -1,6 +1,6 @@
-import React from "react";
-import { FunctionComponent } from "react";
-import "./GameOver.css";
+import React from 'react';
+import { FunctionComponent } from 'react';
+import './GameOver.css';
 
 export interface GameOverProps {
   gameWon: boolean;

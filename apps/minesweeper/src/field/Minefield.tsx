@@ -1,15 +1,15 @@
-import * as CSS from "csstype";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import * as CSS from 'csstype';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
-import { Mine, MineCoordinates, MineProps } from "./Mine";
-import { GameConfig } from "./MinefieldController";
+import { Mine, MineCoordinates, MineProps } from './Mine';
+import { GameConfig } from './MinefieldController';
 import {
   NEIGHBORS_FILTER,
   BOUNDS_GAURD,
   createBooleanMap,
   WIN_CONDITION,
-} from "../utility";
-import "./Minefield.css";
+} from '../utility';
+import './Minefield.css';
 
 export interface MinefieldProps extends GameConfig {
   setIsGameActive: (isGameActive: boolean) => void;
@@ -21,11 +21,11 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
   const initialHiddenMap: boolean[][] = createBooleanMap(
     props.mineCoords.length,
     props.mineCoords[0].length,
-    true
+    true,
   );
   const initialFlaggedMap: boolean[][] = createBooleanMap(
     props.mineCoords.length,
-    props.mineCoords[0].length
+    props.mineCoords[0].length,
   );
   const [hiddenMap, setHiddenMap] = useState({ hidden: initialHiddenMap });
   const [flaggedMap, setFlaggedMap] = useState({ flagged: initialFlaggedMap });
@@ -68,7 +68,7 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
       flaggedMap.flagged,
       props.mineCoords,
       hiddenMap.hidden,
-      props.numberOfMines
+      props.numberOfMines,
     );
 
     if (gameWon) {
@@ -108,10 +108,10 @@ export const Minefield: FunctionComponent<MinefieldProps> = (props) => {
 };
 
 const gridTemplateColumnsTemplate = (numColumns: number): string => {
-  let gridCols = "auto";
+  let gridCols = 'auto';
   let colLen = 1;
   while (colLen < numColumns) {
-    gridCols = gridCols + " auto";
+    gridCols = gridCols + ' auto';
     colLen++;
   }
   return gridCols;
@@ -133,11 +133,11 @@ export const visitNeighbors = (
   col: number,
   hiddenField: boolean[][],
   flaggedField: boolean[][],
-  mineCoords: MineCoordinates[][]
+  mineCoords: MineCoordinates[][],
 ): void => {
   const visited: boolean[][] = createBooleanMap(
     hiddenField.length,
-    hiddenField[0].length
+    hiddenField[0].length,
   );
   const queue: number[][] = [[row, col]];
   do {

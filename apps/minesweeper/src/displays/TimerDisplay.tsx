@@ -1,6 +1,6 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { FunctionComponent } from "react";
+import React from 'react';
+import { useEffect, useState } from 'react';
+import { FunctionComponent } from 'react';
 
 export interface TimerDisplayProps {}
 export const TimerDisplay: FunctionComponent<TimerDisplayProps> = (props) => {

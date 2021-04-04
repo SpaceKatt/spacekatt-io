@@ -1,21 +1,21 @@
-import * as CSS from "csstype";
-import React from "react";
-import { FunctionComponent } from "react";
+import * as CSS from 'csstype';
+import React from 'react';
+import { FunctionComponent } from 'react';
 import {
   displayMap,
   colorMap,
   difficulties,
   difficultyKeyLiteral,
   DifficultyKeys,
-} from "../App";
+} from '../App';
 import {
   checkHighScore,
   ConfigConstants,
   getWidthCssProp,
   onContextDevNull,
-} from "../utility";
+} from '../utility';
 
-import "./index.css";
+import './index.css';
 
 export type HighScoreSummaryConfig = {
   [K in DifficultyKeys]: string;
@@ -34,15 +34,15 @@ export const getHighScoreSummary = (): HighScoreSummaryConfig => {
       checkHighScore(
         config.numberOfMines,
         config.rowCount,
-        config.columnCount
-      ) || "N/A";
+        config.columnCount,
+      ) || 'N/A';
   }
 
   return codex;
 };
 
 export const HighScoreSummary: FunctionComponent<HighScoreSummaryProps> = (
-  props
+  props,
 ) => {
   const summaryCards = [];
   for (const key of Object.keys(props.config)) {
@@ -71,7 +71,7 @@ export const HighScoreSummary: FunctionComponent<HighScoreSummaryProps> = (
     >
       <div
         className="Display Display-Info"
-        style={{ backgroundColor: "aliceblue" }}
+        style={{ backgroundColor: 'aliceblue' }}
       >
         <div
           className="DisplayContainer DisplayContainer--col"
@@ -94,20 +94,20 @@ export const HighScoreSummary: FunctionComponent<HighScoreSummaryProps> = (
 const generateHighScoreContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
     // ,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     // padding: "0",
     // paddingTop: "0px",
-    paddingLeft: "0px",
-    paddingRight: "0px",
+    paddingLeft: '0px',
+    paddingRight: '0px',
     // padding: "7px",
   };
   return style;
 };
 
 const generateHighScoreCardSCC = (
-  difficulty: DifficultyKeys
+  difficulty: DifficultyKeys,
 ): CSS.Properties => {
   const style: CSS.Properties = {
     backgroundColor: colorMap[difficulty],

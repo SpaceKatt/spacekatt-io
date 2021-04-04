@@ -1,13 +1,13 @@
-import * as CSS from "csstype";
-import React, { MouseEvent } from "react";
-import { FunctionComponent } from "react";
-import { v4 } from "uuid";
+import * as CSS from 'csstype';
+import React, { MouseEvent } from 'react';
+import { FunctionComponent } from 'react';
+import { v4 } from 'uuid';
 
-import { colorMap, DifficultyKeys } from "../App";
-import { getWidthCssProp, onContextDevNull } from "../utility";
+import { colorMap, DifficultyKeys } from '../App';
+import { getWidthCssProp, onContextDevNull } from '../utility';
 
-import "infima/dist/css/default/default.css";
-import "./DifficultySelector.css";
+import 'infima/dist/css/default/default.css';
+import './DifficultySelector.css';
 
 export interface DifficultySelectorProps {
   difficulties: DifficultyKeys[];
@@ -15,7 +15,7 @@ export interface DifficultySelectorProps {
   setDifficulty: React.Dispatch<DifficultyKeys>;
 }
 export const DifficultySelector: FunctionComponent<DifficultySelectorProps> = (
-  props
+  props,
 ) => {
   const onRadioChangeCurry = (difficulty: DifficultyKeys) => {
     return (event: MouseEvent<HTMLDivElement>) => {
@@ -27,8 +27,8 @@ export const DifficultySelector: FunctionComponent<DifficultySelectorProps> = (
   for (const difficulty of props.difficulties) {
     const classNom =
       props.selectedDifficulty === difficulty
-        ? "SelectedDifficulty SelectedDifficulty--active"
-        : "SelectedDifficulty";
+        ? 'SelectedDifficulty SelectedDifficulty--active'
+        : 'SelectedDifficulty';
     const diffButton = (
       <div
         key={v4()}
@@ -71,7 +71,7 @@ export const DifficultySelector: FunctionComponent<DifficultySelectorProps> = (
 };
 
 const generateDifficultyPlayingCSS = (
-  difficulty: DifficultyKeys
+  difficulty: DifficultyKeys,
 ): CSS.Properties => {
   const style: CSS.Properties = {
     backgroundColor: colorMap[difficulty],
@@ -80,12 +80,12 @@ const generateDifficultyPlayingCSS = (
 };
 const generateFormCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
-    display: "flex",
+    display: 'flex',
     flexGrow: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingBottom: "8px",
-    paddingTop: "0px",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: '8px',
+    paddingTop: '0px',
   };
   return style;
 };
@@ -93,7 +93,7 @@ const generateFormCSS = (): CSS.Properties => {
 export const generateDifficultySelectorContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
     width: `calc(${getWidthCssProp()} - 4px`,
-    paddingRight: "11px",
+    paddingRight: '11px',
   };
   return style;
 };

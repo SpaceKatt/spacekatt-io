@@ -1,8 +1,8 @@
-import { MineCoordinates } from "./field/Mine";
+import { MineCoordinates } from './field/Mine';
 
 export class ConfigConstants {
-  static readonly gameStateDisplayHeight = "80px";
-  static readonly highscoreDisplayHeight = "122px";
+  static readonly gameStateDisplayHeight = '80px';
+  static readonly highscoreDisplayHeight = '122px';
 }
 
 export const NEIGHBORS_FILTER = [
@@ -24,7 +24,7 @@ export const WIN_CONDITION = (
   flagged: boolean[][],
   mineMap: MineCoordinates[][],
   hidden: boolean[][],
-  mineCount: number
+  mineCount: number,
 ): boolean => {
   const target = flagged.length * flagged[0].length;
   let flaggedCount = 0;
@@ -44,7 +44,7 @@ export const BOUNDS_GAURD = (
   row: number,
   col: number,
   lenRow: number,
-  lenCol: number
+  lenCol: number,
 ): boolean => {
   return !(row >= 0 && col >= 0 && row < lenRow && col < lenCol);
 };
@@ -53,12 +53,12 @@ export const setHighScore = (
   numMines: number,
   numRow: number,
   numColumn: number,
-  time: number
+  time: number,
 ): void => {
-  if (typeof window !== "undefined") {
+  if (typeof window !== 'undefined') {
     const highScoreKey = `HIGH_SCORE_${numRow}_${numColumn}_${numMines}`;
 
-    const highScore = localStorage.getItem(highScoreKey) || "";
+    const highScore = localStorage.getItem(highScoreKey) || '';
     if (!highScore || time < Number(highScore)) {
       localStorage.setItem(highScoreKey, String(Math.round(time * 10) / 10));
     }
@@ -68,10 +68,10 @@ export const setHighScore = (
 export const checkHighScore = (
   numMines: number,
   numRow: number,
-  numColumn: number
+  numColumn: number,
 ): string => {
-  let highScore = "";
-  if (typeof window !== "undefined") {
+  let highScore = '';
+  if (typeof window !== 'undefined') {
     const highScoreKey = `HIGH_SCORE_${numRow}_${numColumn}_${numMines}`;
     highScore = localStorage.getItem(highScoreKey) || highScore;
   }
@@ -80,7 +80,7 @@ export const checkHighScore = (
 
 export const createMineCoordinates = (
   mineMap: boolean[][],
-  neighborMap: number[][]
+  neighborMap: number[][],
 ): MineCoordinates[][] => {
   const mineCoords: MineCoordinates[][] = [];
 
@@ -132,7 +132,7 @@ export function getRandomInt(max: number) {
 export const createBooleanMap = (
   squaresInRow: number,
   squaresInColumn?: number,
-  state?: boolean
+  state?: boolean,
 ): boolean[][] => {
   if (!squaresInColumn) {
     squaresInColumn = squaresInRow;
@@ -152,7 +152,7 @@ export const createBooleanMap = (
 export const createMineMap = (
   numMines: number,
   squaresInRow: number,
-  squaresInColumn?: number
+  squaresInColumn?: number,
 ): boolean[][] => {
   if (!squaresInColumn) {
     squaresInColumn = squaresInRow;
@@ -179,7 +179,7 @@ export const createMineMap = (
 
 export const initializeField = (
   squaresInRow: number,
-  colCount?: number
+  colCount?: number,
 ): number[][] => {
   if (!colCount) {
     colCount = squaresInRow;
@@ -198,5 +198,5 @@ export const initializeField = (
 };
 
 export const getWidthCssProp = (): string => {
-  return "max(min(100%, 75vh), 424px)";
+  return 'max(min(100%, 75vh), 424px)';
 };

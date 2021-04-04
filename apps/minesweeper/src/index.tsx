@@ -1,10 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
 
-export * from "./App";
-export * from "./utility";
+export * from './App';
+export * from './utility';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -12,5 +12,5 @@ ReactDOM.render(
       <App />
     </div>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );

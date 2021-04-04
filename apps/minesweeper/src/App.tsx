@@ -1,18 +1,17 @@
-import * as CSS from "csstype";
-import React, { useState } from "react";
-import { v4 } from "uuid";
-import { DifficultySelector, DifficultySelectorProps } from "./displays";
-import { HighScoreSummary, getHighScoreSummary } from "./displays/HighScore";
-import { MinefieldController } from "./field";
+import * as CSS from 'csstype';
+import React, { useState } from 'react';
+import { v4 } from 'uuid';
+import { DifficultySelector, DifficultySelectorProps } from './displays';
+import { HighScoreSummary, getHighScoreSummary } from './displays/HighScore';
+import { MinefieldController } from './field';
 import {
-  ConfigConstants,
   createMineCoordinates,
   createMineMap,
   createNeighborMap,
   getWidthCssProp,
-} from "./utility";
+} from './utility';
 
-import "./App.css";
+import './App.css';
 
 export interface MinefieldConfig {
   numberOfMines: number;
@@ -20,8 +19,8 @@ export interface MinefieldConfig {
   columnCount: number;
 }
 
-export const difficultyKeyLiteral = ["Beginner", "Intermediate", "Advanced"];
-export const difficultyKeys = ["Beginner", "Intermediate", "Advanced"] as const;
+export const difficultyKeyLiteral = ['Beginner', 'Intermediate', 'Advanced'];
+export const difficultyKeys = ['Beginner', 'Intermediate', 'Advanced'] as const;
 export type DifficultyKeys = typeof difficultyKeys[number];
 
 export type MinefieldDifficultyManifest = {
@@ -49,29 +48,29 @@ export const difficulties: MinefieldDifficultyManifest = {
 export const aspectRatioMap: {
   [K in DifficultyKeys]: string;
 } = {
-  Beginner: "var(--beginner-aspect-ratio)",
-  Intermediate: "var(--inter-aspect-ratio)",
-  Advanced: "var(--advanced-aspect-ratio)",
+  Beginner: 'var(--beginner-aspect-ratio)',
+  Intermediate: 'var(--inter-aspect-ratio)',
+  Advanced: 'var(--advanced-aspect-ratio)',
 };
 
 export const colorMap: {
   [K in DifficultyKeys]: string;
 } = {
-  Beginner: "var(--beginner-color)",
-  Intermediate: "var(--intermediate-color)",
-  Advanced: "var(--advanced-color)",
+  Beginner: 'var(--beginner-color)',
+  Intermediate: 'var(--intermediate-color)',
+  Advanced: 'var(--advanced-color)',
 };
 
 export const displayMap: {
   [K in DifficultyKeys]: string;
 } = {
-  Beginner: "Display Display-Beginner",
-  Intermediate: "Display Display-Intermediate",
-  Advanced: "Display Display-Advanced",
+  Beginner: 'Display Display-Beginner',
+  Intermediate: 'Display Display-Intermediate',
+  Advanced: 'Display Display-Advanced',
 };
 
 export function App() {
-  const [difficulty, setDifficulty] = useState<DifficultyKeys>("Beginner");
+  const [difficulty, setDifficulty] = useState<DifficultyKeys>('Beginner');
 
   const selectedDifficulty = difficulties[difficulty];
   const numberOfMines = selectedDifficulty.numberOfMines;
@@ -97,7 +96,7 @@ export function App() {
     const newMines = createMineMap(
       numberOfMines,
       squaresInRow,
-      squaresInColumn
+      squaresInColumn,
     );
     setMines({ mines: newMines });
   };
@@ -131,12 +130,12 @@ export function App() {
 }
 
 export const generateMetaContainerCSS = (
-  difficulty: string
+  difficulty: string,
 ): CSS.Properties => {
   const ratioMap: { [key: string]: string } = {
-    Beginner: "20%",
-    Intermediate: "60%",
-    Advanced: "100%",
+    Beginner: '20%',
+    Intermediate: '60%',
+    Advanced: '100%',
   };
   const style: CSS.Properties = {
     width: `max(min(${getWidthCssProp()}, ${ratioMap[difficulty]}), 424px)`,
@@ -147,9 +146,9 @@ export const generateMetaContainerCSS = (
 export const generateAppContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
     width: getWidthCssProp(),
-    position: "relative",
-    display: "flex",
-    flexDirection: "column",
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
   };
   return style;
 };

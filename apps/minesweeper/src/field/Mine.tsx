@@ -1,6 +1,6 @@
-import React from "react";
-import { FunctionComponent } from "react";
-import "./Mine.css";
+import React from 'react';
+import { FunctionComponent } from 'react';
+import './Mine.css';
 
 export interface MineCoordinates {
   x: number;
@@ -24,7 +24,7 @@ export const Mine: FunctionComponent<MineProps> = (props) => {
       return;
     }
 
-    if (props.flagHandler && (event.type === "contextmenu" || event.altKey)) {
+    if (props.flagHandler && (event.type === 'contextmenu' || event.altKey)) {
       if (event.preventDefault) {
         event.preventDefault();
       }
