@@ -17,8 +17,8 @@ Shared code for [public website](https://spacekatt.io/) and other applications.
     - [Run Container Locally](#run-container-locally)
     - [Stop running container](#stop-running-container)
     - [Inspect running container](#inspect-running-container)
-  - [Deployment && Observability](#deployment--observability)
   - [CI/CD](#cicd)
+  - [Observability](#observability)
 
 ## Build Toolchain
 
@@ -114,8 +114,12 @@ docker ps
 docker exec -it <container_name> /bin/sh
 ```
 
-## Deployment && Observability
-
-Each project is responsible for their own deployment and observability strategies. Please refer to the [`Project Inventory`](https://github.com/SpaceKatt/spacekatt-io#project-inventory) for links to `READMEs` with the relevant information.
-
 ## CI/CD
+
+Continuous integration is performed on [TravisCI](https://travis-ci.org/github/SpaceKatt/spacekatt-io), as defined by [`.travis.yml`](.travis.yml). Two jobs are performed: building the Docker image and building the project with Rush.
+
+Continuous deployment is on the roadmap. However, automation for deployments have yet to be implemented. Please refer to the [`Project Inventory`](https://github.com/SpaceKatt/spacekatt-io#project-inventory) for links to `READMEs` with the manual deployment instructions for each project (until the process is automated).
+
+## Observability
+
+Each project is responsible for their own observability strategies. Please refer to the [`Project Inventory`](https://github.com/SpaceKatt/spacekatt-io#project-inventory) for links to `READMEs` with the relevant information.

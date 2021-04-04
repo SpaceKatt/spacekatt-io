@@ -11,7 +11,7 @@ jobs:
       before_install:
         - docker build -t spacekatt/spacekatt-io:latest .
       script: echo 'Docker build successful'
-    - stage: Heft build
+    - stage: Rush build
       before_install:
         - echo 'Checking for missing change logs...' && echo -en 'travis_fold:start:change\\r'
         - git fetch origin main:refs/remotes/origin/main -a
