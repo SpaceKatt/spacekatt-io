@@ -23,7 +23,7 @@ Shared code for [public website](https://spacekatt.io/) and other applications.
 
 ## Build Toolchain
 
-This project uses [Rush Stack](https://rushstack.io/) and [Heft](https://rushstack.io/pages/heft/overview/) for build and test orchestration. Rush has the benefit of providing incremental builds, which makes it useful for use in the monorepo context (time savings).
+This project uses [Rush Stack](https://rushstack.io/) and [Heft](https://rushstack.io/pages/heft/overview/) for build and test orchestration. Rush has the benefit of providing [incremental builds](https://rushjs.io/pages/advanced/incremental_builds/), which makes it useful for use in the monorepo context (time savings).
 
 ### Install node14, using `nvm`
 
@@ -127,7 +127,7 @@ docker exec -it <container_name> /bin/sh
 
 Continuous integration is performed on [TravisCI](https://travis-ci.org/github/SpaceKatt/spacekatt-io), as defined by [`.travis.yml`](.travis.yml). Two jobs are performed: building the Docker image and building/testing the project with Rush/Heft (respectively).
 
-Continuous deployment is on the roadmap. However, automation for deployments have yet to be implemented. Please refer to the [`Project Inventory`](https://github.com/SpaceKatt/spacekatt-io#project-inventory) for links to `READMEs` with the manual deployment instructions for each project (until the process is automated).
+Continuous deployment is on the roadmap. However, automation for deployments has yet to be implemented. Please refer to the [`Project Inventory`](https://github.com/SpaceKatt/spacekatt-io#project-inventory) for links to `READMEs` with the manual deployment instructions for each project (until the process is automated).
 
 ## Observability
 

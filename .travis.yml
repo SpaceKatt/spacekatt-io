@@ -4,8 +4,9 @@ jobs:
       language: minimal
       services: docker
       script:
-        - echo 'Building Docker image to serve content with NGINX...' && echo -en 'travis_fold:start:dockerbuild\\r'
         - set -e
+
+        - echo 'Building Docker image to serve content with NGINX...' && echo -en 'travis_fold:start:dockerbuild\\r'
         - docker build -t spacekatt/spacekatt-io:latest .
         - echo -en 'travis_fold:end:dockerbuild\\r'
         - echo 'Docker build successful'
