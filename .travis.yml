@@ -1,18 +1,15 @@
-language: node_js
-
-node_js:
-  - "14.16.0"
-
-services: docker
-
 jobs:
   include:
     - stage: Docker image build
+      services: docker
       before_install:
         - docker build -t spacekatt/spacekatt-io:latest .
       script: echo 'Docker build successful'
 
     - stage: Rush build
+      language: node_js
+      node_js:
+        - "14.16.0"
       before_install:
         - set -e
         - echo 'Checking for missing change logs...' && echo -en 'travis_fold:start:change\\r'
