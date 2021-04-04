@@ -19,7 +19,7 @@ This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern 
 
 ## Setup
 
-Follow the [`Build Toolchain`](https://github.com/SpaceKatt/spacekatt-io#build-toolchain) set up instructions in the [parent `README`](../README.md) before continuing.
+Follow the [`Build Toolchain`](https://github.com/SpaceKatt/spacekatt-io#build-toolchain) set up instructions in the [parent `README`](https://github.com/SpaceKatt/spacekatt-io) before continuing.
 
 ## Build
 

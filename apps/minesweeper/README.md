@@ -18,7 +18,7 @@
 
 ## Setup
 
-Follow the [`Build Toolchain`](https://github.com/SpaceKatt/spacekatt-io#build-toolchain) set up instructions in the [parent `README`](../README.md) before continuing.
+Follow the [`Build Toolchain`](https://github.com/SpaceKatt/spacekatt-io#build-toolchain) set up instructions in the [parent `README`](https://github.com/SpaceKatt/spacekatt-io) before continuing.
 
 ## Build
 
@@ -48,7 +48,7 @@ This command starts a local development server and open up a browser window. Mos
 
 ### Prettier
 
-Assuming you [installed the right tools](../README.md#Linting)...
+Assuming you [installed the right tools](https://github.com/SpaceKatt/spacekatt-io#linting)...
 
 ```bash
 npm run prettify-files
@@ -56,7 +56,7 @@ npm run prettify-files
 
 ## CI/CD
 
-Please see the section on CI/CD in the [parent README](../README.md#CI/CD).
+Please see the section on CI/CD in the [parent README](https://github.com/SpaceKatt/spacekatt-io#cicd).
 
 ## Deployment
 
