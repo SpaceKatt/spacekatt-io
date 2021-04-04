@@ -54,8 +54,7 @@ FROM nginx:alpine
 RUN mkdir -p /usr/local/src/
 WORKDIR /usr/local/src
 
-COPY --from=builder /usr/local/src .
-# TODO: only copy static built apps
+COPY --from=builder /usr/local/src/spacekatt-io/build .
 
 #### configure nginx service
 # RUN adduser -D -g 'www' www
