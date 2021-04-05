@@ -8,6 +8,7 @@
   - [Setup](#setup)
   - [Build](#build)
   - [Local Development](#local-development)
+  - [Testing](#testing)
   - [Linting / Prettification](#linting--prettification)
     - [Prettier](#prettier)
   - [CI/CD](#cicd)
@@ -43,6 +44,14 @@ npm start
 ```
 
 This command starts a local development server and open up a browser window. Most changes are reflected live without having to restart the server.
+
+## Testing
+
+[`heft`](https://rushstack.io/pages/heft_tutorials/everyday_commands/) (`jest` under the covers) is used as a test runner.
+
+```bash
+heft test
+```
 
 ## Linting / Prettification
 
