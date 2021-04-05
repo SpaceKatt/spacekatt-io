@@ -43,7 +43,9 @@ export const Mine: FunctionComponent<MineProps> = (props) => {
 
   const hiddenSquare = props.flagged ? (
     <div className="HiddenIcon">
-      <div className="Invis">0</div>
+      <div className="Invis" style={{ cursor: 'not-allowed' }}>
+        0
+      </div>
     </div>
   ) : (
     <div className="Unexplored">
