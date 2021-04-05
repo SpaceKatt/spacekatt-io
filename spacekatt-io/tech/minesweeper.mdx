@@ -6,9 +6,21 @@ sidebar_label: Minesweeper
 
 import { App } from "spacekatt-minesweeper";
 
+Minesweeper implementation using [React 17 Hooks](https://reactjs.org/docs/hooks-intro.html) as a responsive application framework. Vaporwave color palatte.
+
 ## Instructions
 
-<App />
+- Select difficulty (`Beginner|Intermediate|Advanced`) with toggle buttons at the top of the application frame
+- Left click `=>` Uncover tile, discover whether a mine is buried underneath!
+- Right click `=>` Flag potential mine, adjust `Mines left` count based on hypothesis.
+- Uncovered tiles display how many mines are buried in the surrounding eight (8) tiles.
+- Uncover all safe tiles—without hitting a mine—to `win`!
+
+## Minesweeper Application
+
+<div style={{ display: "flex", justifyContent: "center" }}>
+  <App />
+</div>
 
 ## Source Code
 

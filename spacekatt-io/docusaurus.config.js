@@ -25,7 +25,7 @@ module.exports = {
         },
         { to: "blog", label: "Blog", position: "left" },
         {
-          href: "https://github.com/spacekatt/",
+          href: "https://github.com/spacekatt/spacekatt-io",
           label: "GitHub",
           position: "right",
         },
