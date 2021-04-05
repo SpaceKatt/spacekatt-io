@@ -27,17 +27,14 @@ export const WIN_CONDITION = (
   mineCount: number,
 ): boolean => {
   const target = flagged.length * flagged[0].length;
-  let flaggedCount = 0;
   let visibleCount = 0;
   for (let i = 0; i < flagged.length; i++) {
     for (let j = 0; j < flagged[i].length; j++) {
-      if (flagged[i][j] && mineMap[i][j].isMine) flaggedCount++;
-      if (!hidden[i][j]) visibleCount++;
+      if (!(hidden[i][j] || mineMap[i][j].isMine)) visibleCount++;
     }
   }
-  const mineCorrection = Math.max(0, mineCount - flaggedCount);
 
-  return visibleCount + flaggedCount + mineCorrection === target;
+  return visibleCount + mineCount === target;
 };
 
 export const BOUNDS_GAURD = (

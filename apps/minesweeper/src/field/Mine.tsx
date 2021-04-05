@@ -1,5 +1,4 @@
-import React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import './Mine.css';
 
 export interface MineCoordinates {
@@ -48,7 +47,7 @@ export const Mine: FunctionComponent<MineProps> = (props) => {
     </div>
   ) : (
     <div className="Unexplored">
-      <div className="Invis">0</div>
+      <div className="Invis Unexplored">0</div>
     </div>
   );
   const exposed = props.coords.isMine ? (
