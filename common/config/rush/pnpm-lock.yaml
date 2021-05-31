@@ -1,6 +1,6 @@
 dependencies:
   '@docusaurus/core': 2.0.0-alpha.70_c39e9db791ea05e3ec4e0e74abb7a6b5
-  '@docusaurus/module-type-aliases': 2.0.0-alpha.70
+  '@docusaurus/module-type-aliases': 2.0.0-beta.0
   '@docusaurus/plugin-client-redirects': 2.0.0-alpha.70_c39e9db791ea05e3ec4e0e74abb7a6b5
   '@docusaurus/preset-classic': 2.0.0-alpha.70_805fd049047461ece7716868da2898f8
   '@mdx-js/react': 1.6.21_react@17.0.1
@@ -1640,10 +1640,10 @@ packages:
       typescript: '*'
     resolution:
       integrity: sha512-CDR4O4z7wO5/S8O3TAggCynnuBIGIlUT9q9uhhkDe8h5XDhF8n8d6bwqir0O+fUMN3EnyrMq6z1g4IDRB5G2vw==
-  /@docusaurus/module-type-aliases/2.0.0-alpha.70:
+  /@docusaurus/module-type-aliases/2.0.0-beta.0:
     dev: false
     resolution:
-      integrity: sha512-ESAY5ZU7uGRhZwbyxyGdvAAP+3D/oewSmtsWdvdhc8V9PPxVJCXc06zxXunfEzutVtOd4iZkQsuWgXAhtFa63g==
+      integrity: sha512-Yj+7hjy5pCK4DQ3l2JDGBF4bMY63MV/z18WK7REHniyqC66IJQT+0Gpb6Q+Oz8e2Og8AsyWIbfTXvsFWK0UhJA==
   /@docusaurus/plugin-client-redirects/2.0.0-alpha.70_c39e9db791ea05e3ec4e0e74abb7a6b5:
     dependencies:
       '@docusaurus/core': 2.0.0-alpha.70_c39e9db791ea05e3ec4e0e74abb7a6b5
@@ -17546,7 +17546,7 @@ packages:
   'file:projects/spacekatt-io.tgz':
     dependencies:
       '@docusaurus/core': 2.0.0-alpha.70_c39e9db791ea05e3ec4e0e74abb7a6b5
-      '@docusaurus/module-type-aliases': 2.0.0-alpha.70
+      '@docusaurus/module-type-aliases': 2.0.0-beta.0
       '@docusaurus/plugin-client-redirects': 2.0.0-alpha.70_c39e9db791ea05e3ec4e0e74abb7a6b5
       '@docusaurus/preset-classic': 2.0.0-alpha.70_805fd049047461ece7716868da2898f8
       '@mdx-js/react': 1.6.21_react@17.0.1
@@ -17564,7 +17564,7 @@ packages:
     dev: false
     name: '@rush-temp/spacekatt-io'
     resolution:
-      integrity: sha512-R77b3JYN5jZqJe0fMsANk/e+t86rf5itkxYVY/vbfz0vQO41UoTJBfXRQvnEozKaajbg3ocL/LSh2nKRY1cODA==
+      integrity: sha512-oUzrrp5Lf9UvMmGyxGikX1dpr/TXQbIVZFtHam8EtmoPLpXc/knct41JZdojIoGFw+4BAnt4S3Y3iRU2xbU5aA==
       tarball: 'file:projects/spacekatt-io.tgz'
     version: 0.0.0
   'file:projects/spacekatt-minesweeper.tgz':
@@ -17601,7 +17601,7 @@ packages:
 registry: ''
 specifiers:
   '@docusaurus/core': 2.0.0-alpha.70
-  '@docusaurus/module-type-aliases': 2.0.0-alpha.70
+  '@docusaurus/module-type-aliases': 2.0.0-beta.0
   '@docusaurus/plugin-client-redirects': 2.0.0-alpha.70
   '@docusaurus/preset-classic': 2.0.0-alpha.70
   '@mdx-js/react': 1.6.21
