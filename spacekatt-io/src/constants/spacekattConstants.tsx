@@ -1,3 +1,3 @@
 export const SpaceKattConstants = {
-  logo: "img/spacekatt-logo.svg",
+  logo: 'img/spacekatt-logo.svg',
 };

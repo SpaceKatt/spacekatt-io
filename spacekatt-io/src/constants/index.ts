@@ -1,1 +1,1 @@
-export * from "./spacekattConstants";
+export * from './spacekattConstants';
