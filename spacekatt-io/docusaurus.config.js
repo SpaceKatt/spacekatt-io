@@ -5,15 +5,15 @@ module.exports = {
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
+  favicon: "img/spacekatt-logo.svg",
   organizationName: "spacekatt",
   projectName: "spacekatt-io",
   themeConfig: {
     navbar: {
       title: "SpaceKatt.io",
       logo: {
-        alt: "My Site Logo",
-        src: "img/spacekatt_logo.jpg",
+        alt: "SpaceKatt Logo",
+        src: "img/spacekatt-logo.svg",
       },
       items: [
         {
