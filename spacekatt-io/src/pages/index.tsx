@@ -42,7 +42,7 @@ function Feature({ imageUrl, title, description }) {
   );
 }
 
-const urlArr = ["tech/", "tech/", "blog/"];
+const urlArr = ["tech/", "art/", "blog/"];
 function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
