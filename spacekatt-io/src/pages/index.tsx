@@ -12,19 +12,19 @@ import styles from "./styles.module.css";
 const features = [
   {
     title: "Tech",
-    url: "tech/",
+    url: "tech",
     imageUrl: SpaceKattConstants.logo,
     description: <>SpaceKatt Tech</>,
   },
   {
     title: "Art",
-    url: "art/",
+    url: "art",
     imageUrl: SpaceKattConstants.logo,
     description: <>SpaceKatt Art</>,
   },
   {
     title: "And More!",
-    url: "blog/",
+    url: "blog",
     imageUrl: SpaceKattConstants.logo,
     description: (
       <>Change is constant! Check the blog for content updates on this site.</>

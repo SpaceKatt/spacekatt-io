@@ -17,14 +17,14 @@ module.exports = {
       },
       items: [
         {
-          to: "tech/",
+          to: "tech",
           activeBasePath: "tech",
           sidebarPath: "techSidebar",
           label: "Tech",
           position: "left",
         },
         {
-          to: "art/",
+          to: "art",
           activeBasePath: "art",
           sidebarPath: "artSidebar",
           label: "Art",
