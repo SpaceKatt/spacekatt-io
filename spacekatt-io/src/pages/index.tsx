@@ -5,45 +5,32 @@ import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
+import { Feature } from "../component";
+import { SpaceKattConstants } from "../constants";
 import styles from "./styles.module.css";
 
 const features = [
   {
     title: "Tech",
     url: "tech/",
-    imageUrl: "img/spacekatt-logo.svg",
+    imageUrl: SpaceKattConstants.logo,
     description: <>SpaceKatt Tech</>,
   },
   {
     title: "Art",
     url: "art/",
-    imageUrl: "img/spacekatt-logo.svg",
+    imageUrl: SpaceKattConstants.logo,
     description: <>SpaceKatt Art</>,
   },
   {
     title: "And More!",
     url: "blog/",
-    imageUrl: "img/spacekatt-logo.svg",
+    imageUrl: SpaceKattConstants.logo,
     description: (
       <>Change is constant! Check the blog for content updates on this site.</>
     ),
   },
 ];
-
-function Feature({ imageUrl, title, description }) {
-  const imgUrl = useBaseUrl(imageUrl);
-  return (
-    <div className="border-man">
-      {imgUrl && (
-        <div className="text--center">
-          <img className={styles.featureImage} src={imgUrl} alt={title} />
-        </div>
-      )}
-      <h3 style={{ color: "black" }}>{title}</h3>
-      <p style={{ color: "clue" }}>{description}</p>
-    </div>
-  );
-}
 
 function Home() {
   const context = useDocusaurusContext();
