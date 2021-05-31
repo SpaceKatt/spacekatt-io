@@ -8,6 +8,6 @@ author_image_url: https://avatars.githubusercontent.com/u/10052234?s=400&u=32129
 tags: [esp32, weather, telemetry, iot]
 ---
 
-Uploaded a video of the [weather station](/tech/esp32-weather-telemetry-station) I built over the last two days.
+Uploaded a video of the [weather station](/esp32-weather-telemetry-station) I built over the last two days.
 
 Next update may include OpenSCAD schematics for an enclosure.
