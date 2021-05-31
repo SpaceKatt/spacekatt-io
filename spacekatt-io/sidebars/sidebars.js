@@ -1,6 +1,7 @@
 module.exports = {
-  firstSidebar: [
-    "tech-overview",
+  artSidebar: ["art"],
+  techSidebar: [
+    "tech",
     { Applications: ["minesweeper"] },
     { IoT: ["esp32-weather-telemetry-station"] },
   ],

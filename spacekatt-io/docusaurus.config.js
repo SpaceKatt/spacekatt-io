@@ -19,11 +19,18 @@ module.exports = {
         {
           to: "tech/",
           activeBasePath: "tech",
-          sidebarPath: "tech",
+          sidebarPath: "techSidebar",
           label: "Tech",
           position: "left",
         },
-        { to: "blog", label: "Blog", position: "left" },
+        {
+          to: "art/",
+          activeBasePath: "art",
+          sidebarPath: "artSidebar",
+          label: "Art",
+          position: "left",
+        },
+        { to: "blog", label: "Blog", position: "right" },
         {
           href: "https://github.com/spacekatt/spacekatt-io",
           label: "GitHub",
@@ -39,11 +46,11 @@ module.exports = {
           items: [
             {
               label: "Minesweeper",
-              to: "tech/",
+              to: "minesweeper/",
             },
             {
               label: "Weather Station",
-              to: "tech/esp32-weather-telemetry-station/",
+              to: "esp32-weather-telemetry-station/",
             },
           ],
         },
@@ -82,10 +89,10 @@ module.exports = {
       "@docusaurus/preset-classic",
       {
         docs: {
-          sidebarPath: require.resolve("./sidebars.js"),
+          sidebarPath: require.resolve("./sidebars/sidebars.js"),
           // Please change this to your repo.
-          path: "tech",
-          routeBasePath: "tech",
+          path: "docs",
+          routeBasePath: "/",
           editUrl:
             "https://github.com/SpaceKatt/spacekatt-io/edit/main/spacekatt-io/",
         },
@@ -98,6 +105,19 @@ module.exports = {
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
+      },
+    ],
+  ],
+  plugins: [
+    [
+      "@docusaurus/plugin-client-redirects",
+      {
+        redirects: [
+          {
+            to: "/minesweeper", // string
+            from: ["/tech/minesweeper", "/tech/minesweeper.html"], // string | string[]
+          },
+        ],
       },
     ],
   ],
