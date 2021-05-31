@@ -10,17 +10,20 @@ import styles from "./styles.module.css";
 const features = [
   {
     title: "Tech",
-    imageUrl: "img/spacekatt_logo.jpg",
+    url: "tech/",
+    imageUrl: "img/spacekatt-logo.svg",
     description: <>SpaceKatt Tech</>,
   },
   {
     title: "Art",
-    imageUrl: "img/spacekatt_logo.jpg",
+    url: "art/",
+    imageUrl: "img/spacekatt-logo.svg",
     description: <>SpaceKatt Art</>,
   },
   {
     title: "And More!",
-    imageUrl: "img/spacekatt_logo.jpg",
+    url: "blog/",
+    imageUrl: "img/spacekatt-logo.svg",
     description: (
       <>Change is constant! Check the blog for content updates on this site.</>
     ),
@@ -42,7 +45,6 @@ function Feature({ imageUrl, title, description }) {
   );
 }
 
-const urlArr = ["tech/", "art/", "blog/"];
 function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
@@ -77,7 +79,7 @@ function Home() {
                   <div className={clsx("border-man col col--4")}>
                     <Link
                       className={clsx(styles.borderMan, styles.mainPageFeature)}
-                      to={useBaseUrl(urlArr[idx])}
+                      to={useBaseUrl(props.url)}
                     >
                       <Feature key={idx} {...props}></Feature>
                     </Link>
