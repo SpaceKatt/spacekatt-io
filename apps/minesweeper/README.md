@@ -1,6 +1,6 @@
 # SpaceKatt Minesweeper
 
-[![Build Status](https://travis-ci.org/SpaceKatt/spacekatt-io.svg?branch=main)](https://travis-ci.org/SpaceKatt/spacekatt-io)
+[![Build Status](https://travis-ci.com/SpaceKatt/spacekatt-io.svg?branch=main)](https://travis-ci.com/SpaceKatt/spacekatt-io)
 
 [Minesweeper implementation](https://spacekatt.io/tech/minesweeper), with a vaporwave color palatte. [React 17 Hooks](https://reactjs.org/docs/hooks-intro.html) was used as responsive application framework.
 

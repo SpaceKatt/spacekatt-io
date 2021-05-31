@@ -1,6 +1,6 @@
 # The International SpaceKatt Station
 
-[![Build Status](https://travis-ci.org/SpaceKatt/spacekatt-io.svg?branch=main)](https://travis-ci.org/SpaceKatt/spacekatt-io)
+[![Build Status](https://travis-ci.com/SpaceKatt/spacekatt-io.svg?branch=main)](https://travis-ci.com/SpaceKatt/spacekatt-io)
 
 Code for a [public website](https://spacekatt.io) to display SpaceKatt's projects, art, and other "stuff."
 
