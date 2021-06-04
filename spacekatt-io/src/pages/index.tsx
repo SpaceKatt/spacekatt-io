@@ -5,7 +5,12 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-import { Feature } from '../component';
+import {
+  cardFactory,
+  Feature,
+  TechOverviewGallery,
+  techOverviewGalleryProps,
+} from '../component';
 import { SpaceKattConstants } from '../constants';
 import styles from './styles.module.css';
 

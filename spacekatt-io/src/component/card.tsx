@@ -1,4 +1,3 @@
-import renderRoutes from '@docusaurus/renderRoutes';
 import React, { FunctionComponent, ReactElement } from 'react';
 
 export interface CardProps {
@@ -28,9 +27,7 @@ export const Card: FunctionComponent<CardProps> = (
       <div class="card__body">
         <h4>{props.header}</h4>
 
-        <small>
-          Classic game implemented using React 17 Hooks. Vaporwave aesthetic.
-        </small>
+        <small>{props.body}</small>
       </div>
       <div className="card__footer">
         <a
