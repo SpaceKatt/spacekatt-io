@@ -5,7 +5,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-import { Feature } from '../component';
+import { Feature } from '../components';
 import { SpaceKattConstants } from '../constants';
 import styles from './styles.module.css';
 

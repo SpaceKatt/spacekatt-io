@@ -1,5 +1,6 @@
 import React from 'react';
-import { CardFactory, CardFactoryProps, cardPropFactory } from '..';
+import { CardFactory, CardFactoryProps } from '../factories';
+import { cardPropFactory } from '../generics';
 
 export const techOverviewGalleryProps: CardFactoryProps = {
   cardProps: [

@@ -9,6 +9,7 @@ export interface CardProps {
   height: string;
   url: string;
   classCss?: string;
+  callToAction?: string;
 }
 
 export const cardPropFactory = (
@@ -20,6 +21,7 @@ export const cardPropFactory = (
   height: string,
   url: string,
   classCss?: string,
+  callToAction?: string,
 ): CardProps => {
   return {
     header,
@@ -30,6 +32,7 @@ export const cardPropFactory = (
     height,
     url,
     classCss,
+    callToAction,
   };
 };
 
@@ -60,7 +63,7 @@ export const Card: FunctionComponent<CardProps> = (
               : 'button button--primary button--block'
           }
         >
-          Visit
+          {props.callToAction ? props.callToAction : 'Visit'}
         </a>
       </div>
     </div>
