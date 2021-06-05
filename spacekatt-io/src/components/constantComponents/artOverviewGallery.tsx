@@ -15,6 +15,15 @@ const artOverviewGalleryProps: CardFactoryProps = {
       artGalleryCardHeight,
       '/bottom-text',
     ),
+    cardPropFactory(
+      'SpaceKatt Logo',
+      'Design process behind the SpaceKatt logo.',
+      '/img/spacekatt-logo.svg',
+      'SpaceKatt Logo',
+      'SpaceKatt Logo',
+      artGalleryCardHeight,
+      '/spacekatt-logo',
+    ),
   ],
 };
 

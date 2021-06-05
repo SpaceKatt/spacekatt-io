@@ -2,7 +2,7 @@ import React from 'react';
 import { CardFactory, CardFactoryProps } from '../factories';
 import { cardPropFactory } from '../generics';
 
-const techGalleryCardHeight = '200px';
+const techGalleryCardHeight = '250px';
 
 const techOverviewGalleryProps: CardFactoryProps = {
   cardProps: [
