@@ -2,7 +2,9 @@ import React from 'react';
 import { CardFactory, CardFactoryProps } from '../factories';
 import { cardPropFactory } from '../generics';
 
-export const techOverviewGalleryProps: CardFactoryProps = {
+const techGalleryCardHeight = '200px';
+
+const techOverviewGalleryProps: CardFactoryProps = {
   cardProps: [
     cardPropFactory(
       'Weather Station',
@@ -10,7 +12,7 @@ export const techOverviewGalleryProps: CardFactoryProps = {
       '/img/weather_station.png',
       'Image of SpaceKatt Weather Station',
       'SpaceKatt Weather Station',
-      '200px',
+      techGalleryCardHeight,
       '/esp32-weather-telemetry-station',
     ),
     cardPropFactory(
@@ -19,7 +21,7 @@ export const techOverviewGalleryProps: CardFactoryProps = {
       '/img/minesweeper.png',
       'Minesweeper squares during gameplay',
       'Minesweeper Screenshot',
-      '200px',
+      techGalleryCardHeight,
       '/minesweeper',
     ),
   ],

@@ -41,7 +41,10 @@ export const Card: FunctionComponent<CardProps> = (
 ): ReactElement => {
   return (
     <div className="card col">
-      <div className="card__image">
+      <div
+        className="card__image"
+        style={{ display: 'flex', justifyContent: 'center' }}
+      >
         <img
           src={props.imgSrc}
           alt={props.alt}
