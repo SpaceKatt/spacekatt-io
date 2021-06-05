@@ -6,13 +6,13 @@ import styles from '../../pages/styles.module.css';
 export function Feature({ imageUrl, title, description }) {
   const imgUrl = useBaseUrl(imageUrl);
   return (
-    <div className="border-man">
+    <div className="border-man text--center">
       {imgUrl && (
-        <div className="text--center">
+        <div>
           <img className={styles.featureImage} src={imgUrl} alt={title} />
         </div>
       )}
-      <h3 style={{ color: 'black' }}>{title}</h3>
+      <h3>{title}</h3>
       <p style={{ color: 'clue' }}>{description}</p>
     </div>
   );
