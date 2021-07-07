@@ -17,7 +17,6 @@ export interface GameStateDisplayProps {
 export const GameStateDisplay: FunctionComponent<GameStateDisplayProps> = (
   props,
 ) => {
-  const timerMinesLeftCSS = generateTimeMinesLeftCSS();
   const gameStateDisplayCSS = generateGameStateDisplayCSS();
   const display = props.isGameActive ? (
     <div className="DisplayContainer DisplayContainer--block">
@@ -37,12 +36,7 @@ export const GameStateDisplay: FunctionComponent<GameStateDisplayProps> = (
 
 const generateGameStateDisplayCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
-    height: ConfigConstants.gameStateDisplayHeight,
+    // height: ConfigConstants.gameStateDisplayHeight,
   };
-  return style;
-};
-
-const generateTimeMinesLeftCSS = (): CSS.Properties => {
-  const style: CSS.Properties = {};
   return style;
 };

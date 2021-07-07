@@ -63,7 +63,6 @@ export const HighScoreSummary: FunctionComponent<HighScoreSummaryProps> = (
   }
   const highScoreStyle = generateHighScoreContainerCSS();
   return (
-    // <div className="DisplayContainer" style={{ width: getWidthCssProp() }}>
     <div
       className="DisplayContainer"
       onContextMenu={onContextDevNull}
@@ -75,7 +74,7 @@ export const HighScoreSummary: FunctionComponent<HighScoreSummaryProps> = (
       >
         <div
           className="DisplayContainer DisplayContainer--col"
-          style={{ height: ConfigConstants.highscoreDisplayHeight }}
+          style={{ display: 'flex' }}
         >
           <div className="Display Display-Timer">Previous High Scores</div>
           <div
@@ -93,12 +92,12 @@ export const HighScoreSummary: FunctionComponent<HighScoreSummaryProps> = (
 
 const generateHighScoreContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
-    // ,
     display: 'flex',
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-around',
     // padding: "0",
-    // paddingTop: "0px",
+    paddingBottom: '0px',
     paddingLeft: '0px',
     paddingRight: '0px',
     // padding: "7px",
