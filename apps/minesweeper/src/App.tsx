@@ -133,12 +133,13 @@ export const generateMetaContainerCSS = (
   difficulty: string,
 ): CSS.Properties => {
   const ratioMap: { [key: string]: string } = {
-    Beginner: '20%',
-    Intermediate: '60%',
-    Advanced: '100%',
+    Beginner: '400px',
+    Intermediate: '450px',
+    Advanced: '700px',
   };
   const style: CSS.Properties = {
     width: getWidthCssProp(),
+    maxWidth: ratioMap[difficulty],
     // height: `calc(${ConfigConstants.highscoreDisplayHeight}}`,
   };
   return style;
