@@ -195,5 +195,5 @@ export const initializeField = (
 };
 
 export const getWidthCssProp = (): string => {
-  return 'max(min(100%, 75vh), 424px)';
+  return 'max(min(100%, 75vh), 200px)';
 };

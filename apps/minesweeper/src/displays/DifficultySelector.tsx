@@ -82,6 +82,7 @@ const generateFormCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
     display: 'flex',
     flexGrow: 1,
+    flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingBottom: '8px',
@@ -92,8 +93,11 @@ const generateFormCSS = (): CSS.Properties => {
 
 export const generateDifficultySelectorContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
-    width: `calc(${getWidthCssProp()} - 4px`,
+    width: `calc(${getWidthCssProp()} - 4px)`,
     paddingRight: '11px',
+    flex: 1,
+    flexDirection: 'column',
+    display: 'flex',
   };
   return style;
 };

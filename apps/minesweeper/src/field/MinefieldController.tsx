@@ -118,7 +118,7 @@ export const MinefieldController: FunctionComponent<MinefieldControllerProps> = 
 
 const generateMinefieldContainerCSS = (): CSS.Properties => {
   const style: CSS.Properties = {
-    // width: getWidthCssProp(),
+    width: getWidthCssProp(),
     height: `calc(100% - ${ConfigConstants.gameStateDisplayHeight})`,
     verticalAlign: 'top',
     position: 'relative',
