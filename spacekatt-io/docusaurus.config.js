@@ -30,7 +30,13 @@ module.exports = {
           label: 'Art',
           position: 'left',
         },
-        { to: 'blog', label: 'Blog', position: 'right' },
+        {
+          to: 'about',
+          activeBasePath: 'about',
+          sidebarPath: 'aboutSidebar',
+          label: 'About',
+          position: 'right',
+        },
         {
           href: 'https://github.com/spacekatt/spacekatt-io',
           label: 'GitHub',
