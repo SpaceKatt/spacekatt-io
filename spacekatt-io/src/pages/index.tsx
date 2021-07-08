@@ -5,7 +5,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-import { Feature } from '../components';
+import { ConvertKitCTA, Feature } from '../components';
 import { SpaceKattConstants } from '../constants';
 import styles from './styles.module.css';
 
@@ -23,11 +23,11 @@ const features = [
     description: <>SpaceKatt Art</>,
   },
   {
-    title: 'And More!',
-    url: 'blog',
+    title: 'Meta',
+    url: 'about',
     imageUrl: SpaceKattConstants.logo,
     description: (
-      <>Change is constant! Check the blog for content updates on this site.</>
+      <>Learn more about SpaceKatt and the International Spacekatt Station!</>
     ),
   },
 ];
@@ -50,9 +50,9 @@ function Home() {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted,
               )}
-              to={useBaseUrl('tech/')}
+              to={useBaseUrl('about/')}
             >
-              View Site Content
+              Learn More!
             </Link>
           </div>
         </div>
@@ -76,6 +76,7 @@ function Home() {
             </div>
           </section>
         )}
+        <ConvertKitCTA />;
       </main>
     </Layout>
   );
