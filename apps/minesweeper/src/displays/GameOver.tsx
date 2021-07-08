@@ -13,7 +13,7 @@ export const GameOver: FunctionComponent<GameOverProps> = (props) => {
       Retry?
       <br />
       <br />
-      Click anywhere on map to beat your score!
+      Click anywhere to beat your score!
     </button>
   ) : (
     <button className="GameOverButton" onClick={props.gameOverHandler}>
