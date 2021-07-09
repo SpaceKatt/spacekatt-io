@@ -99,14 +99,6 @@ module.exports = {
           // Please change this to your repo.
           path: 'docs',
           routeBasePath: '/',
-          editUrl:
-            'https://github.com/SpaceKatt/spacekatt-io/edit/main/spacekatt-io/',
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/SpaceKatt/spacekatt-io/edit/main/spacekatt-io/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
