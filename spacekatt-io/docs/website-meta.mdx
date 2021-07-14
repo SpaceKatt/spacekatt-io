@@ -11,6 +11,6 @@ Docusaurus was chosen out of several static-site generators because its ease of 
 ReactJS is used to create interactive, responsive decorations for the site (such as [minesweeper](/minesweeper)).
 
 Distribution of static files is done with [Google's Content Distribution Network (CDN)](https://cloud.google.com/cdn).
-Google Cloud Platform (GCP) makes it easy to [setup a CDN](https://cloud.google.com/cdn/docs/setting-up-cdn-with-bucket) with ["backendbucket" load balancers](https://cloud.google.com/load-balancing/docs/https/ext-load-balancer-backend-buckets).
+Google Cloud Platform (GCP) makes it easy to [setup a CDN](https://cloud.google.com/cdn/docs/setting-up-cdn-with-bucket) with ["backend bucket" load balancers](https://cloud.google.com/load-balancing/docs/https/ext-load-balancer-backend-buckets).
 [Namecheap](https://www.namecheap.com/) is used for domain registration and DNS configuration while GCP provides the [SSL certificate](https://cloud.google.com/storage/docs/hosting-static-website#lb-ssl) for [https://spacekatt.io](/).
-To ensure robust behavior, we also redirect [HTTP->HTTPS in GCP](https://cloud.google.com/load-balancing/docs/https/setting-up-http-https-redirect#partial-http-lb).
+To ensure robust behavior, we also redirect [HTTP->HTTPS in GCP](https://cloud.google.com/load-balancing/docs/https/setting-up-http-https-redirect#partial-http-lb), else folk might accidentally end up on a blank page when fetching from port 80.
