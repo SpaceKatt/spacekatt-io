@@ -374,6 +374,10 @@
       "projectFolder": "apps/minesweeper"
     },
     {
+      "packageName": "population-sim",
+      "projectFolder": "apps/population-sim"
+    },
+    {
       "packageName": "spacekatt-io",
       "projectFolder": "spacekatt-io"
     }
