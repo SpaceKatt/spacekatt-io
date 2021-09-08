@@ -14,6 +14,30 @@ Nodes represent population centers; edges represent the probability of a randoml
 
 Discrete turns represent sampled points on a quantized frequency in this virtual world.
 
+```yml
+cities:
+  - name: Boston
+    pop: 8000
+  - name: Seattle
+    pop: 2000
+edges:
+  - tail: Seattle
+    heads:
+      - head: Boston
+        flow: 0.5
+      - head: Seattle
+        flow: 0.5
+  - tail: Boston
+    heads:
+      - head: Boston
+        flow: 0.5
+      - head: Seattle
+        flow: 0.5
 ```
 
+```code
+0.5 -\           0.5           /- 0.5
+\-> +--------+ <----- +---------+ <-/
+    | Boston |   0.5  | Seattle |
+    +--------+ -----> +---------|
 ```
