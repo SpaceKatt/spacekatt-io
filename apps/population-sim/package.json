@@ -4,6 +4,7 @@
   "description": "Population simulation library, using React and D3 for visualization.",
   "main": "lib/index.js",
   "scripts": {
+    "build": "tsc -b .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -20,5 +21,8 @@
     "@types/react": "17.0.17",
     "rollup": "2.56.2",
     "typescript": "4.3.5"
+  },
+  "dependencies": {
+    "io-ts": "2.2.16"
   }
 }
