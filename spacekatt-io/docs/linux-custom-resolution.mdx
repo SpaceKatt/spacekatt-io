@@ -1,0 +1,132 @@
+---
+id: linux-custom-resolution
+title: How to Set Custom Monitor Resolution in Ubuntu 20.04
+sidebar_label: Force Linux Monitor Resolution
+---
+
+This is the story of how I learned to set custom resolution in Linux for unknown monitors with invalid EDID.
+
+## Intro
+
+Recently, I bought an [Adafruit 7" 800x480 Display Backpack](https://www.adafruit.com/product/2407).
+
+**InsertProductPicture**
+
+Minimalist, HMDI capable, and reminiscent of a Swiss Army Knife, this monitor brought joy to my heart as I imagined the ways it could be used.
+Passive heat flowing from a Raspberry Pi brought me warmth from its first successful application, a simple kiosk.
+
+**However!** Requirements change.
+
+Environnmental considerations pleaded for a new compute mechanism and the introduction of Ubuntu 20.04, replacing the Pi.
+Unknown waters as they were, the manual provided by Adafruit only covers the operation of the screen with a Pi.
+Ubuntu was an entirely different beast.
+
+My first swim ended in sudden, unforgiving _failure_.
+
+**InsertBeforePicture**
+
+Now, we can study why I failed and how you can _succeed!_
+
+**InsertAfterPicture**
+
+For the impatient, a [summary of changes](#summary-of-changes) can be found at the end of this page.
+
+Let's dive right in.
+
+## Background
+
+> “If you wish to make an apple pie from scratch, you must first invent the universe”
+> \- Carl Sagan
+
+An understanding of a system's component requires, almost paradoxically, an understanding of the system.
+
+To understand why a fresh Ubuntu distribution would fail to a blank screen - but only after a second or two of successfully display at boot - we must first grapple with the basics of Ubuntu's graphics system.
+
+Then, we should investigate the protocol by which our 7in Adafruit screen communicates with the Linux system.
+
+Finally, we must inspect aspects of the seven inch Adafruit monitor itself.
+
+### Ubuntu Graphics Environemnt
+
+Components
+
+#### Linux DRM and KMS
+
+The Direct Rendering Manager (DRM) is a Linux kernel subsystem which provides an abstraction of the GPU to applications in userspace.
+
+> Previously, graphics in Linux were managed with an API called `fbdev` which required programs to manually manage framebuffers - their bitmaps for display.
+> GPU hardware integration introduced scheduling complexities, and applications experienced undefined behavior as they fought to control the device.
+> The DRM was introduced to manage these scheduling complexities among client applications, handle GPU resource allocation/deallocation, and provide a consistent API across heterogeneous GPU hardware.
+
+<!-- https://commons.wikimedia.org/wiki/File:DRM_architecture.svg -->
+
+<!-- https://01.org/linuxgraphics/gfx-docs/drm/_images/DOT-dade12aa9127c64406e41cdf8d7f80694c134db2.svg src:https://01.org/linuxgraphics/gfx-docs/drm/gpu/drm-kms.html -->
+
+#### drm/i915
+
+`i915` is an arcane name which signifies the [Intel GFX Driver for DRM](https://01.org/linuxgraphics/gfx-docs/drm/gpu/i915.html). This driver provides DRM with the ability to control graphic chips manufactured by Intel.
+
+The machine I am using has an integrated GPU as part of Intel's chipset (TODO: clean).
+Intel's graphics driver is loaded on boot by the DRM, due to the presense of this chipset in my build.
+Other folk may have [`drm/amdgpu`](https://dri.freedesktop.org/docs/drm/gpu/amdgpu.html) loaded, if they have an AMD Radeon GPU.
+Other drivers may be loaded for other chip combinations.
+
+Within the context of this article, we need not know more than the fact that `i915` is the driver `drm` loads to interact with the local graphics hardware.
+
+#### Xorg
+
+Wayland is a popular, alternative Display Manager (and [Wayland's differences from Xorg](https://www.secjuice.com/wayland-vs-xorg/) are beyond the scope of this article).
+
+#### GNOME / GDM3
+
+### HDMI Fundamentals
+
+### Adafruit Display Backpack
+
+The 7 inch HDMI sports a [TFP401](https://www.ti.com/product/TFP401)
+
+## Failure Inspection
+
+```bash
+$ dmesg | less
+...
+[    1.031424] [drm] Initialized i915 1.6.0 20190822 for 0000:00:02.0 on minor 0
+...
+[    1.181457] i915 0000:00:02.0: HDMI-A-1: EDID is invalid:
+[    1.181461]  [00] BAD  00 ff ff ff ff ff ff 00 ff ff ff ff ff ff ff ff
+[    1.181463]  [00] BAD  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.181464]  [00] BAD  00 ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.181465]  [00] BAD  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.181467]  [00] BAD  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.181468]  [00] BAD  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.181470]  [00] BAD  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.181471]  [00] BAD  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+...
+[    1.791990] [drm] Cannot find any crtc or sizes
+[    2.464748] [drm] Cannot find any crtc or sizes
+[    3.124361] [drm] Cannot find any crtc or sizes
+```
+
+## Solution Finding
+
+### BIOS Resolution Setting
+
+TODO:
+
+### Kernel Mode Setting (KMS)
+
+TODO:
+
+## Conclusion
+
+TODO:
+
+## Summary of Changes
+
+TODO:
+
+qwerty (TODO: Ansible role)
+
+```
+
+```
