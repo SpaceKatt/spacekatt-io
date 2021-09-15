@@ -18,7 +18,7 @@ Passive heat flowing from a Raspberry Pi brought me warmth from its first succes
 **However!** Requirements change.
 
 Environnmental considerations pleaded for a new compute mechanism and the introduction of Ubuntu 20.04, replacing the Pi.
-Unknown waters as they were, the manual provided by Adafruit only covers the operation of the screen with a Pi.
+Unknown waters as they were, the 800x480 Display Backpack's manual provided by Adafruit only covers the operation of the screen with a Pi.
 Ubuntu was an entirely different beast.
 
 My first swim ended in sudden, unforgiving _failure_.
@@ -40,27 +40,69 @@ Let's dive right in.
 
 An understanding of a system's component requires, almost paradoxically, an understanding of the system.
 
-To understand why a fresh Ubuntu distribution would fail to a blank screen - but only after a second or two of successfully display at boot - we must first grapple with the basics of Ubuntu's graphics system.
-
-Then, we should investigate the protocol by which our 7in Adafruit screen communicates with the Linux system.
-
-Finally, we must inspect aspects of the seven inch Adafruit monitor itself.
+To understand why a fresh Ubuntu distribution would fail to a blank screen - but only after a second or two of successfully display at boot - we must first grapple with the basics of Ubuntu's graphics system, the HDMI protocol, and the 7 inch Adafruit monitor itself.
 
 ### Ubuntu Graphics Environemnt
 
-Components
+Ubuntu Desktop comes with a fully functional graphics environment. To better understand this stack, we briefly explore GNOME, X11, and DRM/KMS.
+
+> Note, this environment is not installed by default on Ubuntu Server.
+> However, one could easily set up this environment on Ubuntu Server with `# apt install gnome-session gnome-terminal`.
+
+#### GNOME
+
+GNOME is a desktop environment which comes bundled with Ubuntu 20.04.
+As a [desktop environment](https://en.wikipedia.org/wiki/Desktop_environment), it provides the user with a set of menus, icons, and a widget toolkit for building GUI elements.
+New Ubuntu users are greeted with the GNOME environment.
+
+GNOME is built from many components.
+
+GDM3 is GNOME's display manager which manages the login screen.
+GDM3 may be configured (in `/etc/gdm3/custom.conf`) to provide fun functionality at login, such as automatic logic
+
+GNOME is built on X11 (or Wayland) which in turn handles things like input/output events, a window engine, and a display server.
+GDM3 preloads X11 for GNOME, to ensure a visually smooth login experience.
+While [differences between GNOME and X11](https://unix.stackexchange.com/a/464321) are beyond the scope of this article,
+we still wish to introduce X11.
+
+#### X11
+
+X11 - a.k.a X, X Window System, X Windows - is a windowing system composed of several components.
+
+X.Org (Xorg) is an open source implementation of the X server.
+
+Wayland is a popular, alternative Display Manager (and [Wayland's differences from Xorg](https://www.secjuice.com/wayland-vs-xorg/) are beyond the scope of this article).
 
 #### Linux DRM and KMS
 
 The Direct Rendering Manager (DRM) is a Linux kernel subsystem which provides an abstraction of the GPU to applications in userspace.
+Processes render graphics through DRM by leveraging the `libdrm` API, which facilitates `ioctl()` syscalls to DRM devices at special device files (located in `/dev/dri/card*`).
+The DRM layer acts as a job orchestrator, enabling processes to coordinate GPU acceleration among themselves.
 
 > Previously, graphics in Linux were managed with an API called `fbdev` which required programs to manually manage framebuffers - their bitmaps for display.
-> GPU hardware integration introduced scheduling complexities, and applications experienced undefined behavior as they fought to control the device.
+> GPU hardware integration introduced scheduling complexities in framebuffer management, as a result jobs could be scheduled over one another and cause catastrophe.
+> Applications experienced undefined behavior as they fought to control the device.
 > The DRM was introduced to manage these scheduling complexities among client applications, handle GPU resource allocation/deallocation, and provide a consistent API across heterogeneous GPU hardware.
 
 <!-- https://commons.wikimedia.org/wiki/File:DRM_architecture.svg -->
 
+Kernel Mode Setting (KMS) is what enables the kernel to set a display mode on the video card (i.e., [mode setting](https://en.wikipedia.org/wiki/Mode_setting)).
+A display mode is defined by a monitor's resolution, color depth, and refresh rate.
+Displays will usually declare which modes they support through the Extended Display Identification Data (EDID) metadata format.
+In a nutshell, KMS allows us to create a pipeline from a collection of bitmaps to an aggregate output display.
+
+A CRT Controllers (CRTC) is derived from the set display mode and is responsible for creating input planes and output encoders.
+Input planes specify the dimensions of graphical bitmaps to be displayed; output encoders specify how data should be formatted for any attached connector.
+A KMS pipeline is defined by the CRTC, userspace framebuffers to populate the input planes, and connectors to consume output from the encoders.
+For example, an application in an Xorg window may constitute framebuffer input and an HMDI monitor may be displaying the connector's output.
+
+**INSERT CRTC FLOWDIAGRAM**
+
 <!-- https://01.org/linuxgraphics/gfx-docs/drm/_images/DOT-dade12aa9127c64406e41cdf8d7f80694c134db2.svg src:https://01.org/linuxgraphics/gfx-docs/drm/gpu/drm-kms.html -->
+
+> [Cathode-ray tube](https://en.wikipedia.org/wiki/Cathode-ray_tube) (the CRT in CRTC) monitors are now obsolete.
+> However, their design has lasting ripple-effects on the design of modern day protocols.
+> Display signal timing and VSYNC/HSYNC signals have their roots in this antiquated technology.
 
 #### drm/i915
 
@@ -71,13 +113,11 @@ Intel's graphics driver is loaded on boot by the DRM, due to the presense of thi
 Other folk may have [`drm/amdgpu`](https://dri.freedesktop.org/docs/drm/gpu/amdgpu.html) loaded, if they have an AMD Radeon GPU.
 Other drivers may be loaded for other chip combinations.
 
-Within the context of this article, we need not know more than the fact that `i915` is the driver `drm` loads to interact with the local graphics hardware.
+Within the context of this article, we need not know more than the fact that `i915` is the driver `drm` loads to interact with my local graphics hardware.
 
-#### Xorg
+#### Graphics Environment Summary
 
-Wayland is a popular, alternative Display Manager (and [Wayland's differences from Xorg](https://www.secjuice.com/wayland-vs-xorg/) are beyond the scope of this article).
-
-#### GNOME / GDM3
+**Insert STACK diagram**
 
 ### HDMI Fundamentals
 
@@ -86,6 +126,8 @@ Wayland is a popular, alternative Display Manager (and [Wayland's differences fr
 The 7 inch HDMI sports a [TFP401](https://www.ti.com/product/TFP401)
 
 ## Failure Inspection
+
+### `dmesg` Inspection
 
 ```bash
 $ dmesg | less
@@ -107,15 +149,33 @@ $ dmesg | less
 [    3.124361] [drm] Cannot find any crtc or sizes
 ```
 
+### DRM Source Code Inspection
+
+- [`intel_fbdev_initial_config`](https://github.com/freedesktop/drm-intel/blob/6880fa6c56601bb8ed59df6c30fd390cc5f6dd8f/drivers/gpu/drm/i915/display/intel_fbdev.c#L522)
+- [`drm_fb_helper_initial_config`](https://github.com/freedesktop/drm-intel/blob/6880fa6c56601bb8ed59df6c30fd390cc5f6dd8f/drivers/gpu/drm/drm_fb_helper.c#L1913)
+- [`drm_fb_helper_hotplug_event`](https://github.com/freedesktop/drm-intel/blob/6880fa6c56601bb8ed59df6c30fd390cc5f6dd8f/drivers/gpu/drm/drm_fb_helper.c#L1948)
+- [`__drm_fb_helper_initial_config_and_unlock`](https://github.com/freedesktop/drm-intel/blob/6880fa6c56601bb8ed59df6c30fd390cc5f6dd8f/drivers/gpu/drm/drm_fb_helper.c#L1814)
+- [`drm_fb_helper_single_fb_probe`](https://github.com/freedesktop/drm-intel/blob/6880fa6c56601bb8ed59df6c30fd390cc5f6dd8f/drivers/gpu/drm/drm_fb_helper.c#L1504)
+
+- [`Cannot find any crtc or sizes`](https://github.com/freedesktop/drm-intel/blob/6880fa6c56601bb8ed59df6c30fd390cc5f6dd8f/drivers/gpu/drm/drm_fb_helper.c#L1655)
+- [`drm_client_modeset_commit`](https://github.com/freedesktop/drm-intel/blob/a5e13c6df0e41702d2b2c77c8ad41677ebb065b3/drivers/gpu/drm/drm_client_modeset.c#L1155)
+
 ## Solution Finding
 
-### BIOS Resolution Setting
+Since our
+
+### BIOS Mode Setting
+
+[VESA BIOS Extensions](https://en.wikipedia.org/wiki/VESA_BIOS_Extensions#Linux_video_mode_numbers) define several standard resolution GRUB can set at boot.
+(UEFI GOP has superseded VESA BIOS as of 2020, but the standard is still supported `¯\_(ツ)_/¯`)
+
+[`nomodeset`](https://askubuntu.com/questions/207175/what-does-nomodeset-do)
 
 TODO:
 
 ### Kernel Mode Setting (KMS)
 
-TODO:
+[Kernel Mode Setting (KMS)](https://www.kernel.org/doc/html/latest/gpu/drm-kms.html)
 
 ## Conclusion
 
@@ -128,5 +188,5 @@ TODO:
 qwerty (TODO: Ansible role)
 
 ```
-
+reee
 ```
