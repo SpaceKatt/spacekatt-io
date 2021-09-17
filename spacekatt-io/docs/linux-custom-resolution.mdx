@@ -17,17 +17,17 @@ Passive heat flowing from a Raspberry Pi brought me warmth from its first succes
 
 **However!** Requirements change.
 
-Environnmental considerations pleaded for a new compute mechanism and the introduction of Ubuntu 20.04, replacing the Pi.
-Unknown waters as they were, the 7in 800x480 Display Backpack's manual provided by Adafruit only covers the operation of the screen with a Pi.
+Environnmental considerations pleaded for a new compute mechanism and the introduction of Ubuntu 20.04, replacing the Pi and Raspbian.
+Unknown waters as they were, the 7in 800x480 Display's manual provided by Adafruit only covers the operation of the screen with a Pi.
 Ubuntu was an entirely different beast.
 
 My first swim ended in sudden, unforgiving _failure_.
 
-**InsertBeforePicture**
+**InsertBeforeGIF**
 
 Now, we can study why I failed and how you can _succeed!_
 
-**InsertAfterPicture**
+**InsertAfterGIF**
 
 For the impatient, a [summary of changes](#summary-of-changes) can be found at the end of this page.
 
@@ -40,20 +40,21 @@ Let's dive right in.
 
 An understanding of a system's component requires, almost paradoxically, an understanding of the system.
 
-To understand why a fresh Ubuntu distribution would fail to a blank screen - but only after a second or two of successfully display at boot - we must first grapple with the basics of Ubuntu's graphics system, the HDMI protocol, and the 7 inch Adafruit monitor itself.
+To understand why a fresh Ubuntu distribution would fail to a blank screen - but only after a few seconds of successfully display at boot, we must first grapple with the basics of Ubuntu's graphics system, the HDMI protocol, and the 7 inch Adafruit monitor itself.
 
 ### Ubuntu Graphics Environemnt
 
-Ubuntu Desktop comes with a fully functional graphics environment. To better understand this stack, we briefly explore GNOME, X11, and DRM/KMS.
+Ubuntu Desktop comes with a fully functional graphics environment.
+To better understand this stack, we briefly explore GNOME, X11, and DRM/KMS.
 
 > Note, this environment is not installed by default on Ubuntu Server.
 > However, one could easily set up this environment on Ubuntu Server with `# apt install gnome-session gnome-terminal`.
 
 #### GNOME
 
-GNOME is a desktop environment which comes bundled with Ubuntu 20.04.
+GNOME is the desktop environment which comes bundled with Ubuntu 20.04.
 As a [desktop environment](https://en.wikipedia.org/wiki/Desktop_environment), it provides the user with a set of menus, icons, and a widget toolkit for building GUI elements.
-New Ubuntu users are greeted with the GNOME environment.
+Novice Ubuntu users are greeted with the GNOME environment after logging in for the first time.
 
 **PIC: Insert GNOME screenshot**
 
@@ -71,7 +72,7 @@ we still wish to introduce X11.
 
 #### X11
 
-X11 - a.k.a X, X Window System, X Windows - is a windowing system composed of several components.
+X11 (a.k.a X, X Window System, X Windows) is a windowing system composed of several components.
 
 **PIC: Insert X11 diagram**
 
