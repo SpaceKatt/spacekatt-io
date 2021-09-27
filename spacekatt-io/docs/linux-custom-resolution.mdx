@@ -1,8 +1,10 @@
 ---
 id: linux-custom-resolution
-title: How to Set Custom Monitor Resolution in Ubuntu 20.04
+title: Force Linux Monitor Resolution... When Everything Else Fails
 sidebar_label: Force Linux Monitor Resolution
 ---
+
+import { Image } from '../src/components';
 
 This is the story of how I learned to set custom resolution in Linux for unknown monitors with invalid EDID.
 
@@ -10,9 +12,9 @@ This is the story of how I learned to set custom resolution in Linux for unknown
 
 Recently, I bought an [Adafruit 7" 800x480 Display Backpack](https://www.adafruit.com/product/2407).
 
-**InsertProductPicture**
+<Image imageUrl="https://cdn-shop.adafruit.com/970x728/2407-12.jpg" />
 
-Minimalist, HMDI capable, and reminiscent of a Swiss Army Knife, this monitor brought joy to my heart as I imagined the ways it could be used.
+Minimalist, HMDI capable, and posessing a Swiss Army Knife's versatility, this monitor brought joy to my heart as I imagined the ways it could be used.
 Passive heat flowing from a Raspberry Pi brought me warmth from its first successful application, a simple kiosk.
 
 **However!** Requirements change.
@@ -133,7 +135,17 @@ Another way to look at it, `i915` implements GEM and KMS for Intel graphics hard
 
 Within the context of this article, we need not know more than the fact that `i915` is the driver `drm` loads to interact with my local graphics hardware.
 
+### VESA BIOS Extentions and UEFI GOP
+
+VESA BIOS Extentions (VBE) enable
+
+The Unified Extensible Firmware Interface Graphics Output Procotol (UEFI GOP) is to UEFI as VBE is to BIOS.
+
 #### Graphics Environment Summary
+
+VESA BIOS Extentions (or UEFI GOP) allow the machine to display graphics at boot time.
+In the first few seconds after booting, the DRM initializes and allows the kernel to to directly control the machine's graphics output.
+The transition from
 
 **Insert STACK diagram**
 
