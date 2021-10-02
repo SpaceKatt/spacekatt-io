@@ -17,7 +17,7 @@ Recently, I bought an [Adafruit 7" 800x480 Display Backpack](https://www.adafrui
 Minimalist, HMDI capable, and posessing a Swiss Army Knife's versatility, this monitor brought joy to my heart as I imagined the ways it could be used.
 Passive heat flowing from a Raspberry Pi brought me warmth from its first successful application, a simple kiosk.
 
-**However!** Requirements change.
+However! Requirements change.
 
 Environnmental considerations pleaded for a new compute mechanism and the introduction of Ubuntu 20.04, replacing the Pi and Raspbian.
 Unknown waters as they were, the 7in 800x480 Display's manual provided by Adafruit only covers the operation of the screen with a Pi.
@@ -64,13 +64,14 @@ GNOME is an amalgamation of many components.
 GNOME Shell, GDM3, dconf, and GTK+, to name a few, come together to provide GNOME with rich functionality and configuration options.
 Each component performs a unique function and enables the user to tweak the system in interesting ways.
 
-For instance, GDM3 is GNOME's display manager which manages the login screen, user sessions, and authentication.
+For instance, GDM3 is GNOME's display manager and manages the login screen, authentication, and user sessions.
 GDM3 may be configured (in `/etc/gdm3/custom.conf`) to provide fun functionality at login, such as automatic login on boot.
 
 GNOME is built on X11 (or Wayland) which in turn handles things like input/output events, a window engine, and a display server.
 GDM3 preloads X11 for GNOME Shell, to ensure a visually smooth login experience.
-While [differences between GNOME and X11](https://unix.stackexchange.com/a/464321) are beyond the scope of this article,
-we still wish to introduce X11.
+
+> While [differences between GNOME and X11](https://unix.stackexchange.com/a/464321) are beyond the scope of this article,
+> we still wish to introduce X11.
 
 #### X11
 
@@ -79,27 +80,30 @@ X11 (a.k.a X, X Window System, X Windows) is a windowing system composed of seve
 The X Server runs the show.
 Graphics cards, peripheral input hardware, and the kernel are all operated by the X Server.
 Applications (X Clients) are fed input events from the X Server and respond with content to render.
+[X.Org (Xorg)](https://wiki.archlinux.org/title/xorg) is a notable, open-source implementation of the X server.
 
 Remote applications may implement the X Protocol and operate over the network.
 X11 enables users to access remote desktops with this process, called [X forwarding](https://unix.stackexchange.com/questions/12755/how-to-forward-x-over-ssh-to-run-graphics-applications-remotely).
 
 **PIC: Insert X11 diagram**
 
-[X.Org (Xorg)](https://wiki.archlinux.org/title/xorg) is a notable, open-source implementation of the X server.
-
 > Wayland is a popular Display Manager and an alternative to Xorg.
-> ([Wayland's differences from Xorg](https://www.secjuice.com/wayland-vs-xorg/) are beyond the scope of this article.)
+> [Differences between Wayland and Xorg](https://www.secjuice.com/wayland-vs-xorg/) are beyond the scope of this article.
 
 #### Linux DRM and KMS
 
-The [Direct Rendering Manager](https://en.wikipedia.org/wiki/Direct_Rendering_Manager) (DRM) is a Linux kernel subsystem which provides an abstraction of the GPU to applications in userspace.
-Processes render graphics through DRM by leveraging the `libdrm` API, which facilitates `ioctl()` syscalls to DRM devices at special device files (located in `/dev/dri/card*`).
+The [Direct Rendering Manager](https://en.wikipedia.org/wiki/Direct_Rendering_Manager) (DRM) is a Linux kernel subsystem which provides an abstraction of the GPU to processes in userspace.
+
+Processes render graphics through DRM by leveraging the `libdrm` API, which facilitates `ioctl()` syscalls to DRM devices at special device files (`/dev/dri/card*`).
 The DRM layer functionally acts as a job orchestrator, enabling processes to coordinate GPU hardware acceleration.
 
 > Previously, graphics in Linux were managed with an API called `fbdev` which required programs to directly manage framebuffers - their bitmaps for display.
-> GPU hardware integration introduced scheduling complexities in framebuffer management when processes would write multiple jobs to a shared, circular buffer as if they were the sole proprieters of the queue.
+>
+> GPU hardware integration introduced scheduling complexities in framebuffer management.
+> Processes would write multiple jobs to a shared, circular buffer as if they were the sole proprieters of the GPU's queue.
 > As a result, jobs from separate processes could be scheduled over one another and cause catastrophe.
-> Applications experienced undefined behavior as they fought to control the device.
+> Applications experienced undefined behavior as they thrashed to control the device.
+>
 > The DRM was introduced to manage these scheduling complexities for client applications, handle GPU resource allocation/deallocation, and provide a consistent API across heterogeneous GPU hardware.
 
 **PIC: Insert DRM architecture Diagram**
@@ -108,23 +112,25 @@ The DRM layer functionally acts as a job orchestrator, enabling processes to coo
 
 [Kernel Mode Setting](https://en.wikipedia.org/wiki/Direct_Rendering_Manager#Kernel_Mode_Setting) (KMS) is what enables the kernel to set a display mode on the video card (i.e., [mode setting](https://en.wikipedia.org/wiki/Mode_setting)).
 A display mode is defined by a monitor's resolution, color depth, and refresh rate.
-Displays will usually declare which modes they support through the Extended Display Identification Data (EDID) metadata format.
+Displays will usually declare which modes they support through the [Extended Display Identification Data](https://en.wikipedia.org/wiki/Extended_Display_Identification_Data) (EDID) metadata format.
 
-Processes use the Graphics Execution Manager (GEM) to construct bitmaps - or framebuffers - and arrange them in planes for layered display.
+Processes leverage the [Graphics Execution Manager](https://www.kernel.org/doc/html/v4.19/gpu/drm-mm.html#the-graphics-execution-manager-gem) (GEM) to construct bitmaps - or framebuffers - and arrange them in planes for layered display.
 Each plane can be thought of as a paper cutout, ready to be stacked on other cutouts in a mosaic of planes.
 
-A CRT Controller (CRTC) is derived from the set display mode and is responsible for creating input planes and output encoders.
-Input planes specify the dimensions of graphical bitmaps to be displayed; output encoders specify how data should be formatted for any attached connector.
-A KMS pipeline is defined by the CRTC, userspace framebuffers to populate the input planes, and connectors to consume output from the encoders.
-For example, an application in an Xorg window may constitute framebuffer input and an HMDI monitor may be displaying the connector's output.
+A [CRT Controller](https://www.kernel.org/doc/html/v4.19/gpu/drm-kms.html#crtc-abstraction) (CRTC) is derived from the set display mode and is responsible for creating input planes and output encoders.
+Input planes specify the dimensions of graphical bitmaps to be displayed.
+Output encoders specify how data should be formatted for any attached connector.
 
-In a nutshell, KMS allows us to create a pipeline from a collection of bitmaps to an encoded output of the aggregate display.
+A KMS pipeline is defined by the CRTC, userspace framebuffers to populate the input planes, and connectors to consume output from the encoders.
+For example, a framebuffer could represent a graphical application window as bits, and the connector's output could drive an HMDI connected monitor to display that application.
+
+In a nutshell, KMS allows us to create a pipeline from a collection of bitmaps to an encoded output of the system's aggregate display.
 
 **INSERT CRTC FLOWDIAGRAM**
 
 <!-- https://01.org/linuxgraphics/gfx-docs/drm/_images/DOT-dade12aa9127c64406e41cdf8d7f80694c134db2.svg src:https://01.org/linuxgraphics/gfx-docs/drm/gpu/drm-kms.html -->
 
-> [Cathode-ray tube](https://en.wikipedia.org/wiki/Cathode-ray_tube) (the CRT in CRTC) monitors are now obsolete.
+> [Cathode-ray tube](https://en.wikipedia.org/wiki/Cathode-ray_tube) monitors (the CRT in CRTC) are now obsolete.
 > However, their design has lasting ripple-effects on the design of modern day protocols.
 > Display signal timing and VSYNC/HSYNC signals have their roots in this antiquated technology.
 
@@ -139,15 +145,17 @@ Intel's graphics driver is loaded on boot by the DRM, due to the presense of thi
 Other folk may have [`drm/amdgpu`](https://dri.freedesktop.org/docs/drm/gpu/amdgpu.html) loaded, if they have an AMD Radeon GPU.
 Other drivers may be loaded for other chip combinations.
 
-Another way to look at it, `i915` implements GEM and KMS for Intel graphics hardware in service of the DRM.
+Another way to look at it, `i915` implements the GEM and KMS for Intel graphics hardware in service of the DRM.
 
 Within the context of this article, we need not know more than the fact that `i915` is the driver `drm` loads to interact with my local graphics hardware.
 
 ### VESA BIOS Extentions and UEFI GOP
 
-VESA BIOS Extentions (VBE) enable
+[VESA BIOS Extentions](https://en.wikipedia.org/wiki/VESA_BIOS_Extensions#Linux_video_mode_numbers) (VBE) provides the kernel to set the VESA mode at boot.
+Monitor resolution, bit depth, and refresh rate settings are all configured by the VESA mode.
 
-The Unified Extensible Firmware Interface Graphics Output Procotol (UEFI GOP) is to UEFI as VBE is to BIOS.
+The [Unified Extensible Firmware Interface Graphics Output Procotol](https://wiki.osdev.org/GOP) (UEFI GOP) is to UEFI as VBE is to BIOS.
+Like IPv6, UEFI GOP's predecessor # TODO: finish this sentence
 
 #### Graphics Environment Summary
 
