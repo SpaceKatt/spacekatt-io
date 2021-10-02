@@ -1,6 +1,6 @@
 # spacekatt-io
 
-[![Build Status](https://travis-ci.com/SpaceKatt/spacekatt-io.svg?branch=main)](https://travis-ci.com/SpaceKatt/spacekatt-io)
+[![spacekatt-io CI](https://github.com/SpaceKatt/spacekatt-io/actions/workflows/ci.yml/badge.svg)](https://github.com/SpaceKatt/spacekatt-io/actions/workflows/ci.yml)
 
 Shared code for [public website](https://spacekatt.io/) and [other applications](https://github.com/SpaceKatt/spacekatt-io#project-inventory).
 
@@ -125,7 +125,7 @@ docker exec -it <container_name> /bin/sh
 
 ## CI/CD
 
-Continuous integration is performed on [TravisCI](https://travis-ci.com/github/SpaceKatt/spacekatt-io), as defined by [`.travis.yml`](.travis.yml). Two jobs are performed: building the Docker image and building/testing the project with Rush/Heft (respectively).
+Continuous integration is performed with [GitHub Actions](https://github.com/SpaceKatt/spacekatt-io/actions), as defined by the [GitHub Action Manifest](./github/workflows/ci.yml). Two jobs are performed: building the Docker image and building/testing the project with Rush/Heft (respectively).
 
 Continuous deployment is on the roadmap. However, automation for deployments has yet to be implemented. Please refer to the [`Project Inventory`](https://github.com/SpaceKatt/spacekatt-io#project-inventory) for links to `READMEs` with the manual deployment instructions for each project (until the process is automated).
 
