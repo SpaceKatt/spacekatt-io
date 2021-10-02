@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build Docker image
+        working-directory: ./
         run: docker build -t spacekatt/spacekatt-io:lastest .
 
   build:
