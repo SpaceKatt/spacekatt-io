@@ -7,16 +7,6 @@ on:
     branches: [main]
 
 jobs:
-  docker:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v1
-      - name: Build Docker image
-        working-directory: ../
-        run: docker build -t spacekatt/spacekatt-io:lastest .
-
   build:
     runs-on: ubuntu-latest
 
