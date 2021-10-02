@@ -7,6 +7,12 @@ on:
     branches: [main]
 
 jobs:
+  docker:
+    runs-os: ubuntu-latest
+    steps:
+      - name: Build Docker image
+        run: docker build -t spacekatt/spacekatt-io:lastest .
+
   build:
     runs-on: ubuntu-latest
 
