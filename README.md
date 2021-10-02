@@ -1,6 +1,6 @@
 # spacekatt-io
 
-[![Build Status](https://travis-ci.com/SpaceKatt/spacekatt-io.svg?branch=main)](https://travis-ci.com/SpaceKatt/spacekatt-io)
+[![spacekatt-io CI](https://github.com/SpaceKatt/spacekatt-io/actions/workflows/ci.yml/badge.svg)](https://github.com/SpaceKatt/spacekatt-io/actions/workflows/ci.yml)
 
 Shared code for [public website](https://spacekatt.io/) and [other applications](https://github.com/SpaceKatt/spacekatt-io#project-inventory).
 
