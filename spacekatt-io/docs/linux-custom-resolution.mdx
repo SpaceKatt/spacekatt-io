@@ -56,7 +56,7 @@ To better understand this stack, we briefly explore GNOME, X11, and DRM/KMS.
 
 GNOME is the desktop environment which comes bundled with Ubuntu 20.04.
 As a [desktop environment](https://en.wikipedia.org/wiki/Desktop_environment), it provides the user with a set of menus, icons, and a widget toolkit for building GUI elements.
-Novice Ubuntu users are greeted with the GNOME environment after logging in for the first time.
+Ubuntu users are greeted with the GNOME environment after logging in for the first time.
 
 **PIC: Insert GNOME screenshot**
 
@@ -76,11 +76,19 @@ we still wish to introduce X11.
 
 X11 (a.k.a X, X Window System, X Windows) is a windowing system composed of several components.
 
+The X Server runs the show.
+Graphics cards, peripheral input hardware, and the kernel are all operated by the X Server.
+Applications (X Clients) are fed input events from the X Server and respond with content to render.
+
+Remote applications may implement the X Protocol and operate over the network.
+X11 enables users to access remote desktops with this process, called [X forwarding](https://unix.stackexchange.com/questions/12755/how-to-forward-x-over-ssh-to-run-graphics-applications-remotely).
+
 **PIC: Insert X11 diagram**
 
-X.Org (Xorg) is an open source implementation of the X server.
+[X.Org (Xorg)](https://wiki.archlinux.org/title/xorg) is a notable, open-source implementation of the X server.
 
-Wayland is a popular, alternative Display Manager (and [Wayland's differences from Xorg](https://www.secjuice.com/wayland-vs-xorg/) are beyond the scope of this article).
+> Wayland is a popular Display Manager and an alternative to Xorg.
+> ([Wayland's differences from Xorg](https://www.secjuice.com/wayland-vs-xorg/) are beyond the scope of this article.)
 
 #### Linux DRM and KMS
 
