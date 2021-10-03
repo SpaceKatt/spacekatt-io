@@ -25,11 +25,11 @@ Ubuntu was an entirely different beast.
 
 My first swim ended in sudden, unforgiving _failure_.
 
-**InsertBeforeGIF**
+**TODO: InsertBeforeGIF**
 
 Now, we can study why I failed and how you can _succeed!_
 
-**InsertAfterGIF**
+**TODO: InsertAfterGIF**
 
 For the impatient, a [summary of changes](#summary-of-changes) can be found at the end of this page.
 
@@ -59,7 +59,7 @@ As a [desktop environment](https://en.wikipedia.org/wiki/Desktop_environment), i
 
 Ubuntu users are greeted with the GNOME environment after logging in for the first time.
 
-**PIC: Insert GNOME screenshot**
+**TODO: Insert GNOME screenshot**
 
 GNOME is an amalgamation of many components.
 GNOME Shell, GDM3, dconf, and GTK+, to name a few, come together to provide GNOME with rich functionality and configuration options.
@@ -86,7 +86,7 @@ Applications (X Clients) are fed input events from the X Server and respond with
 Remote applications may implement the X Protocol and operate over the network.
 X11 enables users to access remote desktops with this process, called [X forwarding](https://unix.stackexchange.com/questions/12755/how-to-forward-x-over-ssh-to-run-graphics-applications-remotely).
 
-**PIC: Insert X11 diagram**
+**TODO: Insert X11 diagram**
 
 > [Wayland](https://wayland.freedesktop.org/) is a popular Display Manager and an alternative to Xorg.
 > [Differences between Wayland and Xorg](https://www.secjuice.com/wayland-vs-xorg/) are beyond the scope of this article.
@@ -98,6 +98,8 @@ The [Direct Rendering Manager](https://en.wikipedia.org/wiki/Direct_Rendering_Ma
 Processes render graphics through DRM by leveraging the `libdrm` API, which facilitates `ioctl()` syscalls to DRM devices at special device files (`/dev/dri/card*`).
 The DRM layer functionally acts as a job orchestrator, enabling processes to coordinate GPU hardware acceleration.
 
+**TODO: INSERT DRM Graphic**
+
 > Previously, graphics in Linux were managed with an API called `fbdev` which required programs to directly manage framebuffers - their bitmaps for display.
 >
 > GPU hardware integration introduced scheduling complexities in framebuffer management.
@@ -107,7 +109,7 @@ The DRM layer functionally acts as a job orchestrator, enabling processes to coo
 >
 > The DRM was introduced to manage these scheduling complexities for client applications, handle GPU resource allocation/deallocation, and provide a consistent API across heterogeneous GPU hardware.
 
-**PIC: Insert DRM architecture Diagram**
+**TODO: Insert DRM architecture Diagram**
 
 <!-- https://commons.wikimedia.org/wiki/File:DRM_architecture.svg -->
 
@@ -127,7 +129,7 @@ For example, a framebuffer could represent a graphical application window as bit
 
 In a nutshell, KMS allows us to create a pipeline from a collection of bitmaps to an encoded output of the system's aggregate display.
 
-**INSERT CRTC FLOWDIAGRAM**
+**TODO: INSERT CRTC FLOWDIAGRAM**
 
 <!-- https://01.org/linuxgraphics/gfx-docs/drm/_images/DOT-dade12aa9127c64406e41cdf8d7f80694c134db2.svg src:https://01.org/linuxgraphics/gfx-docs/drm/gpu/drm-kms.html -->
 
@@ -165,15 +167,27 @@ VESA BIOS Extentions (or UEFI GOP) allow the machine to display graphics at boot
 In the first few seconds after booting, the DRM initializes and allows the kernel to to directly control the machine's graphics output.
 The transition from
 
-**Insert STACK diagram**
+**TODO: Insert STACK diagram**
 
 ### HDMI Fundamentals
 
+HMDI
+
 ### Adafruit Display Backpack
 
-The 7 inch HDMI sports a [TFP401](https://www.ti.com/product/TFP401)
+Adafruit's screen is a minimal display, lacking even the ability to adjust the backlight brightness. (At least, not without a little soldering.)
+
+The 7 inch screen sports a [TFP401](https://www.ti.com/product/TFP401).
+Manufactured by Texas Instruments, the TFP401 is a robust video DVI/HDMI decoder which drives the screen on the 7 inch Adafruit backpack.
+
+EDID metadata is not properly configured on the 7" device (at least in my case).
+Without EDID, Linux does not have enough information to construct a CRTC for KMS to define a graphics pipeline with.
+
+Thus, without a valid KMS pipeline, we can expect the Ubuntu graphics stack fails to a black screen.
 
 ## Failure Inspection
+
+Linux system logs and source code provide clues to the mechanism of failure for our Adafruit display.
 
 ### `dmesg` Inspection
 
@@ -233,7 +247,15 @@ TODO: this section
 
 ## Summary of Changes
 
-TODO:
+Food bloggers often tell readers a long story before showing their recipe.
+
+Personally, I always find this frustrating because I am hungry and want to see the recipe immediately.
+Do they not understand my situation and mindset!?
+
+Thus, I apologize for telling you a long story before the recipe of how to solve your resolution related problems.
+(JK, I loved every paragraph and `char`.)
+
+### Change one
 
 qwerty (TODO: Ansible role)
 
