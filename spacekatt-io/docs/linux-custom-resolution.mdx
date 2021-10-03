@@ -42,7 +42,7 @@ Let's dive right in.
 
 An understanding of a system's component requires, almost paradoxically, an understanding of the system.
 
-To understand why a fresh Ubuntu distribution would fail to a blank screen - but only after a few seconds of successfully display at boot, we must first grapple with the basics of Ubuntu's graphics system, the HDMI protocol, and the 7 inch Adafruit monitor itself.
+To understand why a fresh Ubuntu distribution would fail to a blank screen - but only after a few seconds of successfully display at boot, we must first grapple with the basics of Ubuntu's graphics system, the HDMI protocol, and the seven inch Adafruit monitor itself.
 
 ### Ubuntu Graphics Environemnt
 
@@ -56,6 +56,7 @@ To better understand this stack, we briefly explore GNOME, X11, and DRM/KMS.
 
 GNOME is the desktop environment which comes bundled with Ubuntu 20.04.
 As a [desktop environment](https://en.wikipedia.org/wiki/Desktop_environment), it provides the user with a set of menus, icons, and a widget toolkit for building GUI elements.
+
 Ubuntu users are greeted with the GNOME environment after logging in for the first time.
 
 **PIC: Insert GNOME screenshot**
@@ -64,8 +65,8 @@ GNOME is an amalgamation of many components.
 GNOME Shell, GDM3, dconf, and GTK+, to name a few, come together to provide GNOME with rich functionality and configuration options.
 Each component performs a unique function and enables the user to tweak the system in interesting ways.
 
-For instance, GDM3 is GNOME's display manager and manages the login screen, authentication, and user sessions.
-GDM3 may be configured (in `/etc/gdm3/custom.conf`) to provide fun functionality at login, such as automatic login on boot.
+For instance, [GDM3](https://askubuntu.com/a/829110) is GNOME's display manager and manages the login screen, authentication, and user sessions.
+GDM3 may be configured (in `/etc/gdm3/custom.conf`) to provide fun functionality at login, such as [automatic login](https://help.gnome.org/admin/system-admin-guide/stable/login-automatic.html.en) on boot.
 
 GNOME is built on X11 (or Wayland) which in turn handles things like input/output events, a window engine, and a display server.
 GDM3 preloads X11 for GNOME Shell, to ensure a visually smooth login experience.
@@ -87,7 +88,7 @@ X11 enables users to access remote desktops with this process, called [X forward
 
 **PIC: Insert X11 diagram**
 
-> Wayland is a popular Display Manager and an alternative to Xorg.
+> [Wayland](https://wayland.freedesktop.org/) is a popular Display Manager and an alternative to Xorg.
 > [Differences between Wayland and Xorg](https://www.secjuice.com/wayland-vs-xorg/) are beyond the scope of this article.
 
 #### Linux DRM and KMS
@@ -138,9 +139,9 @@ The X Server facilitates much of a GUI's interaction with `libdrm`.
 
 #### drm/i915
 
-`i915` is an arcane name which signifies the [Intel GFX Driver for DRM](https://01.org/linuxgraphics/gfx-docs/drm/gpu/i915.html). This driver provides DRM with the ability to control graphic chips manufactured by Intel.
+`i915` is an arcane name which signifies the [Intel GFX Driver for DRM](https://01.org/linuxgraphics/gfx-docs/drm/gpu/i915.html).
+This driver provides DRM with the ability to control graphics chips manufactured by Intel.
 
-The machine I am using has an integrated GPU as part of Intel's chipset (TODO: clean).
 Intel's graphics driver is loaded on boot by the DRM, due to the presense of this chipset in my build.
 Other folk may have [`drm/amdgpu`](https://dri.freedesktop.org/docs/drm/gpu/amdgpu.html) loaded, if they have an AMD Radeon GPU.
 Other drivers may be loaded for other chip combinations.
@@ -151,7 +152,8 @@ Within the context of this article, we need not know more than the fact that `i9
 
 ### VESA BIOS Extentions and UEFI GOP
 
-[VESA BIOS Extentions](https://en.wikipedia.org/wiki/VESA_BIOS_Extensions#Linux_video_mode_numbers) (VBE) provides the kernel to set the VESA mode at boot.
+A VESA mode is what tells a computer how to display graphics and set screen resolution at boot.
+[VESA BIOS Extentions](https://en.wikipedia.org/wiki/VESA_BIOS_Extensions#Linux_video_mode_numbers) (VBE) provides the kernel the ability to set the VESA mode.
 Monitor resolution, bit depth, and refresh rate settings are all configured by the VESA mode.
 
 The [Unified Extensible Firmware Interface Graphics Output Procotol](https://wiki.osdev.org/GOP) (UEFI GOP) is to UEFI as VBE is to BIOS.
@@ -210,7 +212,7 @@ $ dmesg | less
 
 Since our
 
-### BIOS Mode Setting
+### Boot Mode Setting
 
 [VESA BIOS Extensions](https://en.wikipedia.org/wiki/VESA_BIOS_Extensions#Linux_video_mode_numbers) define several standard resolution GRUB can set at boot.
 (UEFI GOP has superseded VESA BIOS as of 2020, but the standard is still supported `¯\_(ツ)_/¯`)
@@ -225,7 +227,9 @@ TODO:
 
 ## Conclusion
 
-TODO:
+TODO: this section
+
+> For the curious, the original problem took less time to solve than the research needed to write this article.
 
 ## Summary of Changes
 
