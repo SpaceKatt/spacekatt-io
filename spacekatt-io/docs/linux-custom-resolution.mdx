@@ -171,11 +171,11 @@ The transition from
 
 ### HDMI Fundamentals
 
-HMDI
+TODO: HMDI stuff
 
 ### Adafruit Display Backpack
 
-Adafruit's screen is a minimal display, lacking even the ability to adjust the backlight brightness. (At least, not without a little soldering.)
+Adafruit's screen is a minimal display, lacking even the ability to adjust the backlight brightness. (At least, not without a [little soldering](https://learn.adafruit.com/adafruit-5-800x480-tft-hdmi-monitor-touchscreen-backpack/pinouts#backlight-control-1179666-4).)
 
 The 7 inch screen sports a [TFP401](https://www.ti.com/product/TFP401).
 Manufactured by Texas Instruments, the TFP401 is a robust video DVI/HDMI decoder which drives the screen on the 7 inch Adafruit backpack.
@@ -185,11 +185,30 @@ Without EDID, Linux does not have enough information to construct a CRTC for KMS
 
 Thus, without a valid KMS pipeline, we can expect the Ubuntu graphics stack fails to a black screen.
 
+> TODO: note about setting EDID
+
 ## Failure Inspection
+
+Now, we must inspect the initial failure again and determine its root cause.
+
+**TODO: failure image insert**
 
 Linux system logs and source code provide clues to the mechanism of failure for our Adafruit display.
 
 ### `dmesg` Inspection
+
+We wish to divine why our screen is visible for a few seconds before failing to a blank screen.
+
+[`dmesg`](https://man7.org/linux/man-pages/man1/dmesg.1.html) displays log messages from the kernel during boot.
+Failures that occur during boot are often made visible in the `dmesg` output.
+
+[`drm`](#linux-drm-and-kms) is spawned early in boot and initializes [`i915`](#drmi915) (to reconcile my local Intel graphics chipset).
+
+`i915` detects an HDMI device, `HDMI-A-1`, and reads its EDID metadata.
+
+However!
+
+The EDID metadata is invalid and `drm` cannot construct a `crtc` for a KMS pipeline to be defined.
 
 ```bash
 $ dmesg | less
@@ -210,6 +229,13 @@ $ dmesg | less
 [    2.464748] [drm] Cannot find any crtc or sizes
 [    3.124361] [drm] Cannot find any crtc or sizes
 ```
+
+Thus, because KMS has no valid CRTC, DRM fails and Linux produces a blank screen.
+Before DRM finishes initializing, [VBE](#vesa-bios-extentions-and-uefi-gop) sets the initial video output and provides the screen with a few seconds of graphical input.
+
+One mystery solved.
+
+> Without reading the [background](#background), this section would be an enigmatic alphabet soup.
 
 ### DRM Source Code Inspection
 
