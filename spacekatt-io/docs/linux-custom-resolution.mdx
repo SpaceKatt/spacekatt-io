@@ -185,30 +185,25 @@ Without EDID, Linux does not have enough information to construct a CRTC for KMS
 
 Thus, without a valid KMS pipeline, we can expect the Ubuntu graphics stack fails to a black screen.
 
-> TODO: note about setting EDID
+> It is possible to [edit the EDID](https://learn.adafruit.com/adafruit-5-800x480-tft-hdmi-monitor-touchscreen-backpack/pinouts#edid-eeprom-port-1179666-4) on the device.
+> However, my goal is to fix the problem by configuring Linux, not by configuring the device.
+> OS configuration can be automated across fleets of machines; hardware tinkering requires manual replication per device.
 
 ## Failure Inspection
 
-Now, we must inspect the initial failure again and determine its root cause.
+Now that we have established some background, we must inspect the initial failure again and determine its root cause.
 
 **TODO: failure image insert**
 
-Linux system logs and source code provide clues to the mechanism of failure for our Adafruit display.
+Linux system logs and source code provide clues to the mechanism of failure for our display.
 
 ### `dmesg` Inspection
 
 We wish to divine why our screen is visible for a few seconds before failing to a blank screen.
+[Boot flow](https://opensource.com/article/17/2/linux-boot-and-startup) debugging sessions often start with an inspection of the boot log.
 
 [`dmesg`](https://man7.org/linux/man-pages/man1/dmesg.1.html) displays log messages from the kernel during boot.
 Failures that occur during boot are often made visible in the `dmesg` output.
-
-[`drm`](#linux-drm-and-kms) is spawned early in boot and initializes [`i915`](#drmi915) (to reconcile my local Intel graphics chipset).
-
-`i915` detects an HDMI device, `HDMI-A-1`, and reads its EDID metadata.
-
-However!
-
-The EDID metadata is invalid and `drm` cannot construct a `crtc` for a KMS pipeline to be defined.
 
 ```bash
 $ dmesg | less
@@ -229,6 +224,14 @@ $ dmesg | less
 [    2.464748] [drm] Cannot find any crtc or sizes
 [    3.124361] [drm] Cannot find any crtc or sizes
 ```
+
+As found in the logs, [`drm`](#linux-drm-and-kms) is spawned early during boot and initializes [`i915`](#drmi915) (to reconcile my local Intel graphics chipset).
+
+`i915` promptly detects an HDMI device, `HDMI-A-1`, and reads its EDID metadata.
+
+However!
+
+The EDID metadata is invalid and `drm` cannot construct a `crtc` for a KMS pipeline to be defined.
 
 Thus, because KMS has no valid CRTC, DRM fails and Linux produces a blank screen.
 Before DRM finishes initializing, [VBE](#vesa-bios-extentions-and-uefi-gop) sets the initial video output and provides the screen with a few seconds of graphical input.
