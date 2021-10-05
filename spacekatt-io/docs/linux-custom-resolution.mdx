@@ -42,7 +42,7 @@ Let's dive right in.
 
 An understanding of a system's component requires, almost paradoxically, an understanding of the system.
 
-To understand why a fresh Ubuntu distribution would fail to a blank screen - but only after a few seconds of successfully display at boot, we must first grapple with the basics of Ubuntu's graphics system, the HDMI protocol, and the seven inch Adafruit monitor itself.
+To understand why a fresh Ubuntu distribution would fail to a blank screen - but only after a few seconds of successfully display at boot, we must first grapple with the basics of Ubuntu's graphics system and the seven inch Adafruit monitor itself.
 
 ### Ubuntu Graphics Environemnt
 
@@ -163,15 +163,14 @@ Like IPv6, UEFI GOP's predecessor # TODO: finish this sentence
 
 #### Graphics Environment Summary
 
-VESA BIOS Extentions (or UEFI GOP) allow the machine to display graphics at boot time.
+VESA BIOS Extentions allow the machine to display graphics at boot time.
 In the first few seconds after booting, the DRM initializes and allows the kernel to to directly control the machine's graphics output.
-The transition from
+
+X11 leverages the DRM to provide both processes and users a consistent API to build interactive applications with.
+
+GNOME provides users with a desktop environment, windowing system, and a
 
 **TODO: Insert STACK diagram**
-
-### HDMI Fundamentals
-
-TODO: HMDI stuff
 
 ### Adafruit Display Backpack
 
