@@ -152,15 +152,6 @@ Another way to look at it, `i915` implements the GEM and KMS for Intel graphics 
 
 Within the context of this article, we need not know more than the fact that `i915` is the driver `drm` loads to interact with my local graphics hardware.
 
-### VESA BIOS Extentions and UEFI GOP
-
-A VESA mode is what tells a computer how to display graphics and set screen resolution at boot.
-[VESA BIOS Extentions](https://en.wikipedia.org/wiki/VESA_BIOS_Extensions#Linux_video_mode_numbers) (VBE) provides the kernel the ability to set the VESA mode.
-Monitor resolution, bit depth, and refresh rate settings are all configured by the VESA mode.
-
-The [Unified Extensible Firmware Interface Graphics Output Procotol](https://wiki.osdev.org/GOP) (UEFI GOP) is to UEFI as VBE is to BIOS.
-Like IPv6, UEFI GOP's predecessor # TODO: finish this sentence
-
 #### Graphics Environment Summary
 
 VESA BIOS Extentions allow the machine to display graphics at boot time.
@@ -171,6 +162,29 @@ X11 leverages the DRM to provide both processes and users a consistent API to bu
 GNOME provides users with a desktop environment, windowing system, and a
 
 **TODO: Insert STACK diagram**
+
+### VESA BIOS Extentions
+
+[VESA BIOS Extentions](https://en.wikipedia.org/wiki/VESA_BIOS_Extensions) (VBE) provides the BIOS the ability to set VESA modes, write chatacters, and draw draphics.
+Boot spash screens and BIOS setup (press F2 while booting) defined by the hardware manufacturer (e.g., Dell) leverage VBE to function.
+The [INT 10h](https://en.wikipedia.org/wiki/INT_10H) interrupt surfaces these low-level VBE subroutines during the early stages of the boot process.
+
+VESA modes allow computers to set what resolution, bit depth, and refresh rate a monitor displays at boot time.
+The VBE 3.0 standard allows a VESA mode to be intrepreted consistenly across GPUs and GPU manufacturers.
+This consistency removes the need for specialized drivers to be baked in the BIOS, enabling simplification and minimization of boot firmware.
+
+Thus, VESA modes may be set before an operating system has been fully initialized.
+Special drivers, provided by the kernel, need not be invoked to operate whatever local graphics chips exist, when leveraging the VBE standard.
+
+[GRUB2](https://www.gnu.org/software/grub/manual/grub/grub.html#Introduction), the Linux bootloader (herein GRUB), leverages VBE mode numbers to set the resolution during boot.
+The Linux kernel takes time to initialize, and GRUB controls the show before the kernel takes over.
+DRM cannot use KMS to set the graphics mode before the DRM submodule has loaded into the kernel!
+
+Luckily, GRUB is highly configurable... something we will take advantage of soon.
+
+> The [Unified Extensible Firmware Interface Graphics Output Procotol](https://wiki.osdev.org/GOP) (UEFI GOP) is to UEFI as VBE is to BIOS.
+> In other words, UEFI GOP is the new standard which deprecates VBE.
+> Reminiscent of IPv6 to IPv4, UEFI GOP's predecessor will likely remain in vouge for years to come.
 
 ### Adafruit Display Backpack
 
@@ -233,7 +247,7 @@ However!
 The EDID metadata is invalid and `drm` cannot construct a `crtc` for a KMS pipeline to be defined.
 
 Thus, because KMS has no valid CRTC, DRM fails and Linux produces a blank screen.
-Before DRM finishes initializing, [VBE](#vesa-bios-extentions-and-uefi-gop) sets the initial video output and provides the screen with a few seconds of graphical input.
+Before DRM finishes initializing, [VBE](#vesa-bios-extentions) sets the initial video output and provides the screen with a few seconds of graphical input.
 
 One mystery solved.
 
