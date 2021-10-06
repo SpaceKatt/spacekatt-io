@@ -42,7 +42,7 @@ Let's dive right in.
 
 An understanding of a system's component requires, almost paradoxically, an understanding of the system.
 
-To understand why a fresh Ubuntu distribution would fail to a blank screen - but only after a few seconds of successfully display at boot, we must first grapple with the basics of Ubuntu's graphics system and the seven inch Adafruit monitor itself.
+To understand why a fresh Ubuntu distribution would fail to a blank screen, we must first grapple with the basics of Ubuntu's graphics system and the seven inch Adafruit monitor itself.
 
 ### Ubuntu Graphics Environemnt
 
@@ -212,7 +212,7 @@ Linux system logs and source code provide clues to the mechanism of failure for 
 
 ### `dmesg` Inspection
 
-We wish to divine why our screen is visible for a few seconds before failing to a blank screen.
+We wish to divine why our screen fails to a blank screen.
 [Boot flow](https://opensource.com/article/17/2/linux-boot-and-startup) debugging sessions often start with an inspection of the boot log.
 
 [`dmesg`](https://man7.org/linux/man-pages/man1/dmesg.1.html) displays log messages from the kernel during boot.
@@ -247,7 +247,10 @@ However!
 The EDID metadata is invalid and `drm` cannot construct a `crtc` for a KMS pipeline to be defined.
 
 Thus, because KMS has no valid CRTC, DRM fails and Linux produces a blank screen.
-Before DRM finishes initializing, [VBE](#vesa-bios-extentions) sets the initial video output and provides the screen with a few seconds of graphical input.
+
+Before DRM finishes initializing, [VBE](#vesa-bios-extentions) also fails to set a video mode due to a lack of valid EDID.
+The BIOS boots to the lowest resolution available on the monitor.
+If the system cannot detect the lowest resolution with EDID, then the system does not know how to create a display signal.
 
 One mystery solved.
 
