@@ -1,0 +1,309 @@
+---
+id: linux-custom-resolution
+title: Force Linux Monitor Resolution... When Everything Else Fails
+sidebar_label: Force Linux Monitor Resolution
+---
+
+import { Image } from '../src/components';
+
+This is the story of how I learned to set custom resolution in Linux for unknown monitors with invalid EDID.
+
+## Intro
+
+Recently, I bought an [Adafruit 7" 800x480 Display Backpack](https://www.adafruit.com/product/2407).
+
+<Image imageUrl="https://cdn-shop.adafruit.com/970x728/2407-12.jpg" />
+
+Minimalist, HMDI capable, and posessing a Swiss Army Knife's versatility, this monitor brought joy to my heart as I imagined the ways it could be used.
+Passive heat flowing from a Raspberry Pi brought me warmth from its first successful application, a simple kiosk.
+
+However! Requirements change.
+
+Environnmental considerations pleaded for a new compute mechanism and the introduction of Ubuntu 20.04, replacing the Pi and Raspbian.
+Unknown waters as they were, the 7in 800x480 Display's manual provided by Adafruit only covers the operation of the screen with a Pi.
+Ubuntu was an entirely different beast.
+
+My first swim ended in sudden, unforgiving _failure_.
+
+**TODO: InsertBeforeGIF**
+
+Now, we can study why I failed and how you can _succeed!_
+
+**TODO: InsertAfterGIF**
+
+For the impatient, a [summary of changes](#summary-of-changes) can be found at the end of this page.
+
+Let's dive right in.
+
+## Background
+
+> “If you wish to make an apple pie from scratch, you must first invent the universe”
+> \- Carl Sagan
+
+An understanding of a system's component requires, almost paradoxically, an understanding of the system.
+
+To understand why a fresh Ubuntu distribution would fail to a blank screen, we must first grapple with the basics of Ubuntu's graphics system and the seven inch Adafruit monitor itself.
+
+### Ubuntu Graphics Environemnt
+
+Ubuntu Desktop comes with a fully functional graphics environment.
+To better understand this stack, we briefly explore GNOME, X11, and DRM/KMS.
+
+> Note, this environment is not installed by default on Ubuntu Server.
+> However, one could easily set up this environment on Ubuntu Server with `# apt install gnome-session gnome-terminal`.
+
+#### GNOME
+
+GNOME is the desktop environment which comes bundled with Ubuntu 20.04.
+As a [desktop environment](https://en.wikipedia.org/wiki/Desktop_environment), it provides the user with a set of menus, icons, and a widget toolkit for building GUI elements.
+
+Ubuntu users are greeted with the GNOME environment after logging in for the first time.
+
+**TODO: Insert GNOME screenshot**
+
+GNOME is an amalgamation of many components.
+GNOME Shell, GDM3, dconf, and GTK+, to name a few, come together to provide GNOME with rich functionality and configuration options.
+Each component performs a unique function and enables the user to tweak the system in interesting ways.
+
+For instance, [GDM3](https://askubuntu.com/a/829110) is GNOME's display manager and manages the login screen, authentication, and user sessions.
+GDM3 may be configured (in `/etc/gdm3/custom.conf`) to provide fun functionality at login, such as [automatic login](https://help.gnome.org/admin/system-admin-guide/stable/login-automatic.html.en) on boot.
+
+GNOME is built on X11 (or Wayland) which in turn handles things like input/output events, a window engine, and a display server.
+GDM3 preloads X11 for GNOME Shell, to ensure a visually smooth login experience.
+
+> While [differences between GNOME and X11](https://unix.stackexchange.com/a/464321) are beyond the scope of this article,
+> we still wish to introduce X11.
+
+#### X11
+
+X11 (a.k.a X, X Window System, X Windows) is a windowing system composed of several components.
+
+The X Server runs the show.
+Graphics cards, peripheral input hardware, and the kernel are all operated by the X Server.
+Applications (X Clients) are fed input events from the X Server and respond with content to render.
+[X.Org (Xorg)](https://wiki.archlinux.org/title/xorg) is a notable, open-source implementation of the X server.
+
+Remote applications may implement the X Protocol and operate over the network.
+X11 enables users to access remote desktops with this process, called [X forwarding](https://unix.stackexchange.com/questions/12755/how-to-forward-x-over-ssh-to-run-graphics-applications-remotely).
+
+**TODO: Insert X11 diagram**
+
+> [Wayland](https://wayland.freedesktop.org/) is a popular Display Manager and an alternative to Xorg.
+> [Differences between Wayland and Xorg](https://www.secjuice.com/wayland-vs-xorg/) are beyond the scope of this article.
+
+#### Linux DRM and KMS
+
+The [Direct Rendering Manager](https://en.wikipedia.org/wiki/Direct_Rendering_Manager) (DRM) is a Linux kernel subsystem which provides an abstraction of the GPU to processes in userspace.
+
+Processes render graphics through DRM by leveraging the `libdrm` API, which facilitates `ioctl()` syscalls to DRM devices at special device files (`/dev/dri/card*`).
+The DRM layer functionally acts as a job orchestrator, enabling processes to coordinate GPU hardware acceleration.
+
+**TODO: INSERT DRM Graphic**
+
+> Previously, graphics in Linux were managed with an API called `fbdev` which required programs to directly manage framebuffers - their bitmaps for display.
+>
+> GPU hardware integration introduced scheduling complexities in framebuffer management.
+> Processes would write multiple jobs to a shared, circular buffer as if they were the sole proprieters of the GPU's queue.
+> As a result, jobs from separate processes could be scheduled over one another and cause catastrophe.
+> Applications experienced undefined behavior as they thrashed to control the device.
+>
+> The DRM was introduced to manage these scheduling complexities for client applications, handle GPU resource allocation/deallocation, and provide a consistent API across heterogeneous GPU hardware.
+
+**TODO: Insert DRM architecture Diagram**
+
+<!-- https://commons.wikimedia.org/wiki/File:DRM_architecture.svg -->
+
+[Kernel Mode Setting](https://en.wikipedia.org/wiki/Direct_Rendering_Manager#Kernel_Mode_Setting) (KMS) is what enables the kernel to set a display mode on the video card (i.e., [mode setting](https://en.wikipedia.org/wiki/Mode_setting)).
+A display mode is defined by a monitor's resolution, color depth, and refresh rate.
+Displays will usually declare which modes they support through the [Extended Display Identification Data](https://en.wikipedia.org/wiki/Extended_Display_Identification_Data) (EDID) metadata format.
+
+Processes leverage the [Graphics Execution Manager](https://www.kernel.org/doc/html/v4.19/gpu/drm-mm.html#the-graphics-execution-manager-gem) (GEM) to construct bitmaps - or framebuffers - and arrange them in planes for layered display.
+Each plane can be thought of as a paper cutout, ready to be stacked on other cutouts in a mosaic of planes.
+
+A [CRT Controller](https://www.kernel.org/doc/html/v4.19/gpu/drm-kms.html#crtc-abstraction) (CRTC) is derived from the set display mode and is responsible for creating input planes and output encoders.
+Input planes specify the dimensions of graphical bitmaps to be displayed.
+Output encoders specify how data should be formatted for any attached connector.
+
+A KMS pipeline is defined by the CRTC, userspace framebuffers to populate the input planes, and connectors to consume output from the encoders.
+For example, a framebuffer could represent a graphical application window as bits, and the connector's output could drive an HMDI connected monitor to display that application.
+
+In a nutshell, KMS allows us to create a pipeline from a collection of bitmaps to an encoded output of the system's aggregate display.
+
+**TODO: INSERT CRTC FLOWDIAGRAM**
+
+<!-- https://01.org/linuxgraphics/gfx-docs/drm/_images/DOT-dade12aa9127c64406e41cdf8d7f80694c134db2.svg src:https://01.org/linuxgraphics/gfx-docs/drm/gpu/drm-kms.html -->
+
+> [Cathode-ray tube](https://en.wikipedia.org/wiki/Cathode-ray_tube) monitors (the CRT in CRTC) are now obsolete.
+> However, their design has lasting ripple-effects on the design of modern day protocols.
+> Display signal timing and VSYNC/HSYNC signals have their roots in this antiquated technology.
+
+The X Server facilitates much of a GUI's interaction with `libdrm`.
+
+#### drm/i915
+
+`i915` is an arcane name which signifies the [Intel GFX Driver for DRM](https://01.org/linuxgraphics/gfx-docs/drm/gpu/i915.html).
+This driver provides DRM with the ability to control graphics chips manufactured by Intel.
+
+Intel's graphics driver is loaded on boot by the DRM, due to the presense of this chipset in my build.
+Other folk may have [`drm/amdgpu`](https://dri.freedesktop.org/docs/drm/gpu/amdgpu.html) loaded, if they have an AMD Radeon GPU.
+Other drivers may be loaded for other chip combinations.
+
+Another way to look at it, `i915` implements the GEM and KMS for Intel graphics hardware in service of the DRM.
+
+Within the context of this article, we need not know more than the fact that `i915` is the driver `drm` loads to interact with my local graphics hardware.
+
+#### Graphics Environment Summary
+
+VESA BIOS Extentions allow the machine to display graphics at boot time.
+In the first few seconds after booting, the DRM initializes and allows the kernel to to directly control the machine's graphics output.
+
+X11 leverages the DRM to provide both processes and users a consistent API to build interactive applications with.
+
+GNOME provides users with a desktop environment, windowing system, and a
+
+**TODO: Insert STACK diagram**
+
+### VESA BIOS Extentions
+
+[VESA BIOS Extentions](https://en.wikipedia.org/wiki/VESA_BIOS_Extensions) (VBE) provides the BIOS the ability to set VESA modes, write chatacters, and draw draphics.
+Boot spash screens and BIOS setup (press F2 while booting) defined by the hardware manufacturer (e.g., Dell) leverage VBE to function.
+The [INT 10h](https://en.wikipedia.org/wiki/INT_10H) interrupt surfaces these low-level VBE subroutines during the early stages of the boot process.
+
+VESA modes allow computers to set what resolution, bit depth, and refresh rate a monitor displays at boot time.
+The VBE 3.0 standard allows a VESA mode to be intrepreted consistenly across GPUs and GPU manufacturers.
+This consistency removes the need for specialized drivers to be baked in the BIOS, enabling simplification and minimization of boot firmware.
+
+Thus, VESA modes may be set before an operating system has been fully initialized.
+Special drivers, provided by the kernel, need not be invoked to operate whatever local graphics chips exist, when leveraging the VBE standard.
+
+[GRUB2](https://www.gnu.org/software/grub/manual/grub/grub.html#Introduction), the Linux bootloader (herein GRUB), leverages VBE mode numbers to set the resolution during boot.
+The Linux kernel takes time to initialize, and GRUB controls the show before the kernel takes over.
+DRM cannot use KMS to set the graphics mode before the DRM submodule has loaded into the kernel!
+
+Luckily, GRUB is highly configurable... something we will take advantage of soon.
+
+> The [Unified Extensible Firmware Interface Graphics Output Procotol](https://wiki.osdev.org/GOP) (UEFI GOP) is to UEFI as VBE is to BIOS.
+> In other words, UEFI GOP is the new standard which deprecates VBE.
+> Reminiscent of IPv6 to IPv4, UEFI GOP's predecessor will likely remain in vouge for years to come.
+
+### Adafruit Display Backpack
+
+Adafruit's screen is a minimal display, lacking even the ability to adjust the backlight brightness. (At least, not without a [little soldering](https://learn.adafruit.com/adafruit-5-800x480-tft-hdmi-monitor-touchscreen-backpack/pinouts#backlight-control-1179666-4).)
+
+The 7 inch screen sports a [TFP401](https://www.ti.com/product/TFP401).
+Manufactured by Texas Instruments, the TFP401 is a robust video DVI/HDMI decoder which drives the screen on the 7 inch Adafruit backpack.
+
+EDID metadata is not properly configured on the 7" device (at least in my case).
+Without EDID, Linux does not have enough information to construct a CRTC for KMS to define a graphics pipeline with.
+
+Thus, without a valid KMS pipeline, we can expect the Ubuntu graphics stack fails to a black screen.
+
+> It is possible to [edit the EDID](https://learn.adafruit.com/adafruit-5-800x480-tft-hdmi-monitor-touchscreen-backpack/pinouts#edid-eeprom-port-1179666-4) on the device.
+> However, my goal is to fix the problem by configuring Linux, not by configuring the device.
+> OS configuration can be automated across fleets of machines; hardware tinkering requires manual replication per device.
+
+## Failure Inspection
+
+Now that we have established some background, we must inspect the initial failure again and determine its root cause.
+
+**TODO: failure image insert**
+
+Linux system logs and source code provide clues to the mechanism of failure for our display.
+
+### `dmesg` Inspection
+
+We wish to divine why our screen fails to a blank screen.
+[Boot flow](https://opensource.com/article/17/2/linux-boot-and-startup) debugging sessions often start with an inspection of the boot log.
+
+[`dmesg`](https://man7.org/linux/man-pages/man1/dmesg.1.html) displays log messages from the kernel during boot.
+Failures that occur during boot are often made visible in the `dmesg` output.
+
+```bash
+$ dmesg | less
+...
+[    1.031424] [drm] Initialized i915 1.6.0 20190822 for 0000:00:02.0 on minor 0
+...
+[    1.181457] i915 0000:00:02.0: HDMI-A-1: EDID is invalid:
+[    1.181461]  [00] BAD  00 ff ff ff ff ff ff 00 ff ff ff ff ff ff ff ff
+[    1.181463]  [00] BAD  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.181464]  [00] BAD  00 ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.181465]  [00] BAD  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.181467]  [00] BAD  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.181468]  [00] BAD  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.181470]  [00] BAD  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.181471]  [00] BAD  ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+...
+[    1.791990] [drm] Cannot find any crtc or sizes
+[    2.464748] [drm] Cannot find any crtc or sizes
+[    3.124361] [drm] Cannot find any crtc or sizes
+```
+
+As found in the logs, [`drm`](#linux-drm-and-kms) is spawned early during boot and initializes [`i915`](#drmi915) (to reconcile my local Intel graphics chipset).
+
+`i915` promptly detects an HDMI device, `HDMI-A-1`, and reads its EDID metadata.
+
+However!
+
+The EDID metadata is invalid and `drm` cannot construct a `crtc` for a KMS pipeline to be defined.
+
+Thus, because KMS has no valid CRTC, DRM fails and Linux produces a blank screen.
+
+Before DRM finishes initializing, [VBE](#vesa-bios-extentions) also fails to set a video mode due to a lack of valid EDID.
+The BIOS boots to the lowest resolution available on the monitor.
+If the system cannot detect the lowest resolution with EDID, then the system does not know how to create a display signal.
+
+One mystery solved.
+
+> Without reading the [background](#background), this section would be an enigmatic alphabet soup.
+
+### DRM Source Code Inspection
+
+- [`intel_fbdev_initial_config`](https://github.com/freedesktop/drm-intel/blob/6880fa6c56601bb8ed59df6c30fd390cc5f6dd8f/drivers/gpu/drm/i915/display/intel_fbdev.c#L522)
+- [`drm_fb_helper_initial_config`](https://github.com/freedesktop/drm-intel/blob/6880fa6c56601bb8ed59df6c30fd390cc5f6dd8f/drivers/gpu/drm/drm_fb_helper.c#L1913)
+- [`drm_fb_helper_hotplug_event`](https://github.com/freedesktop/drm-intel/blob/6880fa6c56601bb8ed59df6c30fd390cc5f6dd8f/drivers/gpu/drm/drm_fb_helper.c#L1948)
+- [`__drm_fb_helper_initial_config_and_unlock`](https://github.com/freedesktop/drm-intel/blob/6880fa6c56601bb8ed59df6c30fd390cc5f6dd8f/drivers/gpu/drm/drm_fb_helper.c#L1814)
+- [`drm_fb_helper_single_fb_probe`](https://github.com/freedesktop/drm-intel/blob/6880fa6c56601bb8ed59df6c30fd390cc5f6dd8f/drivers/gpu/drm/drm_fb_helper.c#L1504)
+
+- [`Cannot find any crtc or sizes`](https://github.com/freedesktop/drm-intel/blob/6880fa6c56601bb8ed59df6c30fd390cc5f6dd8f/drivers/gpu/drm/drm_fb_helper.c#L1655)
+- [`drm_client_modeset_commit`](https://github.com/freedesktop/drm-intel/blob/a5e13c6df0e41702d2b2c77c8ad41677ebb065b3/drivers/gpu/drm/drm_client_modeset.c#L1155)
+
+## Solution Finding
+
+Since our
+
+### Boot Mode Setting
+
+[VESA BIOS Extensions](https://en.wikipedia.org/wiki/VESA_BIOS_Extensions#Linux_video_mode_numbers) define several standard resolution GRUB can set at boot.
+(UEFI GOP has superseded VESA BIOS as of 2020, but the standard is still supported `¯\_(ツ)_/¯`)
+
+[`nomodeset`](https://askubuntu.com/questions/207175/what-does-nomodeset-do)
+
+TODO:
+
+### Kernel Mode Setting (KMS)
+
+[Kernel Mode Setting (KMS)](https://www.kernel.org/doc/html/latest/gpu/drm-kms.html)
+
+## Conclusion
+
+TODO: this section
+
+> For the curious, the original problem took less time to solve than the research needed to write this article.
+
+## Summary of Changes
+
+Food bloggers often tell readers a long story before showing their recipe.
+
+Personally, I always find this frustrating because I am hungry and want to see the recipe immediately.
+Do they not understand my situation and mindset!?
+
+Thus, I apologize for telling you a long story before the recipe of how to solve your resolution related problems.
+(JK, I loved every paragraph and `char`.)
+
+### Change one
+
+qwerty (TODO: Ansible role)
+
+```
+reee
+```
