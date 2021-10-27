@@ -9,6 +9,9 @@ module.exports = {
   organizationName: 'spacekatt',
   projectName: 'spacekatt-io',
   themeConfig: {
+    gtag: {
+      trackingID: 'G-YH69F6WCD8',
+    },
     navbar: {
       title: 'SpaceKatt.io',
       logo: {
