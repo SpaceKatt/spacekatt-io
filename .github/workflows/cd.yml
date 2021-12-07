@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write
+
 env:
   ARTIFACT_NAME: 'website-artifact'
   BUILD_DIRECTORY: './spacekatt-io/build/'
