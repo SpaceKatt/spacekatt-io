@@ -73,8 +73,6 @@ jobs:
       uses: google-github-actions/setup-gcloud@v0.3.0
 
     - name: Deploy website to GCP
-      run: |-
-        gcloud auth login --brief --cred-file="${{ steps.auth.outputs.credentials_file_path }}"
-        'gsutil -m rsync -R -d -c ${{ env.BUILD_DIRECTORY }} gs://${{ secrets.GCP_BUCKET_NAME }}'
+      run: 'gsutil -m rsync -R -d -c ${{ env.BUILD_DIRECTORY }} gs://${{ secrets.GCP_BUCKET_NAME }}'
 
 
