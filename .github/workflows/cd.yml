@@ -1,4 +1,4 @@
-name: Build and Deploy Website
+name: CD spacekatt-io
 
 on:
   push:
@@ -72,4 +72,4 @@ jobs:
       uses: google-github-actions/setup-gcloud@v0.3.0
 
     - name: Deploy website to GCP
-      run: 'gsutil -m rsync -R -d -c build/ gs://${{ secrets.GCP_BUCKET_NAME }}'
+      run: 'gsutil -m rsync -R -d -c ${{ env.BUILD_DIRECTORY }} gs://${{ secrets.GCP_BUCKET_NAME }}'
