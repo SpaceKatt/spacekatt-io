@@ -10,6 +10,7 @@ on:
 
 env:
   ARTIFACT_NAME: 'website-artifact'
+  BUILD_DIRECTORY: './spacekatt-io/build/'
 
 jobs:
   build-and-publish:
@@ -22,6 +23,15 @@ jobs:
     steps:
     # Setup
     - uses: actions/checkout@v2
+
+    - id: auth
+      uses: google-github-actions/auth@v0.4.0
+      with:
+        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.3.0
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
@@ -67,4 +77,4 @@ jobs:
       uses: google-github-actions/setup-gcloud@v0.3.0
 
     - name: Deploy website to GCP
-      run: 'gsutil rsync -Rd build/ gs://${{ secrets.GCP_BUCKET_NAME }}'
+      run: 'gsutil -m rsync -R -d -c build/ gs://${{ secrets.GCP_BUCKET_NAME }}'
