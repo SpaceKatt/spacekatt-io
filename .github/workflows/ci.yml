@@ -1,4 +1,4 @@
-name: spacekatt-io CI
+name: CI spacekatt-io
 
 on:
   push:
@@ -21,10 +21,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      # - name: Check for missing change logs
-      #   run: |
-      #     git fetch origin main:refs/remotes/origin/main -a
-      #     node common/scripts/install-run-rush.js change -v
+
       - name: Install build toolchain
         run: |
           node common/scripts/install-run-rush.js install

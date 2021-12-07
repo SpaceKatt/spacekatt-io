@@ -27,14 +27,6 @@ jobs:
     # Setup
     - uses: actions/checkout@v2
 
-    - id: auth
-      uses: google-github-actions/auth@v0.4.0
-      with:
-        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-        service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
-
-    - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v0.3.0
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
@@ -67,8 +59,8 @@ jobs:
     - name: Download Artifact
       uses: actions/download-artifact@v2
       with:
-        name: $${{ env.ARTIFACT_NAME }}
-        path: '${{ env.BUILD_DIRECTORY }}'
+        name: ${{ env.ARTIFACT_NAME }}
+        path: ${{ env.BUILD_DIRECTORY }}
 
     - id: auth
       uses: google-github-actions/auth@v0.4.0
