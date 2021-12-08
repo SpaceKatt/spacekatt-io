@@ -1,6 +1,6 @@
 # spacekatt-io
 
-[![spacekatt-io CI](https://github.com/SpaceKatt/spacekatt-io/actions/workflows/ci.yml/badge.svg)](https://github.com/SpaceKatt/spacekatt-io/actions/workflows/ci.yml)
+[![spacekatt-io CI](https://github.com/SpaceKatt/spacekatt-io/actions/workflows/ci.yml/badge.svg)](https://github.com/SpaceKatt/spacekatt-io/actions/workflows/ci.yml) [![CD spacekatt-io](https://github.com/SpaceKatt/spacekatt-io/actions/workflows/cd.yml/badge.svg)](https://github.com/SpaceKatt/spacekatt-io/actions/workflows/cd.yml)
 
 Shared code for [public website](https://spacekatt.io/) and [other applications](https://github.com/SpaceKatt/spacekatt-io#project-inventory).
 
