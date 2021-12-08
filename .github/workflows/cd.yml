@@ -67,7 +67,7 @@ jobs:
       uses: google-github-actions/setup-gcloud@v0.3.0
       with:
         service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        service_account_key: ${{ secrets.GCP_SA_SECRET }}
       # with:
       #   export_default_credentials: true
 
