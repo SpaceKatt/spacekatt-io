@@ -123,17 +123,14 @@ docker ps
 docker exec -it <container_name> /bin/sh
 ```
 
-## CI/CD
+## CI/CD Pipeline Inventory
 
-### Continuous Integration
+| Pipeline | Description | Badge |
+| :------- | :---------- | :---- |
+| [CI Pipeline](./.github/workflows/ci.yml) | Continuous integration that runs on pull request and push to `main`. Builds, lints, and tests projects in monorepo. | [![spacekatt-io CI](https://github.com/SpaceKatt/spacekatt-io/actions/workflows/ci.yml/badge.svg)](https://github.com/SpaceKatt/spacekatt-io/actions/workflows/ci.yml) |
+| [CD Pipeline](./.github/workflows/cd.yml) | Continuous delivery pipeline that runs on push to `release/*`. Releases [public website](https://spacekatt.io) | [![CD spacekatt-io](https://github.com/SpaceKatt/spacekatt-io/actions/workflows/cd.yml/badge.svg)](https://github.com/SpaceKatt/spacekatt-io/actions/workflows/cd.yml) |
 
-CI is performed with [GitHub Actions](https://github.com/SpaceKatt/spacekatt-io/actions), as defined by the [GitHub Action Manifest](./github/workflows/ci.yml). Two jobs are performed: building the Docker image and building/testing the project with Rush/Heft (respectively).
-
-### Continuous Deployment
-
-CD is on the roadmap. However, automation for deployments has yet to be implemented. Please refer to the [`Project Inventory`](https://github.com/SpaceKatt/spacekatt-io#project-inventory) for links to `READMEs` with the manual deployment instructions for each project (until the process is automated).
-
-> Using [this tutorial](https://www.mickaelvieira.com/blog/2020/01/29/deploying-a-static-website-to-google-cloud-storage-with-github-actions.html);
+> The author set up the CD pipeline using [this tutorial](https://www.mickaelvieira.com/blog/2020/01/29/deploying-a-static-website-to-google-cloud-storage-with-github-actions.html);
 
 ## Observability
 
