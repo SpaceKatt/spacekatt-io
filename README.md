@@ -125,9 +125,15 @@ docker exec -it <container_name> /bin/sh
 
 ## CI/CD
 
-Continuous integration is performed with [GitHub Actions](https://github.com/SpaceKatt/spacekatt-io/actions), as defined by the [GitHub Action Manifest](./github/workflows/ci.yml). Two jobs are performed: building the Docker image and building/testing the project with Rush/Heft (respectively).
+### Continuous Integration
 
-Continuous deployment is on the roadmap. However, automation for deployments has yet to be implemented. Please refer to the [`Project Inventory`](https://github.com/SpaceKatt/spacekatt-io#project-inventory) for links to `READMEs` with the manual deployment instructions for each project (until the process is automated).
+CI is performed with [GitHub Actions](https://github.com/SpaceKatt/spacekatt-io/actions), as defined by the [GitHub Action Manifest](./github/workflows/ci.yml). Two jobs are performed: building the Docker image and building/testing the project with Rush/Heft (respectively).
+
+### Continuous Deployment
+
+CD is on the roadmap. However, automation for deployments has yet to be implemented. Please refer to the [`Project Inventory`](https://github.com/SpaceKatt/spacekatt-io#project-inventory) for links to `READMEs` with the manual deployment instructions for each project (until the process is automated).
+
+> Using [this tutorial](https://www.mickaelvieira.com/blog/2020/01/29/deploying-a-static-website-to-google-cloud-storage-with-github-actions.html);
 
 ## Observability
 

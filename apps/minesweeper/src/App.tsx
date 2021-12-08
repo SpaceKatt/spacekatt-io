@@ -140,6 +140,7 @@ export const generateMetaContainerCSS = (
   const style: CSS.Properties = {
     width: getWidthCssProp(),
     maxWidth: ratioMap[difficulty],
+    color: 'black',
     // height: `calc(${ConfigConstants.highscoreDisplayHeight}}`,
   };
   return style;

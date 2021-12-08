@@ -1,0 +1,71 @@
+name: CD spacekatt-io
+
+on:
+  push:
+    branches:
+      - release/*
+
+permissions:
+  contents: 'read'
+  id-token: write
+
+env:
+  ARTIFACT_NAME: 'website-artifact'
+  BUILD_DIRECTORY: './spacekatt-io/build/'
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    # Setup
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install build toolchain
+      run: |
+        node common/scripts/install-run-rush.js install
+        npm install --global @rushstack/heft
+
+    # Build
+    - name: Build projects in monorepo
+      run: node common/scripts/install-run-rush.js rebuild --verbose
+
+    # Test
+    - name: Test Minesweeper
+      working-directory: ./apps/minesweeper
+      run: heft test --no-build
+
+    - name: Publish Website Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ env.ARTIFACT_NAME }}
+        path: '${{ env.BUILD_DIRECTORY }}'
+
+  deploy-website:
+    runs-on: ubuntu-latest
+
+    needs: build-and-publish
+    steps:
+    - name: Download Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: ${{ env.ARTIFACT_NAME }}
+        path: ${{ env.BUILD_DIRECTORY }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.3.0
+      with:
+        service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+        service_account_key: ${{ secrets.GCP_SA_SECRET }}
+
+    - name: Deploy website to GCP
+      id: 'gcloud'
+      run: 'gsutil -m rsync -R -d -c ${{ env.BUILD_DIRECTORY }} gs://${{ secrets.GCP_BUCKET_NAME }}'
