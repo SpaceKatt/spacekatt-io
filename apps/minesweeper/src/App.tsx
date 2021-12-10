@@ -29,17 +29,17 @@ export type MinefieldDifficultyManifest = {
 
 export const difficulties: MinefieldDifficultyManifest = {
   Beginner: {
-    numberOfMines: 5,
-    rowCount: 5,
+    numberOfMines: 10,
+    rowCount: 8,
     columnCount: 10,
   },
   Intermediate: {
-    numberOfMines: 22,
-    rowCount: 14,
-    columnCount: 12,
+    numberOfMines: 40,
+    rowCount: 18,
+    columnCount: 14,
   },
   Advanced: {
-    numberOfMines: 60,
+    numberOfMines: 99,
     rowCount: 20,
     columnCount: 24,
   },
@@ -133,8 +133,8 @@ export const generateMetaContainerCSS = (
   difficulty: string,
 ): CSS.Properties => {
   const ratioMap: { [key: string]: string } = {
-    Beginner: '400px',
-    Intermediate: '450px',
+    Beginner: '500px',
+    Intermediate: '550px',
     Advanced: '700px',
   };
   const style: CSS.Properties = {
