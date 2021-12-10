@@ -2,14 +2,9 @@
   "extends": "./node_modules/@rushstack/heft-node-rig/profiles/default/tsconfig-base.json",
   "compilerOptions": {
     "skipLibCheck": true,
-    "lib": [
-      "dom"
-    ],
+    "lib": ["dom"],
     "target": "es6",
-    "types": [
-      "heft-jest",
-      "node"
-    ],
+    "types": ["heft-jest", "node"],
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
