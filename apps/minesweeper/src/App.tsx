@@ -134,7 +134,7 @@ export const generateMetaContainerCSS = (
 ): CSS.Properties => {
   const ratioMap: { [key: string]: string } = {
     Beginner: '500px',
-    Intermediate: '550px',
+    Intermediate: '500px',
     Advanced: '700px',
   };
   const style: CSS.Properties = {
