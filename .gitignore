@@ -74,3 +74,6 @@ common/autoinstallers/*/.npmrc
 
 # build
 lib/
+temp/
+
+*.swp
