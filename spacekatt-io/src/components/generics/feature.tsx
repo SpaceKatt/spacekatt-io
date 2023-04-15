@@ -2,9 +2,17 @@ import React from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 import styles from '../../pages/styles.module.css';
+import Link from '@docusaurus/Link';
 
-export function Feature({ imageUrl, title, description }) {
+export interface FeatureProps {
+  imageUrl: string,
+  title: string,
+  description: string,
+}
+export function Feature(props: FeatureProps) {
+  const { imageUrl, title, description } = props;
   const imgUrl = useBaseUrl(imageUrl);
+
   return (
     <div className="border-man text--center">
       {imgUrl && (
@@ -13,7 +21,7 @@ export function Feature({ imageUrl, title, description }) {
         </div>
       )}
       <h3>{title}</h3>
-      <p style={{ color: 'clue' }}>{description}</p>
+      <Link>{description}</Link>
     </div>
   );
 }
