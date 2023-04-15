@@ -1,2 +1,2 @@
-export * from './artOverviewGallery';
-export * from './techOverviewGallery';
+export * from './artOverview';
+export * from './techOverview';
