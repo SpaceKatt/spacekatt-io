@@ -56,7 +56,7 @@ export function Feature(props: FeatureProps) {
             <Typography
               variant="body1"
               align="center"
-              sx={{ color: 'var(--ifm-color-emphasis-800)' }}
+              sx={{ color: fontColor }}
             >
               {description}
             </Typography>
