@@ -13,7 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          node-version: ${{ matrix.node-version }}
           fetch-depth: 2
       - uses: actions/setup-node@v3
         with:
