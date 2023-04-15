@@ -1,40 +1,19 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 
-export interface CardProps {
+export interface ContentLink {
+  title: string;
+  url: string;
+}
+
+export interface CardProps extends ContentLink {
   header: string;
   body: string;
   imgSrc: string;
   alt: string;
-  title: string;
   height: string;
-  url: string;
   classCss?: string;
   callToAction?: string;
 }
-
-export const cardPropFactory = (
-  header: string,
-  body: string,
-  imgSrc: string,
-  alt: string,
-  title: string,
-  height: string,
-  url: string,
-  classCss?: string,
-  callToAction?: string,
-): CardProps => {
-  return {
-    header,
-    body,
-    imgSrc,
-    alt,
-    title,
-    height,
-    url,
-    classCss,
-    callToAction,
-  };
-};
 
 export const Card: FunctionComponent<CardProps> = (
   props: CardProps,
