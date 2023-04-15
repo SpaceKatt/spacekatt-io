@@ -1,4 +1,5 @@
-module.exports = {
+/** @type {import('@docusaurus/types').Config} */
+config = {
   title: 'International SpaceKatt Station',
   tagline: 'Welcome aboard the ISS.',
   url: 'https://spacekatt.io',
@@ -9,6 +10,7 @@ module.exports = {
   organizationName: 'spacekatt',
   projectName: 'spacekatt-io',
   themeConfig: {
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: false,
@@ -98,6 +100,7 @@ module.exports = {
   presets: [
     [
       '@docusaurus/preset-classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
       {
         docs: {
           sidebarPath: require.resolve('./sidebars/sidebars.js'),
@@ -128,3 +131,5 @@ module.exports = {
     ],
   ],
 };
+
+module.exports = config;
