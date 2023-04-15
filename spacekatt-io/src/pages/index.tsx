@@ -16,13 +16,13 @@ const features = [
     title: 'Tech',
     url: 'tech',
     imageUrl: SpaceKattConstants.logo,
-    description: 'SpaceKatt Tech',
+    description: 'Peruse projects related to all things technology related!',
   },
   {
     title: 'Art',
     url: 'art',
     imageUrl: SpaceKattConstants.logo,
-    description: 'SpaceKatt Art',
+    description: 'See the art SpaceKatt has created!',
   },
   {
     title: 'Meta',
