@@ -76,4 +76,5 @@ common/autoinstallers/*/.npmrc
 lib/
 temp/
 
+# neovim
 *.swp
