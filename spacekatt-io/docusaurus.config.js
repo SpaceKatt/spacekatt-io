@@ -9,8 +9,10 @@ module.exports = {
   organizationName: 'spacekatt',
   projectName: 'spacekatt-io',
   themeConfig: {
-    gtag: {
-      trackingID: 'G-YH69F6WCD8',
+    colorMode: {
+      defaultMode: 'dark',
+      disableSwitch: false,
+      respectPrefersColorScheme: false,
     },
     navbar: {
       title: 'SpaceKatt.io',
@@ -102,6 +104,9 @@ module.exports = {
           // Please change this to your repo.
           path: 'docs',
           routeBasePath: '/',
+        },
+        gtag: {
+          trackingID: 'G-YH69F6WCD8',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
