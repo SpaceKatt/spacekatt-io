@@ -8,33 +8,34 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import { ConvertKitCTA, Feature } from '../components';
 import { SpaceKattConstants } from '../constants';
 import styles from './styles.module.css';
+import { Box } from '@mui/material';
+import Grid2 from '@mui/material/Unstable_Grid2';
 
 const features = [
   {
     title: 'Tech',
     url: 'tech',
     imageUrl: SpaceKattConstants.logo,
-    description: <>SpaceKatt Tech</>,
+    description: 'SpaceKatt Tech',
   },
   {
     title: 'Art',
     url: 'art',
     imageUrl: SpaceKattConstants.logo,
-    description: <>SpaceKatt Art</>,
+    description: 'SpaceKatt Art',
   },
   {
     title: 'Meta',
     url: 'about',
     imageUrl: SpaceKattConstants.logo,
-    description: (
-      <>Learn more about SpaceKatt and the International Spacekatt Station!</>
-    ),
+    description:
+      'Learn more about SpaceKatt and the International Spacekatt Station!',
   },
 ];
 
 function Home() {
-  const context = useDocusaurusContext();
-  const { siteConfig = {} } = context;
+  const { siteConfig } = useDocusaurusContext();
+
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
@@ -60,20 +61,17 @@ function Home() {
       <main>
         {features && features.length > 0 && (
           <section className={styles.features}>
-            <div className="container">
-              <div className="row">
+            <Box sx={{ flexGrow: 1, padding: 3 }}>
+              <Grid2 container spacing={{ lg: 3, md: 2, xs: 1 }}>
                 {features.map((props, idx) => (
-                  <div className={clsx('border-man col col--4')}>
-                    <Link
-                      className={clsx(styles.borderMan, styles.mainPageFeature)}
-                      to={useBaseUrl(props.url)}
-                    >
-                      <Feature key={idx} {...props}></Feature>
-                    </Link>
-                  </div>
+                  <Grid2 xs={12} md={6} lg={4} key={idx}>
+                    <Box sx={{ padding: 3, height: '100%', minHeight: '400px' }}>
+                      <Feature key={idx} {...props} ></Feature>
+                    </Box>
+                  </Grid2>
                 ))}
-              </div>
-            </div>
+              </Grid2>
+            </Box>
           </section>
         )}
         <ConvertKitCTA />;
