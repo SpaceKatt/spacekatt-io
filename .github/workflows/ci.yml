@@ -1,37 +1,27 @@
-name: CI spacekatt-io
-
+name: CI
 on:
   push:
-    branches: [main]
+    branches: [ "main" ]
   pull_request:
-    branches: [main]
-
+    branches: [ "main" ]
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x]
-
     steps:
-      # Setup
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install build toolchain
-        run: |
-          node common/scripts/install-run-rush.js install
-          npm install --global @rushstack/heft
-
-      # Build
-      - name: Build projects in monorepo
-        run: node common/scripts/install-run-rush.js rebuild --verbose
-
-      # Test
-      - name: Test Minesweeper
-        working-directory: ./apps/minesweeper
-        run: heft test --no-build
+          fetch-depth: 2
+      - name: Git config user
+        uses: snow-actions/git-config-user@v1.0.0
+        with:
+          name: # Service Account's Name
+          email: # Service Account's Email Address
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Verify Change Logs
+        run: node common/scripts/install-run-rush.js change --verify
+      - name: Rush Install
+        run: node common/scripts/install-run-rush.js install
+      - name: Rush rebuild
+        run: node common/scripts/install-run-rush.js rebuild --verbose --production
