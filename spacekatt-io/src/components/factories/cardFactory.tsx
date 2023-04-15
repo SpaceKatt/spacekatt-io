@@ -2,6 +2,10 @@ import React from 'react';
 import { ReactElement } from 'react';
 import { Card, CardProps } from '..';
 
+export interface CardFactoryProps {
+  cardProps: CardProps[];
+}
+
 export const CardFactory = (
   cardFactoryProps: CardFactoryProps,
 ): ReactElement => {
@@ -15,7 +19,3 @@ export const CardFactory = (
     </div>
   );
 };
-
-export interface CardFactoryProps {
-  cardProps: CardProps[];
-}
