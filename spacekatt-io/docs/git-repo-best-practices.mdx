@@ -241,12 +241,14 @@ Assuming you've committed your previous changes, it is now time to set your `rem
 
 ```bash title="Configure a remote named using SSH protocol and push local commits"
 git remote add origin git@github.com:${GIT_USERNAME}/${MY_AWESOME_REPO}.git
-git push origin main`
+git push origin main
 ```
 
 Now, navigate back to the online repo you created on GitHub to see your code!
 
 ## Branch Protection Rules
+
+> *"YOLO Considered Harmful"* - **Gen Z Dijkstra**
 
 [Branch protection rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches)
 enforce specific methods engineers may use to modify important branches (such as `main`).
@@ -260,6 +262,7 @@ I recommend two options to always be enabled for rules on `main` branches:
 - `Require status checks to pass before merging`
 
 Pull requests (PRs) allow for spliting changes into related chunks and putting them up for review (by yourself and others).
+Protecting `main` by requiring pull requests is the most effective method to avoid merge thrashing among a set of collaborators.
 
 Batching changes into discrete units helps engineers organize their workflows and have greater visibility into how a repo changes over time.
 History of which pull requests were merged when is an essential asset which pays divedens for posterity.
@@ -269,6 +272,9 @@ and [merge a pull request](https://docs.github.com/en/pull-requests/collaboratin
 
 Every engineering team in my industry experience (and a majority of open source projects) use a pull request process.
 Thus, knowledge of how to make and review pull requests is prudent.
+
+[Trunk based development](https://trunkbaseddevelopment.com/) is the de facto industry standard of how to collaborate using `git`.
+Every engineer should know and follow trunk based development practices, whether they are developing alone or on a team.
 
 :::note
 Decide on the merging strategy you want to use for your project.
@@ -285,12 +291,55 @@ Rebasing locally first will help maintain a linear git history.
 The curious may consult futher reading on [linear history](https://dev.to/bladesensei/avoid-messy-git-history-3g26) (my preferred approach), as there exist pros and cons to this strategy.
 :::
 
-Status checks for pull requests are defined via continuous integration pipelines, which we will explore next.
+Status checks for pull requests are usually defined via continuous integration pipelines, which we will explore next.
 
 ## Scaffold Continuous Integration (CI)
 
-- Add minimal CI
-- add CI badge
+[Continuous integration (CI)](https://martinfowler.com/articles/continuousIntegration.html)
+is a standard development practice which contributes to the health and maintainability of software projects.
+
+Here, we will set up a minimalistic scaffolding for a CI pipeline and use it as a status check on PRs.
+If the CI pipeline does not pass on a PR, then the PR should not be merged.
+
+CI pipelines often build, lint, and test changes before passing.
+However, in the absence of code, we will create a simple pipeline which only performs a `checkout` of the repo.
+
+We will use [GitHub Actions to create a CI pipeline](https://github.com/readme/guides/sothebys-github-actions). Please create a pipeline file
+
+```bash title="Create CI pipeline manifest file"
+mkdir -p .github/workflows
+touch .github/workflows/ci.yml
+```
+
+Next, copy the following into the new file.
+
+```yml title=".github/workflows/ci.yml"
+name: CI
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+```
+
+Commit, push, and navigate to the `Actions` tab in your repository to see the pipeline run!
+
+As you add code and add processes to build, lint, and test that code, you should update your CI pipe to reflect those processes.
+Ensure the CI pipeline enforces the standards you want to see in your codebase!
+
+:::info
+You should add a [status badge](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/adding-a-workflow-status-badge) to your [README](https://dev.to/azure/github-how-to-display-the-status-badge-for-a-github-action-5449)!
+Everyone likes seeing a `passing` CI status badge linked to the workflow:
+
+[![CI](https://github.com/SpaceKatt/example-fresh-repo/actions/workflows/ci.yml/badge.svg)](https://github.com/SpaceKatt/example-fresh-repo/actions/workflows/ci.yml)
+:::
 
 ## Decide on a Release Strategy (CD)
 
