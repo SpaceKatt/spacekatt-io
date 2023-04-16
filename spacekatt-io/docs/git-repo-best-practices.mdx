@@ -28,9 +28,10 @@ Please `export` the name of your repository to take advantage of this:
 
 ```bash
 export MY_AWESOME_REPO=<repo-name> && echo $MY_AWESOME_REPO
+export GIT_USERNAME=<repo-name> && echo $GIT_USERNAME
 ```
 
-I am also assuming you are using a bash-like shell and have `$USER` as a prexisting env var.
+I am also assuming you are using a bash-like shell.
 :::
 
 ## Initializing a New Local Repo
@@ -132,7 +133,7 @@ SOFTWARE.
 ```
 
 :::info
-I prefer a `MIT License` for a variety of reasons, however there are a multitude of licenses - some of which may be more appropriate for your project!
+I prefer a `MIT License` for a variety of reasons, however there are a multitude of available licenses - some of which may be more appropriate for your project!
 For instance, the "viral" [`GNU GPLv3 License`](https://choosealicense.com/licenses/) is useful if you want  any project taking a dependecy on yours to use the same license.
 
 Please take some time to familiarize yourself with the [common set of licenses](https://choosealicense.com/licenses/) used by open source projects.
@@ -167,21 +168,81 @@ In a world of growing complexity, the simplest thing you can do to make your pro
 
 ## Add a `.gitignore` File
 
-- Add `.gitignore`
+> *"One man's trash is still a bad idea to commit."* - **ancient proverb**
+
+Certain files should *never* be included in source control, such as temporary files, secrets, or build assets.
+
+Luckily, `git` consults a [special `.gitignore` file](https://git-scm.com/docs/gitignore) which provides a list of files/patterns to ignore.
+
+Projects will often have their own unique requirements and special cases to ignore.
+Typically, I start off new projects with this simple template, then build the list over time:
+
+```txt title=".gitignore"
+# common
+lib/
+tmp/
+temp/
+
+# neovim
+*.swp
+```
 
 ## Add a `CONTRIBUTING` Guide
 
-- Add `CONTRIBUTING.md`
-- Consider making a code of conduct
+> *"How can I help?"* - **a blessed soul**
+
+Folk love to contribute! Community contributions are the bedrock upon which open source projects lay.
+
+Standards for contribution are typically kept in a special `CONTRIBUTING.md` file.
+This is the first place members of the community will look if they want to modify some aspect of your repo.
+
+Feel free to copy the [standard template I use](https://github.com/SpaceKatt/example-fresh-repo/blob/main/CONTRIBUTING.md) - and modify it to fit your needs.
+
+:::info
+If you expect your project to grow in the number of contributors, then please consider making a [code of conduct](https://opensource.guide/code-of-conduct/)!
+Humans are complex; it's always a good idea to have a standard bar to which we should treat one another as emotions run high.
+:::
 
 ## Create Remote Repo (GitHub)
 
 > *"git != GitHub"* - **every git workshop ever**
 
-- Create GitHub repo online
-- Set `origin` and `push`
-  - `$ git remote add origin git@github.com:<username>/<my-awesome-repo>.git`
-  - `$ git push origin main`
+At some point, you want others to be able to view your project (and an online backup).
+Online repository hosting services are plentiful and free to use, so there's no reason you should backup an open source project online.
+
+GitHub is a popular hosting service, and the one we will be using for this guide.
+
+[Create a online repo](https://docs.github.com/en/get-started/quickstart/create-a-repo#create-a-repository) on GitHub to host your code now.
+(I'm assuming you're using the same name you set previously in your `$MY_AWESOME_REPO` env var.)
+
+:::tip
+Authentication from the `git` CLI to GitHub can be done in a vairety of ways.
+SSH is a standard, secure way to attest your identity and is preferred over HTTPS authenticion in industry.
+
+This guide uses SSH authenticion, to set up SSH auth:
+- Generate a [new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key)
+- Start an [`ssh-agent` session](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#adding-your-ssh-key-to-the-ssh-agent) to bind keys to
+- Add your SSH key to your session
+
+> Replace `zsh` with `bash` or whatever shell you're using!
+
+```bash
+ssh-keygen -t ed25519 -C "your_email@example.com"
+ssh-agent zsh
+ssh-add
+```
+
+Afterwards, [add your public key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account#adding-a-new-ssh-key-to-your-account) to your GitHub profile, then you're all set!
+:::
+
+Assuming you've committed your previous changes, it is now time to set your `remote` and `push`!
+
+```bash title="Set remote reporitory (using SSH protocol) and push local commits"
+git remote add origin git@github.com:${GIT_USERNAME}/${MY_AWESOME_REPO}.git
+git push origin main`
+```
+
+Now, navigate back to the online repo you created to see your code!
 
 ## Branch Protection Rules
 
