@@ -1,0 +1,43 @@
+---
+id: git-repo-best-practices
+title: "Best Practices for Setting Up Git Repositories: A Comprehensive Guide"
+sidebar_label: Best Practices for Git Repos
+---
+
+So you have a new project and need to setup a fresh git repository...
+
+Let us begin.
+
+# Initializing a New Repo
+
+- `$ mkdir <my-awesome-repo>`
+- `$ git init`
+  - `$ git status` if `master` -> `$ git branch -m main`
+
+## Add a License
+
+- Add a `LICENSE.md`! I prefer MIT
+
+## Add a README
+
+- Add `README.md`
+
+## Add a `.gitignore` File
+
+- Add `.gitignore`
+
+## Create Online Remote (GitHub)
+
+- Create GitHub repo online
+- Set `origin` and `push`
+  - `$ git remote add origin git@github.com:<username>/<my-awesome-repo>.git`
+  - `$ git push origin main`
+
+## Add a Contribution Guide
+
+- Add `CONTRIBUTING.md`
+
+## Scaffold Continuous Integration (CI)
+
+- Add minimal CI
+- add CI badge
