@@ -4,8 +4,6 @@ title: "Best Practices for Setting Up Git Repositories: A Comprehensive Guide"
 sidebar_label: Git Repo Setup Best Practices
 ---
 
-import Link from '@docusaurus/Link';
-
 So, you're creating a new project and need to set up a fresh `git` repository...
 
 Open source projects have a standard set of components engineers expect to see in a repo.
@@ -212,7 +210,7 @@ Humans are complex; it's always a good idea to have a standard bar to which we s
 > *"git != GitHub"* - **every git workshop ever**
 
 At some point, you will want others to be able to view your project (and to have an online backup).
-Online repository hosting services are plentiful and free to use, so there's no reason you should backup an open source project online.
+Online repository hosting services are plentiful and free to use, so there's no reason you shouldn't backup an open source project online.
 
 GitHub is a popular hosting service, and the one we will be using for this guide.
 
@@ -307,7 +305,7 @@ If the CI pipeline does not pass on a PR, then the PR should not be merged.
 CI pipelines often build, lint, and test changes before passing.
 However, in the absence of code, we will create a simple pipeline which only performs a `checkout` of the repo.
 
-We will use [GitHub Actions to create a CI pipeline](https://github.com/readme/guides/sothebys-github-actions). Please create a pipeline file
+We will use [GitHub Actions to create a CI pipeline](https://github.com/readme/guides/sothebys-github-actions). Please create a pipeline file:
 
 ```bash title="Create CI pipeline manifest file"
 mkdir -p .github/workflows
@@ -332,9 +330,9 @@ jobs:
           fetch-depth: 2
 ```
 
-Commit, push, and navigate to the `Actions` tab in your repository to see the pipeline run!
+Commit, push, and navigate to the `Actions` tab in your GitHub repository to see the pipeline run.
 
-As you add code and add processes to build, lint, and test that code, you should update your CI pipe to reflect those processes.
+As you add code and processes to build, lint, and test that code, you should update your CI pipe to reflect those processes.
 Ensure the CI pipeline enforces the standards you want to see in your codebase!
 
 :::info
@@ -352,14 +350,14 @@ Everyone likes seeing a `passing` CI status badge linked to the workflow:
 is a method for shipping your project once it is ready for release.
 
 For example, this webstie is deployed using [this CD pipeline manifest](https://github.com/SpaceKatt/spacekatt-io/blob/main/.github/workflows/cd.yml).
-Everytime I push to a branch whose name matches the `release/*` pattern, a new version of the <Link to="/website-meta">spacekatt-io website</Link> is automagically built, tested, and published.
+Everytime I push to a branch whose name matches the `release/*` pattern, a new version of the `spacekatt-io` website is automagically built, tested, and published.
 
 [Release Flow](https://devblogs.microsoft.com/devops/release-flow-how-we-do-branching-on-the-vsts-team/)
 is my preferred release strategy. (I'll leave it to the reader to decide if it counts as "CD".)
 Other release strategies exist, and one should consider what their release strategy should be from a project's inception.
 
 As CD requires shippable code, setting up a CD pipeline is beyond the scope of this guide.
-However, please do create a GitHub Action pipeline manifest as soon as you start deploying code.
+However, please do create a GitHub Action manifest for a CD pipeline as soon as you start deploying code.
 
 :::info
 How you release a project will often depend on whether your project is a library or an application.
