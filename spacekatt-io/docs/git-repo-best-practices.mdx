@@ -93,13 +93,77 @@ git config --global init.defaultBranch main
 
 ## Add a `LICENSE`
 
+> *"Lawsuits are never a fashionable thing to wear."* - **someone who always uses a `LICENSE`**
 
+Software licensing is too often considered a second priority to functionality and overlooked by new coders.
 
-- Add a `LICENSE.md`! I prefer MIT
+However, one never knows how their code will be used - possibly years later - once it is in the public domain.
+Protection from liability is an essential facet of open source software and trivial to implement.
+
+All you need to do is:
+
+- Copy the following [MIT License](https://choosealicense.com/licenses/mit/)
+- Paste it in a `LICENSE.md` file
+- Set the `[year] [fullname]` fields
+- Never worry about it again! (Maybe you'll update the `[year]` occasionally)
+
+```txt title="LICENSE.md"
+MIT License
+
+Copyright (c) [year] [fullname]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+:::info
+I prefer a `MIT License` for a variety of reasons, however there are a multitude of licenses - some of which may be more appropriate for your project!
+For instance, the "viral" [`GNU GPLv3 License`](https://choosealicense.com/licenses/) is useful if you want  any project taking a dependecy on yours to use the same license.
+
+Please take some time to familiarize yourself with the [common set of licenses](https://choosealicense.com/licenses/) used by open source projects.
+:::
 
 ## Add a `README`
 
-- Add `README.md`
+> *"Where's your `README`?"* - **a frusturated engineer**
+
+Projects without a `README` files are persona non grata in the open soure world.
+
+Trust is the coin of the realm, and engineers do not trust projects without a `README`!
+
+Repo hosting websites (such as GitHub) believe in the `README` file to such a degree where they [automatically render `README`s](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes) in every repo.
+Everyone expects you to have one; `README`s are built into the basic muscle memory of the organs of industry.
+
+One of the first few commits in a new repository should create a new `README.md` file.
+I typically use the following basic template:
+
+```md title="README.md"
+# <REPO_NAME>
+
+<BRIEF_DESCRIPTION_OF_INTENT>
+```
+
+Simple scaffolding - such as the template above - is sufficient until you have built out more functionality in your project.
+
+As your project grows, folk should be able to understand what your project is about and how to get started using it by reading the `README`.
+If a reader needs to dig around in other files to understand the basics of how to use your project, then those files should be linked to in the `README`.
+
+In a world of growing complexity, the simplest thing you can do to make your project more accessible is having a banger `README`.
 
 ## Add a `.gitignore` File
 
