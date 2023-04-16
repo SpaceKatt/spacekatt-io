@@ -219,7 +219,7 @@ GitHub is a popular hosting service, and the one we will be using for this guide
 Authentication from the `git` CLI to GitHub can be done in a vairety of ways.
 SSH is a standard, secure way to attest your identity and is preferred over HTTPS authenticion in industry.
 
-This guide uses SSH authenticion, to set up SSH auth:
+This guide uses SSH authenticion, to set up SSH locally:
 - Generate a [new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key)
 - Start an [`ssh-agent` session](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#adding-your-ssh-key-to-the-ssh-agent) to bind keys to
 - Add your SSH key to your session
@@ -232,45 +232,57 @@ ssh-agent zsh
 ssh-add
 ```
 
-Afterwards, [add your public key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account#adding-a-new-ssh-key-to-your-account) to your GitHub profile, then you're all set!
+Next, [add your public key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account#adding-a-new-ssh-key-to-your-account) to your GitHub profile, then you're all set!
 :::
 
 Assuming you've committed your previous changes, it is now time to set your `remote` and `push`!
 
-```bash title="Set remote reporitory (using SSH protocol) and push local commits"
+```bash title="Configure a remote named using SSH protocol and push local commits"
 git remote add origin git@github.com:${GIT_USERNAME}/${MY_AWESOME_REPO}.git
 git push origin main`
 ```
 
-Now, navigate back to the online repo you created to see your code!
+Now, navigate back to the online repo you created on GitHub to see your code!
 
 ## Branch Protection Rules
 
-Why have branch protection rules?
+[Branch protection rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches)
+are an excellent way to enforce specific methods engineers modify important branches (such as `main`).
 
-### Importance of Pull Requests
+Enforcement of simple contribution rules are a surefire way to keep code quality high and foster a collaborative deveopment environment.
 
-Pull requests allow for spliting...
+Set up a [branch protection rule on main](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/managing-a-branch-protection-rule#creating-a-branch-protection-rule) ***now***.
+I recommend two options to always be enabled for rules on `main` branches:
+- `Require a pull request before merging`
+- `Require status checks to pass before merging`
 
-[Pull request merging](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request#merging-a-pull-request)
+Pull requests (PRs) allow for spliting changes into related chunks and putting them up for review (by yourself and others).
 
-### Setting up Branch Rules
+Batching changes into discrete units helps engineers organize their workflows and have greater visibility into how a repo changes over time.
+History of which pull requests were merged when is an essential asset which pays divedens for posterity.
 
-- set rules on `main`
+Please familiarize yourself on how to [create a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
+and [merge a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request#merging-a-pull-request).
 
-### Merge Stategies
-
-Decide on your merging strategy.
+Every engineering team in my industry experience (and a majority of open source projects) use a pull request process.
+Thus, knowledge of how to make and review pull requests is prudent.
 
 :::note
+Decide on the merging strategy you want to use for your project.
+Several [methods of merging](https://medium.com/@itsnarayan/types-of-git-merge-in-github-bitbucket-2a7e0fff3876) exist, with their own pros and cons.
+Take some time to familiarize yourself with the options available and understand their impact.
+
 When working alone, I prefer to rebase branches locally then use GitHub's [`Rebase and merge`](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/about-pull-request-merges#rebase-and-merge-your-commits).
-Use of `Rebase and merge` maintains a linear git history and
+Use of `Rebase and merge` maintains a linear git history and results in more "green squares" in your contribution history. n____n
 
 When working in an enterprise setting, I prefer to rebase branches locally then use GitHub's [`Squash and merge`](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/about-pull-request-merges#rebase-and-merge-your-commits).
 Squash commits are nice to reduce the commit log noise (i.e., `main` will have thousands of commits instead of tens of thousands of commits).
+Rebasing locally first will help maintain a linear git history.
 
-The curious may consult futher reading on [linear history](https://dev.to/bladesensei/avoid-messy-git-history-3g26).
+The curious may consult futher reading on [linear history](https://dev.to/bladesensei/avoid-messy-git-history-3g26) (my preferred approach), as there exist pros and cons to this strategy.
 :::
+
+Status checks for pull requests are defined via continuous integration pipelines, which we will explore next.
 
 ## Scaffold Continuous Integration (CI)
 
