@@ -4,7 +4,7 @@ title: "Best Practices for Setting Up Git Repositories: A Comprehensive Guide"
 sidebar_label: Git Repo Setup Best Practices
 ---
 
-So, you're creating a new project and need to set up a fresh git repository...
+So, you're creating a new project and need to set up a fresh `git` repository...
 
 Open source projects have a standard set of components engineers expect to see in a repo.
 
@@ -15,37 +15,48 @@ Engineers often immediately navigate away from projects without these components
 
 This guide will teach you how to:
 
-- Set up a new repository
+- Set up a new, local repository
 - Include standard components industry engineers expect to see
 - Curate an open, collaborative environment (with proper guard rails)
 - Consider continuous integration, release strategies, testing, linting, and more!
 
 Let us begin.
 
-## Initializing a New Local Repo
-
-> *"A library with a thousand downloads begins with a single commit."* - ***idk, probably Torvalds***
-
-Every project
-
-:::info
+:::tip
 For this guide I will be using env vars to ease copy paste.
-Please use `export` to take advantage of this:
+Please `export` the name of your repository to take advantage of this:
 
 ```bash
 export MY_AWESOME_REPO=<repo-name> && echo $MY_AWESOME_REPO
 ```
 
-I am also assuming you are using a bash-like shell.
+I am also assuming you are using a bash-like shell and have `$USER` as a prexisting env var.
 :::
 
-Run the following commands to create a new directory and navigate to it:
+## Initializing a New Local Repo
+
+> *"A library with a thousand downloads begins with a single commit."* - ***idk, probably Torvalds***
+
+Repositories are essentially directories where every change made is tracked and stored for posterity.
+
+**Every** project should [use source control](https://betterprogramming.pub/9-reasons-even-solo-developers-should-use-source-control-c4f5939e2a36).
+Without source control, chaos reigns.
+
+`git` is *the* industry favorite tool for source control.
+Other tools exist (e.g., Fossil, SVN, CVS, Mercurial, etc...), however they are rare to see out in the wild.
+
+Run the following commands to create a new directory, navigate to it, and create an empty `git` repo:
 
 ```bash
 mkdir $MY_AWESOME_REPO
 cd $MY_AWESOME_REPO
 git init
 ```
+
+Congradulations! You now have an empty `git` repo ready to use for source control excellence!
+
+:::note
+Configuration and tracking of `git` history is stored in the `.git/` directory, which has the following structure:
 
 ```
 .
@@ -58,18 +69,35 @@ git init
     ├── objects
     └── refs
 ```
-
-:::note
-- `$ git status` if `master` -> `$ git branch -m main`
 :::
 
-## Add a License
+If you have not already, please configure your [name and email](https://stackoverflow.com/a/37805844/4656516), as `git` requires it.
+
+Herein, we assume the reader knows basic git operations, such as
+[`add`](https://www.atlassian.com/git/tutorials/saving-changes),
+[`commit`](https://www.atlassian.com/git/tutorials/saving-changes/git-commit),
+and [`diff`](https://www.atlassian.com/git/tutorials/saving-changes/git-diff).
+
+This guide is **not** a [git tutorial](https://git-scm.com/docs/gittutorial),
+rather it is a compilation of best practices and steps settin up new repos.
+
+:::note
+Industry is shifting towards a preference for naming the default [`git` branch to `main`](https://github.com/github/renaming/#readme).
+To change your current branch's name from `master` to `main` and set the default branch name made by future `$ git init` invocations, run the following:
+
+```bash
+git branch -m main
+git config --global init.defaultBranch main
+```
+:::
+
+## Add a `LICENSE`
 
 
 
 - Add a `LICENSE.md`! I prefer MIT
 
-## Add a README
+## Add a `README`
 
 - Add `README.md`
 
@@ -77,19 +105,19 @@ git init
 
 - Add `.gitignore`
 
+## Add a `CONTRIBUTING` Guide
+
+- Add `CONTRIBUTING.md`
+- Consider making a code of conduct
+
 ## Create Remote Repo (GitHub)
 
-> *"git != GitHub"* - **every git workshop**
+> *"git != GitHub"* - **every git workshop ever**
 
 - Create GitHub repo online
 - Set `origin` and `push`
   - `$ git remote add origin git@github.com:<username>/<my-awesome-repo>.git`
   - `$ git push origin main`
-
-## Add a Contribution Guide
-
-- Add `CONTRIBUTING.md`
-- Consider making a code of conduct
 
 ## Branch Protection Rules
 
@@ -103,13 +131,15 @@ Pull requests allow for spliting...
 
 Decide on your merging strategy.
 
-> When working alone, I prefer to rebase branches locally then use GitHub's [`Rebase and merge`](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/about-pull-request-merges#rebase-and-merge-your-commits).
-> Use of `Rebase and merge` maintains a linear git history and
->
-> When working in an enterprise setting, I prefer to rebase branches locally then use GitHub's [`Squash and merge`](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/about-pull-request-merges#rebase-and-merge-your-commits).
-> Squash commits are nice to reduce the commit log noise (i.e., `main` will have thousands of commits instead of tens of thousands of commits).
->
-> The curious may consult futher reading on [linear history](https://dev.to/bladesensei/avoid-messy-git-history-3g26).
+:::note
+When working alone, I prefer to rebase branches locally then use GitHub's [`Rebase and merge`](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/about-pull-request-merges#rebase-and-merge-your-commits).
+Use of `Rebase and merge` maintains a linear git history and
+
+When working in an enterprise setting, I prefer to rebase branches locally then use GitHub's [`Squash and merge`](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/about-pull-request-merges#rebase-and-merge-your-commits).
+Squash commits are nice to reduce the commit log noise (i.e., `main` will have thousands of commits instead of tens of thousands of commits).
+
+The curious may consult futher reading on [linear history](https://dev.to/bladesensei/avoid-messy-git-history-3g26).
+:::
 
 ### Setting up Branch Rules
 
@@ -124,6 +154,10 @@ Decide on your merging strategy.
 
 - I like `release/*` CD
 - use `spacekatt-io` CD as example
+
+### Libraries vs Applications
+
+TODO: contrast publishing from deployment
 
 ## Language Specific Components
 
