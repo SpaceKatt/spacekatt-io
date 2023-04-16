@@ -4,6 +4,8 @@ title: "Best Practices for Setting Up Git Repositories: A Comprehensive Guide"
 sidebar_label: Git Repo Setup Best Practices
 ---
 
+import Link from '@docusaurus/Link';
+
 So, you're creating a new project and need to set up a fresh `git` repository...
 
 Open source projects have a standard set of components engineers expect to see in a repo.
@@ -258,6 +260,7 @@ Without branch protection rules, merging can become a frightening, error-prone p
 
 Set up a [branch protection rule on main](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/managing-a-branch-protection-rule#creating-a-branch-protection-rule) ***now***.
 I recommend two options to always be enabled for rules on `main` branches:
+
 - `Require a pull request before merging`
 - `Require status checks to pass before merging`
 
@@ -343,37 +346,59 @@ Everyone likes seeing a `passing` CI status badge linked to the workflow:
 
 ## Decide on a Release Strategy (CD)
 
-- I like `release/*` CD
-- use `spacekatt-io` CD as example
+> *"SHIP IT"* - [**gangster squirrel**](https://github.com/github/hubot-scripts/commit/91b33a64d2be811edc6430f2377eb42b4e8037c5#commitcomment-14367921)
 
-### Libraries vs Applications
+[Continuous delivery (CD)](https://martinfowler.com/bliki/ContinuousDelivery.html)
+is a method for shipping your project once it is ready for release.
 
-TODO: contrast publishing from deployment
+For example, this webstie is deployed using [this CD pipeline manifest](https://github.com/SpaceKatt/spacekatt-io/blob/main/.github/workflows/cd.yml).
+Everytime I push to a branch whose name matches the `release/*` pattern, a new version of the <Link to="/website-meta">spacekatt-io website</Link> is automagically built, tested, and published.
 
-## Language Specific Components
+[Release Flow](https://devblogs.microsoft.com/devops/release-flow-how-we-do-branching-on-the-vsts-team/)
+is my preferred release strategy. (I'll leave it to the reader to decide if it counts as "CD".)
+Other release strategies exist, and one should consider what their release strategy should be from a project's inception.
 
-Certain standard components are language specific and beyond the scope of this guide.
+As CD requires shippable code, setting up a CD pipeline is beyond the scope of this guide.
+However, please do create a GitHub Action pipeline manifest as soon as you start deploying code.
 
-### Linting
+:::info
+How you release a project will often depend on whether your project is a library or an application.
 
-Linting should occur in CI and gate deployment.
-
-### Testing
-
-Testing should occur in CI and gate deployment.
+Libraries are often published to a package manager (using [semantic versioning](https://semver.org)), such as [NPM](https://www.npmjs.org) for Node.js packages.
+Applications are usually deployed to the cloud (i.e., on Azure, GCP, or AWS) over a set infrastructure defined as a declarative manifest (e.g., [Terraform](https://developer.hashicorp.com/terraform/intro) or [Bicep](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview?tabs=bicep) to implement [infrastructure as code](https://www.atlassian.com/microservices/cloud-computing/infrastructure-as-code)).
+:::
 
 ## Further Considerations
 
-### Documentation
+Engineering fundamentals are essential factors to keep in mind while developing any project.
+My favorite guide to standard engineering practices is the [CSE Engineering Fundamentals Checklist](https://microsoft.github.io/code-with-engineering-playbook/ENG-FUNDAMENTALS-CHECKLIST/).
 
-Docs
+- [Linting](https://webapp.io/blog/linting-best-practices/)
+  - Linting is an automated process which enforces a standard coding style and format
+  - Linters make your code look pretty!
+  - Linters reduce the amount of time you waste formatting your code.
+  - Engineers bickering about formatting on PRs is a waste of everyone's time; linters eliminate the need for any formatting bikeshedding
+  - Consult language-specific style guides to help you set linter configs
+- [Testing](https://cloud.google.com/architecture/devops/devops-tech-test-automation)
+  - Testing helps ensure your code does what you say it does!
+  - Testing helps prevent regression of functionality as changes accumulate
+  - Automated unit testing **should** be included in CI pipelines. PRs should **not** be merged unless all the tests pass
+  - Everyone loves seeing projects with high unit test code coverage
+- [Documentation](https://microsoft.github.io/code-with-engineering-playbook/documentation/)
+  - Document design/architecture decisions so folk know what the heck you are doing!
+  - I like keeping docs in a `docs/` directory
+- Onboarding Guides
+  - If you expect the group of people who are developing a project to grow, then you should create a guide to onboard those folk to the project
+  - Well written onboarding docs help save time and make your repo more accessible for contributions
 
-### Onboarding Guides
+Linting and testing are **essential** components of any runnable project, they should be one of the first things you set up once you have running code.
 
-Onboarding
+Remember, every project has a different set of requirements.
+As you build out your project, research what practices are idiomatic for the domain/language you are developing in.
 
-### Engineering Fundamentals
+## Conclusion
 
-Please consider engineering fundamentals such as security, observability, and documentation.
+Standard components and practices introduced in this guide are language-agnostic and apply broadly to version control repositories.
+Engineers across industry expect (by matter of experience and practice) to see all of the elements described above.
 
-- [Engineering Fundamentals Checklist](https://microsoft.github.io/code-with-engineering-playbook/ENG-FUNDAMENTALS-CHECKLIST/)
+Thank you for investing in your learning by taking the time to familiarize yourself with git repository best practices.
