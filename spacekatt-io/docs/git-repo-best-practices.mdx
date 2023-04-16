@@ -11,7 +11,7 @@ Open source projects have a standard set of components engineers expect to see i
 Inclusion of all standard components is a positive signal of the repo maintainer's experience and professionalism.
 
 Exclusion of any of these standard components may provoke a negative bias from the reader.
-Engineers often immediately navigate away from projects without these components, as they are signals of a project's health and reliability.
+Engineers often immediately navigate away from projects without these components, as the reader lacks signals of a project's health and reliability.
 
 This guide will teach you how to:
 
@@ -20,18 +20,20 @@ This guide will teach you how to:
 - Curate an open, collaborative environment (with proper guard rails)
 - Consider continuous integration, release strategies, testing, linting, and more!
 
+Afterwards, you will have a standardized repository to store your project files that [looks like this example](https://github.com/SpaceKatt/example-fresh-repo).
+
 Let us begin.
 
 :::tip
-For this guide I will be using env vars to ease copy paste.
-Please `export` the name of your repository to take advantage of this:
+For this guide I will be using env vars to ease copy-paste.
+Please `export` the name of your repository and `GitHub` username to take full advantage of this guide's contents:
 
 ```bash
 export MY_AWESOME_REPO=<repo-name> && echo $MY_AWESOME_REPO
 export GIT_USERNAME=<repo-name> && echo $GIT_USERNAME
 ```
 
-I am also assuming you are using a bash-like shell.
+I am assuming you are using a bash-like shell and plan to use [GitHub](https://github.com/) as an online repo host.
 :::
 
 ## Initializing a New Local Repo
@@ -247,9 +249,10 @@ Now, navigate back to the online repo you created on GitHub to see your code!
 ## Branch Protection Rules
 
 [Branch protection rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches)
-are an excellent way to enforce specific methods engineers modify important branches (such as `main`).
+enforce specific methods engineers may use to modify important branches (such as `main`).
 
-Enforcement of simple contribution rules are a surefire way to keep code quality high and foster a collaborative deveopment environment.
+Enforcement of simple contribution rules are an excellent way to help keep code quality high and foster a collaborative deveopment environment.
+Without branch protection rules, merging can become a frightening, error-prone process.
 
 Set up a [branch protection rule on main](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/managing-a-branch-protection-rule#creating-a-branch-protection-rule) ***now***.
 I recommend two options to always be enabled for rules on `main` branches:
