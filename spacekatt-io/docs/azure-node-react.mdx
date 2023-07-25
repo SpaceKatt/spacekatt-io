@@ -1,0 +1,116 @@
+---
+id: azure-node-react
+title: How-to Build an Enterprise Grade Stack in Azure Using Node and React
+sidebar_label: How-to Enterprise Node/React in Azure
+---
+
+## Repo Prereq Checklist
+
+- `$ mkdir <my-awesome-repo>`
+- `$ git init`
+  - `$ git status` if `master` -> `$ git branch -m main`
+- Add a `LICENSE.md`! I prefer MIT
+- Add `README.md`
+- Create GitHub repo online
+- Set `origin` and `push`
+  - `$ git remote add origin git@github.com:<username>/<my-awesome-repo>.git`
+  - `$ git push origin main`
+- Add `CONTRIBUTING.md`
+- Add `.gitignore`
+- Add minimal CI
+- add CI badge
+
+## Repo Setup
+
+We're using a monorepo for cheap and legal thrills!
+
+### Setup Global Dependencies
+
+Monorepo deps...
+
+- [RushStack](https://rushjs.io)
+- install nvm
+
+```shell
+$ nvm use 18
+$ npm install --global pnpm @microsoft/rush @rushstack/heft
+```
+
+### Initialize Monorepo
+
+- [Rush init](https://rushjs.io/pages/maintainer/add_to_repo/)
+
+```
+$ rush init --overwrite-existing
+$ rush update
+```
+
+> `--overwrite-existing` due to `.gitignore`
+
+Set repo `url`:
+
+```
+--- a/rush.json
++++ b/rush.json
+-    // "url": "https://github.com/microsoft/rush-example",
++    "url": "https://github.com/<username>/<my-awesome-repo>",
+```
+
+### Update CI files
+
+`ci.yaml` changes
+
+Delete action:
+```
+      - name: Git config user
+        uses: snow-actions/git-config-user@v1.0.0
+        with:
+          name: # Service Account's Name
+          email: # Service Account's Email Address
+```
+
+Add build matrix:
+```
+jobs:
+  build:
+    strategy:
+      matrix:
+        node-version: [18.x]
+```
+
+Use build matrix:
+```
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+```
+
+Full diff:
+```
+--- a/.github/workflows/ci.yml
++++ b/.github/workflows/ci.yml
+@@ -6,19 +6,17 @@ on:
+     branches: [ "main" ]
+ jobs:
+   build:
++    strategy:
++      matrix:
++        node-version: [18.x]
+     runs-on: ubuntu-latest
+     steps:
+       - uses: actions/checkout@v3
+         with:
+           fetch-depth: 2
+-      - name: Git config user
+-        uses: snow-actions/git-config-user@v1.0.0
+-        with:
+-          name: # Service Account's Name
+-          email: # Service Account's Email Address
+       - uses: actions/setup-node@v3
+         with:
+-          node-version: 16
++          node-version: ${{ matrix.node-version }}
+       - name: Verify Change Logs
+         run: node common/scripts/install-run-rush.js change --verify
+       - name: Rush Install
+```
